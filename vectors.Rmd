@@ -1,0 +1,60 @@
+---
+title: "Les fonctions"
+output: html_document
+---
+
+##1. Fonctionnement general.
+
+R inclue des fonctions dites de base.  
+Elles permettent d'effectuer rapidement des ensembles de calculs pre-definies, en en controlant les conditions.
+
+```{r, eval=F}
+IMC_echantillon <- rnorm(15,23,3)
+IMC_echantillon
+
+Moyenne_IMC<- mean(IMC_echantillon) 
+Variance_IMC<- var(IMC_echantillon)
+```
+
+Chaques fonctions comprends un ou plusieurs arguments qui permettent de preciser les conditions de calculs.   
+Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.   
+D'autres ont une valeur par defaut, c'est celle qui sera utilisee si l'utilisateur ne la modifie pas.
+
+```{r, eval= F}
+
+Model_lineaire <- lm(formula = ma_formule, #a renseigner obligatoirement
+                     data= bdd_IMC, #idem
+                     method = "qr") #la valeur "qr"" est la valeur par defaut,
+                                    #l'argument est facultatif
+```
+
+Pour connaitre les arguments d'une fonction on peut consulter la page d'aide.
+Pour cela il suffit d'ajouer "?" devant la fonction et de la lancer dans la console.  
+L'aide concernant la fonction apparait dans la fenetre d'aide.
+Elle comprend une description de son utilisation, sa formulation complete, une liste des arguments avec leur detail d'utilisation et des exemples d'utilisation.
+
+##2. Importer des fonctions.
+
+Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calcul et d'actions.
+Cependant on peu acceder a des fonctions supplementaire a partir des packages.
+Les packages sont des ensembles de fonctions developpés et mis a disposition en acces libre par les participants de la communaute R.
+Chaque package repond generalement a une thematique ou une problematique donnee et contient des outils specialises pour y faire face.
+
+Les packages sont disponibles sur le site [The Comprehensive R Archive Network - The CRAN](https://cran.r-project.org/).
+Pour chaques package vous disposez sur le site du manuel d'utilisation qui compile l'ensemble des fonctions disponibles dans le package et souvent de tutoriel.
+
+Pour instaler directement un package depuis RStudio, il faut:
+1) Telecharger le package - une seule fois 
+puis 
+2) activer les fonctions du package - a renouveller a chaque session
+
+```{r, eval=F}
+Surv() #la fonction n'est pas disponible de base sur R
+
+install.packages("survival") #telecharge et installe le package
+
+library(survival) #active les fonctions pour la session en cours
+
+Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes
+
+```

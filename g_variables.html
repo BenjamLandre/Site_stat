@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="modification-de-variables" class="section level2">
+<h2>Modification de variables</h2>
+<p>Avant d’analyser ses donnees il est parfois necessaire de modifier, ou creer ses propres variables.</p>
+<p>Nous utiliserons le jeux de donnees ‘cats’, inclus dans le package ‘MASS’.<br />
+(Pensez a telecharger une 1ere fois le package: install.package(“MASS”)).</p>
+<p>Ce jeux de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.<br />
+Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html">ICI</a>.</p>
+<pre class="r"><code>require(MASS)</code></pre>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:DAAG&#39;:
+## 
+##     hills</code></pre>
+<pre class="r"><code>data(cats)</code></pre>
+</div>
+<div id="structure-de-la-base-de-donnees" class="section level1">
+<h1>1. Structure de la base de donnees</h1>
+<p>Une premiere etape est de comprendre la structure et la composition de l’ensemble des donnees.<br />
+La fonction str() (‘structure’) permet une premiers description de la base de donnee (BDD).<br />
+La fonction View() permet d’observer directement le tableau.<br />
+Cependant, en cas de BDD massive, il est impossible d’afficher l’entierete de l’objet.<br />
+Il est plus prudent donc de s’avoir s’en passer.</p>
+<pre class="r"><code>str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    144 obs. of  3 variables:
+##  $ Sex: Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Bwt: num  2 2 2 2.1 2.1 2.1 2.1 2.1 2.1 2.1 ...
+##  $ Hwt: num  7 7.4 9.5 7.2 7.3 7.6 8.1 8.2 8.3 8.5 ...</code></pre>
+<pre class="r"><code>          # les 3 colonnes sont &#39;Sex&#39;, &#39;Bwt&#39; et &#39;Hwt&#39;</code></pre>
+</div>
+<div id="types-de-vecteur" class="section level1">
+<h1>2. Types de vecteur</h1>
+<p>Il existe plusieurs type de vecteur.<br />
+On peut utiliser la fonction str() directement sur une variable de la BDD pour comprendre de quel type de vecteur il s’agit.</p>
+<pre class="r"><code>str(cats$Sex)</code></pre>
+<pre><code>##  Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>Cete variable est enregistree de facon interne comme un ensemble de chiffre (1 et 2).<br />
+Cependant R associe et affiche le caractere ‘M’ a tous les 2 et ‘F’ a tous les 1.<br />
+C’est une variable categorielle.</p>
+<p>On peut en changer le type si on le souhaite.</p>
+<pre class="r"><code>{
+cats$Sex &lt;- as.numeric(cats$Sex)
+str(cats$Sex) #la variable Sex devient un vecteur numerique
+mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (ce qui n&#39;a toujours pas de sens dans notre cas)
+}</code></pre>
+<pre><code>##  num [1:144] 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<pre><code>## [1] 1.673611</code></pre>
+<p>Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu’elles representes.</p>
+<pre class="r"><code>{
+#Retablir la variable categorielle
+cats$Sex &lt;- factor(cats$Sex, #la variable a transformer
+                   c(1,2), #les valeurs numeriques du vecteur initial
+                   c(&#39;F&#39;, &#39;M&#39;)) #les caracteres que l&#39;on souhaite associer a chaques valeurs numeriqes
+                                # ici 1 = &#39;F&#39; et 2 = &#39;M&#39;
+}</code></pre>
+</div>
+<div id="creer-une-variable" class="section level1">
+<h1>3. Creer une variable</h1>
+<p>On peut creer des variables de different types et de differentes facons.</p>
+<p>Dans tous les cas, il faut commencer par indiquer le nom de l’objet que l’on souhaite creer.<br />
+Ici on souhaite assigner a la BDD une nouvelle variable (un nouvelle colonne).<br />
+On indique donc le nom de la BDD, puis le nom de la variable, separe par le signe $.</p>
+<p>Ensuite on precie les conditions pour determiner cette nouvelle variable.<br />
+Soit a partir de donnees deja existantes dans la BDD, soit a partir d’un vecteur independant de celle ci.<br />
+Dans ce dernier cas, la seule condition est que la longueur du vecteur cree soit de meme dimension qu’une colonne de la BDD.<br />
+On ne peut pas ajouter a un tableau une colonne qui lui serait plus petite.</p>
+<pre class="r"><code>#Variable numerique continue &quot;rapport&quot;,
+#qui est le rapport entre les variables Hwt et Bwt de la BDD
+
+cats$rapport &lt;- cats$Hwt / cats$Bwt
+str(cats$rapport)</code></pre>
+<pre><code>##  num [1:144] 3.5 3.7 4.75 3.43 3.48 ...</code></pre>
+<pre class="r"><code>#Variable categorielle &quot;rapport_2C&quot;,
+#qui separe la variable continue &quot;rapport&quot;,
+#entre valeurs basses (low): inferieure a la medianne (3.86)
+#et celles superieure (high) a celle ci
+
+cats$rapport_2C &lt;- cut(cats$rapport, #le vecteur numerique a categoriser
+                       c(0,3.86,100), #les cut-offs qui definissent les categories
+                       c(&quot;Low&quot;, &quot;High&quot;), #les noms a attribuer aux categories
+                       include.lowest = TRUE, #la borne basse est elle incluse dans l&#39;interval ?
+                       right = FALSE) #la borne haute est elle incluse dans l&#39;interval ?</code></pre>
+<pre class="r"><code>#Variable &#39;random&#39;,
+#chiffre aleatoire tire d&#39;une distribution uniforme
+
+cats$random &lt;- runif(144, #doit correspondre au nombre d&#39;observation (de lignes) dans la BDD
+                     min = 0, max= 10) #parametres de la distribution
+str(cats$random)</code></pre>
+<pre><code>##  num [1:144] 3.257 9.851 3.606 0.113 2.95 ...</code></pre>
+</div>
+<div id="modifier-une-variable" class="section level1">
+<h1>4. Modifier une variable</h1>
+<p>On peut modifier une variable pre-existante. Cela revient a creer une variable qui remplace une variable pre-existante.<br />
+Soit en assignant simplement une nouvelle valeur ou une nouvelle formule a tous les elements de l’ancienne variable.<br />
+Soit en en l’assignant conditionnellement a la valeur prise par une autre covariable.</p>
+<p>Pour cette derniere situation, on pourra utiliser selon les cas:<br />
+- la fonction ifelse(), qui prend pour arguments (1) une condition logique, (2) une valeur valeur prise si cette condition est respectee, (3) une autre valeur dans le cas contraire.<br />
+- une selection d’un sous-ensemble du vecteur pour lui assigner une valeur.</p>
+<p>Dans tous les cas, on fera attention car la variable cree va ecraser la variable remplacee.<br />
+En cas d’erreur et que l’on souhaite recuperer l’ancienne variable, il faudra recharger la base de donnee.<br />
+Il est donc souvent plus prudent de cree une nouvelle variable plutot que d’ecraser une ancienne.</p>
+<pre class="r"><code>summary(cats$Bwt)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   2.000   2.300   2.700   2.724   3.025   3.900</code></pre>
+<pre class="r"><code>#modification simple
+
+cats$Bwt &lt;- cats$Bwt * 1.3
+summary(cats$Bwt)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   2.600   2.990   3.510   3.541   3.932   5.070</code></pre>
+<pre class="r"><code>#modification conditionnelle
+
+cats$Bwt &lt;- ifelse(cats$Sex == &quot;M&quot;, #condition logique: &quot;Si la variable Sex prend la valeur &quot;M&quot;&quot;
+                   cats$Bwt * 1.5, #alors la valeur de la variable prend cette valeur
+                   cats$Bwt * 0.8) #sinon elle prend cette valeur
+summary(cats$Bwt)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   2.080   2.678   4.972   4.610   5.899   7.605</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

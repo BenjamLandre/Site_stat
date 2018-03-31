@@ -1,0 +1,21 @@
+---
+title: "Logiciels"
+output: html_document
+---
+[aaa](fezzefze.pdf)
+**1.  Installer R.** (https://www.r-project.org/)
+
+R est le logiciel qui produit les calculs.   
+Vous pouvez le telecharger gratuitement directement depuis un des mirroirs France. (http://cran.irsn.fr/)  
+Il est disponible pour Windows / Mac / Linux.
+
+**2.  Installer RStudio.** (https://www.rstudio.com/)
+
+RStudio est une interface graphique ( integrated development environment - IDE) qui permet de rendre R plus ergonomique et facile d'acces.    
+Il existe d'autre IDE disponible, souvent oriente vers une utilisation particuliere de R.    
+RStudio semble etre l'IDE le plus couramment utilise.   
+Vous pouvez le telecharger gratuitement depuis le [site officiel.](https://www.rstudio.com/products/rstudio/download/#download)  
+Il est disponible pour Windows / Mac / Linux.
+
+Il faut choisir entre la version 32 ou 64 bits selon le processeur de votre ordinateur.    
+L'information est facilement disponible, sous [Windows](https://support.microsoft.com/fr-fr/help/15056/windows-7-32-64-bit-faq), sous [Mac](http://www.6ma.fr/astuce/mon+mac+osx+est+bits+bits-274) ou sous [Linux](http://www.comment-tech.com/comment-verifier-si-votre-systeme-linux-est-32-bits-ou-64-bits/).

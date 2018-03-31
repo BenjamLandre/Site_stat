@@ -1,0 +1,142 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+##Modification de variables
+
+Avant d'analyser ses donnees il est parfois necessaire de modifier, ou creer ses propres variables.   
+
+Nous utiliserons le jeux de donnees 'cats', inclus dans le package 'MASS'.    
+(Pensez a telecharger une 1ere fois le package: install.package("MASS")).   
+
+Ce jeux de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.   
+Plus de details [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html).   
+
+```{r}
+require(MASS)
+data(cats)
+```
+
+#1. Structure de la base de donnees
+
+Une premiere etape est de comprendre la structure et la composition de l'ensemble des donnees.    
+La fonction str() ('structure') permet une premiers description de la base de donnee (BDD).   
+La fonction View() permet d'observer directement le tableau.    
+Cependant, en cas de BDD massive, il est impossible d'afficher l'entierete de l'objet.    
+Il est plus prudent donc de s'avoir s'en passer.    
+
+```{r}
+str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)
+          # les 3 colonnes sont 'Sex', 'Bwt' et 'Hwt'
+```
+
+#2. Types de vecteur
+
+Il existe plusieurs type de vecteur.    
+On peut utiliser la fonction str() directement sur une variable de la BDD pour comprendre de quel type de vecteur il s'agit.    
+
+```{r}
+str(cats$Sex)
+```
+
+Cete variable est enregistree de facon interne comme un ensemble de chiffre (1 et 2).   
+Cependant R associe et affiche le caractere 'M' a tous les 2 et 'F' a tous les 1.   
+C'est une variable categorielle.    
+
+On peut en changer le type si on le souhaite.   
+
+```{r}
+{
+cats$Sex <- as.numeric(cats$Sex)
+str(cats$Sex) #la variable Sex devient un vecteur numerique
+mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (ce qui n'a toujours pas de sens dans notre cas)
+}
+```
+
+Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu'elles representes.    
+
+```{r}
+{
+#Retablir la variable categorielle
+cats$Sex <- factor(cats$Sex, #la variable a transformer
+                   c(1,2), #les valeurs numeriques du vecteur initial
+                   c('F', 'M')) #les caracteres que l'on souhaite associer a chaques valeurs numeriqes
+                                # ici 1 = 'F' et 2 = 'M'
+}
+```
+
+#3. Creer une variable
+
+On peut creer des variables de different types et de differentes facons.    
+
+Dans tous les cas, il faut commencer par indiquer le nom de l'objet que l'on souhaite creer.    
+Ici on souhaite assigner a la BDD une nouvelle variable (un nouvelle colonne).    
+On indique donc le nom de la BDD, puis le nom de la variable, separe par le signe $.    
+
+Ensuite on precie les conditions pour determiner cette nouvelle variable.   
+Soit a partir de donnees deja existantes dans la BDD, soit a partir d'un vecteur independant de celle ci.   
+Dans ce dernier cas, la seule condition est que la longueur du vecteur cree soit de meme dimension qu'une colonne de la BDD.    
+On ne peut pas ajouter a un tableau une colonne qui lui serait plus petite.   
+
+```{r}
+#Variable numerique continue "rapport",
+#qui est le rapport entre les variables Hwt et Bwt de la BDD
+
+cats$rapport <- cats$Hwt / cats$Bwt
+str(cats$rapport)
+```
+
+```{r}
+#Variable categorielle "rapport_2C",
+#qui separe la variable continue "rapport",
+#entre valeurs basses (low): inferieure a la medianne (3.86)
+#et celles superieure (high) a celle ci
+
+cats$rapport_2C <- cut(cats$rapport, #le vecteur numerique a categoriser
+                       c(0,3.86,100), #les cut-offs qui definissent les categories
+                       c("Low", "High"), #les noms a attribuer aux categories
+                       include.lowest = TRUE, #la borne basse est elle incluse dans l'interval ?
+                       right = FALSE) #la borne haute est elle incluse dans l'interval ?
+```
+
+```{r}
+#Variable 'random',
+#chiffre aleatoire tire d'une distribution uniforme
+
+cats$random <- runif(144, #doit correspondre au nombre d'observation (de lignes) dans la BDD
+                     min = 0, max= 10) #parametres de la distribution
+str(cats$random)
+```
+
+#4. Modifier une variable
+
+On peut modifier une variable pre-existante. Cela revient a creer une variable qui remplace une variable pre-existante.   
+Soit en assignant simplement une nouvelle valeur ou une nouvelle formule a tous les elements de l'ancienne variable.    
+Soit en en l'assignant conditionnellement a la valeur prise par une autre covariable.   
+
+Pour cette derniere situation, on pourra utiliser selon les cas:    
+- la fonction ifelse(), qui prend pour arguments (1) une condition logique, (2) une valeur valeur prise si cette condition est respectee, (3) une autre valeur dans le cas contraire.   
+- une selection d'un sous-ensemble du vecteur pour lui assigner une valeur.   
+
+Dans tous les cas, on fera attention car la variable cree va ecraser la variable remplacee.     
+En cas d'erreur et que l'on souhaite recuperer l'ancienne variable, il faudra recharger la base de donnee.     
+Il est donc souvent plus prudent de cree une nouvelle variable plutot que d'ecraser une ancienne.
+
+```{r}
+summary(cats$Bwt)
+
+#modification simple
+
+cats$Bwt <- cats$Bwt * 1.3
+summary(cats$Bwt)
+
+#modification conditionnelle
+
+cats$Bwt <- ifelse(cats$Sex == "M", #condition logique: "Si la variable Sex prend la valeur "M""
+                   cats$Bwt * 1.5, #alors la valeur de la variable prend cette valeur
+                   cats$Bwt * 0.8) #sinon elle prend cette valeur
+summary(cats$Bwt)
+```
+

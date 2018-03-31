@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="fonctionnement-de-base" class="section level1">
+<h1>Fonctionnement de base</h1>
+<p><strong>1. Calcul direct</strong></p>
+<p>On peu utiliser R comme une calculatrice, pour effectuer directement ses calculs.<br />
+Soit dans la zone de script (ctrl+enter pour valider) soit directement dans la console (enter).</p>
+<pre class="r"><code>1+15</code></pre>
+<pre><code>## [1] 16</code></pre>
+<pre class="r"><code>15/4 + 12</code></pre>
+<pre><code>## [1] 15.75</code></pre>
+<p><strong>2. Assignement</strong></p>
+<p>La specificite de R est de pouvoir assigner a un objet, des elements (une valeur, un calcul, un ensemble d’operations, …).</p>
+<pre class="r"><code>X &lt;- 2 #On assigne a l&#39;objet X, l&#39;element 2.
+X      #l&#39;objet X contient l&#39;element 2.
+X + X  #qui peu etre utilise dans autre calcul par la suite.
+
+Y &lt;- X + X #ou assigne a un autre element.
+Y
+
+Y + 15</code></pre>
+<p>Plusieurs elements a remarquer:</p>
+<pre class="r"><code>Z &lt;- 118 #un objet assigne n&#39;est pas directement exprime dans la console.
+Z        #pour l&#39;exprimer il faut l&#39;appeler, c-a-d tapper le nom de l&#39;objet (dans la console ou le script).
+
+Z&lt;- 22   #si on assigne un nouvel element a un objet deja utilise, on ecrase la valeur precedente.
+Z        #Z ne contient plus l&#39;element 118 mais 22.</code></pre>
+</div>
+<div id="vecteurs-de-donnees" class="section level1">
+<h1>Vecteurs de donnees</h1>
+<p>Un des interet de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.<br />
+Une façon de le faire est de regrouper un ensemble de donnees a l’interieur d’un objet. On peut utiliser la fonction c() (abreviation de concatenate).</p>
+<p>Ces objets, appeles vecteurs, regroupent un ensemble de donnees de meme categorie.<br />
+Ils constituent un element important dans la logique de calcul de R.</p>
+<pre class="r"><code>c(4,8)  #directement
+
+X&lt;- c(4, 8)  #par assignement
+X</code></pre>
+<p>On peu effectuer des calculs directement a partir des vecteurs.<br />
+Ils font intervenir des regles particulieres de calculs.</p>
+<p>Il existe plusieurs categories de vecteur selon les donnees qu’il contient.<br />
+Ils peuvent etre numerique et contenir des chiffres.<br />
+Ils peuvent egalement contenir du texte ou des resultats d’operateur logiques (TRUE / FALSE).</p>
+<pre class="r"><code>X&lt;- c(&quot;IMC normal&quot;, &quot;IMC surpoids&quot;, &quot;IMC surpoids&quot;) 
+X
+
+Y&lt;- c(TRUE, FALSE, FALSE) 
+Y</code></pre>
+<p>Les premiers pourront etre utilises, par exemple, pour creer des variables categorielles.<br />
+Les seconds sont des resultats d’operations logiques.<br />
+Ils pourront etre utilises pour selectionner des sous-groupes dans notre base de donnees.</p>
+</div>
+<div id="selection-dun-sous-ensemble" class="section level1">
+<h1>Selection d’un sous-ensemble</h1>
+<p>Les vecteurs sont des ensembles d’elements. On peut vouloir en selectionner un sous-ensemble particulier. Pour ce faire on utilisera “[]” juste apres le nom de notre vecteur.</p>
+<pre class="r"><code>a&lt;- c(12,45,18,16,13,18,46)
+a[5] #selectione le 5eme element du vecteur a</code></pre>
+<pre><code>## [1] 13</code></pre>
+<pre class="r"><code>a[c(1,4)] #selectione les elements 1 et 4 du vecteur a</code></pre>
+<pre><code>## [1] 12 16</code></pre>
+<p>On peut egalement preciser une condition logique pour selectioner un sous-ensemble.</p>
+<pre class="r"><code>a&lt;- c(12,45,18,16,13,18,46)
+a[a&gt;20] #selection, dans a, les elements pour lesquels a est superieur a 20</code></pre>
+<pre><code>## [1] 45 46</code></pre>
+<pre class="r"><code>b&lt;- a[a&gt;20] #on peut creer un vecteur comprenant ce sous-ensemble
+b #b est le sous ensemble de a comprenant les elements de a superieurs a 20</code></pre>
+<pre><code>## [1] 45 46</code></pre>
+<pre class="r"><code>a #a est inchange est comprent toujours l&#39;ensemble de ces elements</code></pre>
+<pre><code>## [1] 12 45 18 16 13 18 46</code></pre>
+</div>
+<div id="valeurs-manquantes" class="section level1">
+<h1>Valeurs manquantes</h1>
+<p>Si l’on souhaite representer une donnee manquante. On utilisera l’indicateur “NA”.</p>
+<pre class="r"><code>a&lt;- c(1,2,3, NA, 4)
+a</code></pre>
+<pre><code>## [1]  1  2  3 NA  4</code></pre>
+<pre class="r"><code>a + 2 #la valeur NA n&#39;est pas consideree comme 0, c&#39;est une valeur non connue (Not Available)</code></pre>
+<pre><code>## [1]  3  4  5 NA  6</code></pre>
+<pre class="r"><code>a[a&gt;2] #dans l&#39;objet a quelles sont les valeurs superieure a 2 ? ne peut etre evalue pour une valeur NA</code></pre>
+<pre><code>## [1]  3 NA  4</code></pre>
+</div>
+<div id="les-fonctions" class="section level1">
+<h1>Les fonctions</h1>
+<p><strong>1. Utilisation generale</strong></p>
+<p>R inclue des fonctions dites de base.<br />
+Elles permettent d’effectuer rapidement des ensembles de calculs pre-definis, en en controlant les conditions.</p>
+<pre class="r"><code>IMC_echantillon &lt;- rnorm(15,23,3) #tirer au sort 15 elements d&#39;une distribution normale,    de moyenne 23 et ecart type 3
+IMC_echantillon
+
+Moyenne_IMC&lt;- mean(IMC_echantillon) #moyenne de la distribution
+Moyenne_IMC
+Variance_IMC&lt;- var(IMC_echantillon) #variance de la distribution
+Variance_IMC</code></pre>
+<p>Chaque fonction comprend un ou plusieurs arguments qui permettent de preciser les conditions de calculs.<br />
+Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.<br />
+D’autres ont une valeur par defaut, c’est celle qui sera utilisee si l’utilisateur ne la modifie pas.</p>
+<pre class="r"><code>Model_lineaire &lt;- lm(formula = ma_formule, #a renseigner obligatoirement
+                     data= bdd_IMC, #idem
+                     method = &quot;qr&quot;) #la valeur &quot;qr&quot;&quot; est la valeur par defaut,
+                                    #l&#39;argument est facultatif</code></pre>
+<p>Pour connaitre les arguments d’une fonction on peut consulter la page d’aide.<br />
+Pour cela il suffit d’ajouter “?” devant la fonction et de la lancer dans la console.<br />
+L’aide concernant la fonction apparait dans la fenetre d’aide. Elle comprend une description de son utilisation, sa formulation complete, une liste des arguments avec leur detail d’utilisation et des exemples d’utilisation.</p>
+<p><strong>2. Importer des fonctions</strong></p>
+<p>Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calcul et d’actions. Cependant on peu acceder a des fonctions supplementaire a partir des packages. Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R. Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.</p>
+<p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>. Pour chaques package vous disposez du manuel d’utilisation qui compile l’ensemble des fonctions disponibles dans le package et parfois d’un tutoriel.</p>
+<p>Pour instaler directement un package depuis RStudio, il faut:<br />
+1) Telecharger le package (- une seule fois)<br />
+puis<br />
+2) activer les fonctions du package (- a renouveller a chaque session).</p>
+<pre class="r"><code>Surv() #la fonction n&#39;est pas disponible de base sur R
+
+install.packages(&quot;survival&quot;) #telecharge et installe le package
+
+library(survival) #active les fonctions pour la session en cours
+
+Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes</code></pre>
+<p>Comme tout nouveau langage que l’on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre. Certaines fonctions seront decrites ici mais l’ecrasante majoritee reste a decouvrir. Plus le vocabulaire s’enrichie plus on est capable de realiser des taches specifiques, precises ou combinees a d’autres.<br />
+Pour decouvrir de nouvelles fonctions le plus simple est de tapper ‘l’action que l’on souhaite produire’ suivi de ‘in r’ dans le moteur de recherche.</p>
+<p>Par exemple:</p>
+<p><em>Calculate cook’s distance in r</em></p>
+<p>Ou de consulter les (forums d’aide)[<a href="https://stats.stackexchange.com/" class="uri">https://stats.stackexchange.com/</a>].</p>
+<hr />
+<p><a href="">Pour s’entrainer</a>mettre un lien vers doc pdf avec exos simples sur la creation de variables, regles de calculs entre vecteurs et installation d’un package utilisation d’une fonction.</p>
+<pre class="r"><code>#Ex 1.
+
+poids &lt;- 58
+taille &lt;- 165
+
+#Calculer l&#39;IMC chez cet individu sans passer par les valeurs numeriques
+
+#
+
+#Ex 2.
+
+IMC_echantillon &lt;- rnorm(15,23,3)
+IMC_echantillon
+
+id.1 &lt;- &quot;...&quot; #assigner un IMC a chaque individu
+id.2 &lt;- &quot;...&quot; #
+
+Moyenne&lt;- &quot;...&quot;#calculer la moyenne des IMC
+Variance&lt;- &quot;...&quot;#calculer la variance des IMC</code></pre>
+<p>Entre un chiffre et un vecteur:</p>
+<pre class="r"><code>3 * c(4, 8, 12)  #multiplication un a un des elements de la serie de chiffre.
+
+3 +  c(2,4)      #addition un a un des elements.</code></pre>
+<p>Entre vecteurs:</p>
+<pre class="r"><code>c(3,2,4)  * c(4, 8, 12)  #sur la meme logique que precedement pour les series de 
+                         #tailles egales.
+c(3,2)   +  c(2,4) </code></pre>
+<pre class="r"><code>c(3,2)   +  c(2,4,289,15,164,2)  #avec un recyclage du motif le plus petit lorsque  
+                               #les series sont de tailles inegales mais multiple 
+                               #l&#39;un de l&#39;autre.</code></pre>
+<pre class="r"><code>  #avec un recyclage incomplet lorsque les series
+  #ne sont pas de tailles compatible.</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

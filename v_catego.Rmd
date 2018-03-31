@@ -1,0 +1,7 @@
+---
+title: "v_catego"
+author: "Benjamin"
+date: "20 mars 2018"
+output: html_document
+---
+vf

@@ -1,0 +1,82 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+##Comparer
+
+On souhaite extrapoler et objectiver les comparaisons que l'on observe.
+On va comparer les valeurs observees entre groupes.
+
+Nous utiliserons le jeux de donnees 'ais', inclus dans le package "DAAG".  
+(Pensez a telecharger le package une premiere fois via: install.package("DAAG")).
+
+Ce jeux de donnees contient des resultats d'analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+require(DAAG)
+
+```
+```{r, eval==FALSE}
+require(DAAG)
+```
+```{r}
+data(ais)
+```
+
+
+#1. ... de moyennes
+
+Plusieurs tests de comparaisons de moyennes sont disponibles, dont le test de Student et de Wilcoxon.   
+L'utilisation de ces tests depend des effectifs en presence.     
+Cependant ils sont assez similaires dans leur specification.
+
+
+```{r}
+#test de Student
+
+t.test(ais$ferr) #comparaison de la valeur par rapport a 0
+
+t.test(ais$ferr ~ ais$sex, #valeurs a comparer ~ groupes a comparer
+       alternative= "two.sided", #bilateral ou test d'inferiorite/superiorite
+       paired= FALSE) #donnees appariees
+
+#test de Wilcoxon
+
+wilcox.test(ais$ferr ~ ais$sex, alternative= "two.sided", paired= FALSE) #memes arguments
+```
+
+#2. ... de proportions
+
+En presence d'une variable categorielle on va comparer les pourcentages observes.   
+On peut utiliser le test du chi², en utilisant la correction de Yates si les effectifs theoriques sont inferieurs a 30.   
+Si les effectifs theoriques sont superieurs a 5, on pourra utiliser le test exact de Fisher.       
+Toutefois dans le cas de trop petits effectifs R est limite dans sa capacite a calculer une valeur-p.      
+Ceci peut etre partiellement contourne en utilisant la méthode [simulation de Monte-Carlo](https://stats.stackexchange.com/questions/62445/rules-to-apply-monte-carlo-simulation-of-p-values-for-chi-squared-test).
+
+```{r}
+#Creation du tableau de contingence
+
+tableau_contingence<- table(ais$sport, ais$sex)
+tableau_contingence #on observe d'emble des valeurs theoriques trop faible pour le calcul.
+
+#Test du chi (malgre les effectifs trop faibles)
+
+chisq.test(tableau_contingence,
+           correct = T) #correction de continuite de Yates
+
+chisq.test(matrix(c(13,7,4,23,22,9,11,4,7,0,12,12,0,0,15,13,18,11,4,17), ncol=2))
+
+#Test exact de Fisher
+
+fisher.test(tableau_contingence) #effectifs insuffisants pour le calcul sans simulation.
+
+#fisher.test(tableau_contingence, simulate.p.value=TRUE, B=1e5) #Monte-Carlo
+
+```
+

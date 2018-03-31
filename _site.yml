@@ -1,0 +1,44 @@
+name: "Benjamin L."
+navbar:
+  title: "Tutoriel R"
+  type: inverse
+  left:
+    - text: "Home"
+      icon: map-marker-alt
+      href: index.html
+    - text: "Demarrer"
+      icon: ion-android-expand
+      href: interface.html
+    - text: "0. Bases"
+      href: basicbuilding.html
+    - text: "1. Importer"
+      href: importer.html
+    - text: "2. Modifier/Creer"
+      menu:
+        - text: "...des variables"
+          href: g_variables.html
+        - text: "...des bases de donnees"
+          href: g_bdd.html
+    - text: "3. Decrire"
+      href: v_quanti.html
+    - text: "4. Analyser"
+      menu:
+        - text: "Comparaisons univariees"
+          href: compa_univ.html
+        - text: "Modele lineaire"
+          href: m_lineaire.html
+        - text: "Regression logistique"
+          href: m_rlog.html
+        - text: "Modele de survie"
+          href: m_surv.html
+    - text: "5. Communiquer"
+      menu:
+        - text: "RMarkdown"
+          href: RMark.html
+  right:
+    - icon: fa-envelope-square fa-lg
+      href: contact.html
+output_dir: "."
+output:
+  html_document:
+    theme: lumen

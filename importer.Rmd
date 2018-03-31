@@ -1,0 +1,93 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+#Matrices et data frames
+
+Il existe plusieurs formats de bases de donnees dans R.   
+Les plus souvent rencontrees sont les matrices et les data frames.
+
+- **Matrices**   
+
+Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d'un seul type.  
+C'est a dire uniquement des chiffres, du texte ou des resultats logiques.
+
+Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.  
+Ce sont donc des vecteurs a plusieurs dimensions.
+
+```{r}
+a<- c(2,4,6,8)
+b<- c(10,12,14,16)
+
+M1<- matrix(c(a,b), ncol=2)
+M1 #M1 est une matrice, elle contient les vecteurs a et b qui forment les deux colonnes.
+
+
+M2<- matrix(c(a,b), nrow=2, byrow=TRUE)
+M2 #M2 est une matrice construite a partir des memes vecteurs mais repartis en lignes.
+
+M3<- matrix(c(2,4,6,8,10,12,14,16), ncol=2)
+M3 #M3 est une matrice construite a partir d'un unique vecteur, qu'on a repartis en deux dimensions.
+```
+
+Les matrices sont des vecteurs a plusieurs dimensions.    
+On peut acceder aux valeurs comprisent dans la matrice de la meme facon que l'on selectionne un sous-ensemble d'un vecteur.  
+On utilise l'indicateur "[]" juste apres le nom de la matrice, en precisant cette fois 2 parametres qui correspondent aux lignes et aux colonnes.
+
+```{r}
+M1
+M1[3,2] #on souhaite afficher l'element a la 3eme ligne de la 2eme colonne.
+M1[3,] #tous les elements de la troisieme ligne
+M1[,2] #tous les elements de la seconde colonne
+```
+
+- **Data frames**    
+
+Les datas frames sont egalement des tableaux mais ils peuvent regrouper des elements de differents types.  
+C'est a dire que des colonnes preuvent presenter des chiffres alors que d'autre contiennent du texte.
+
+```{r}
+a<- c("Pierre", "Paul", "Jack", "Bob") #vecteur de texte
+b<- c(2,4,6,8) #vecteur numerique
+
+D1<- data.frame(Colone1= a, Colone2= b)
+D1 #une data frame qui associe des vecteurs de differents types.
+
+```
+
+Un objet qui regroupe des vecteurs de type different est appele une liste.  
+Les data frame sont donc consideree par R comme des listes a 2 dimensions.
+
+On accede aux elements qu'elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].  
+On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l'indicateur "$", place entre le nom de la data frame et le nom de la colonne.
+
+```{r}
+D1[,1] #1ere colonne de D1
+
+D1$Colone1 #idem
+
+D1[D1$Colone2>2,] # on souhaite dans D1, les lignes pour lesquels la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.
+```
+
+#Importer/Sauvegarder
+
+On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.    
+Le plus simple est d'utiliser l'onglet 'Import Dataset', dans le panel "Environment".
+
+Des formats plus exotiques peuvent $etre importes via des packages et fonctions dediees.
+
+Les modifications effectuees sur la base de donnees ne sont presentes que dans la session active de R.     
+Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.  
+
+Le format d'export le plus courant est le format texte (.csv).  Different packages permettent d'exporter sous d'autres formats.
+
+```{r, eval=F}
+write.csv(Nom_de_la_bdd_a_sauvegarder, "Nom_de_la_bdd_sauvee.csv", row.names=F)
+```
+
+
+*************************
+
+[Pour s'entrainer]()mettre un lien vers doc pdf avec exos de gestion de base de base de donnee et subset ++++.

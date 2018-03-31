@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="matrices-et-data-frames" class="section level1">
+<h1>Matrices et data frames</h1>
+<p>Il existe plusieurs formats de bases de donnees dans R.<br />
+Les plus souvent rencontrees sont les matrices et les data frames.</p>
+<ul>
+<li><strong>Matrices</strong></li>
+</ul>
+<p>Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d’un seul type.<br />
+C’est a dire uniquement des chiffres, du texte ou des resultats logiques.</p>
+<p>Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.<br />
+Ce sont donc des vecteurs a plusieurs dimensions.</p>
+<pre class="r"><code>a&lt;- c(2,4,6,8)
+b&lt;- c(10,12,14,16)
+
+M1&lt;- matrix(c(a,b), ncol=2)
+M1 #M1 est une matrice, elle contient les vecteurs a et b qui forment les deux colonnes.</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   10
+## [2,]    4   12
+## [3,]    6   14
+## [4,]    8   16</code></pre>
+<pre class="r"><code>M2&lt;- matrix(c(a,b), nrow=2, byrow=TRUE)
+M2 #M2 est une matrice construite a partir des memes vecteurs mais repartis en lignes.</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    2    4    6    8
+## [2,]   10   12   14   16</code></pre>
+<pre class="r"><code>M3&lt;- matrix(c(2,4,6,8,10,12,14,16), ncol=2)
+M3 #M3 est une matrice construite a partir d&#39;un unique vecteur, qu&#39;on a repartis en deux dimensions.</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   10
+## [2,]    4   12
+## [3,]    6   14
+## [4,]    8   16</code></pre>
+<p>Les matrices sont des vecteurs a plusieurs dimensions.<br />
+On peut acceder aux valeurs comprisent dans la matrice de la meme facon que l’on selectionne un sous-ensemble d’un vecteur.<br />
+On utilise l’indicateur “[]” juste apres le nom de la matrice, en precisant cette fois 2 parametres qui correspondent aux lignes et aux colonnes.</p>
+<pre class="r"><code>M1</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   10
+## [2,]    4   12
+## [3,]    6   14
+## [4,]    8   16</code></pre>
+<pre class="r"><code>M1[3,2] #on souhaite afficher l&#39;element a la 3eme ligne de la 2eme colonne.</code></pre>
+<pre><code>## [1] 14</code></pre>
+<pre class="r"><code>M1[3,] #tous les elements de la troisieme ligne</code></pre>
+<pre><code>## [1]  6 14</code></pre>
+<pre class="r"><code>M1[,2] #tous les elements de la seconde colonne</code></pre>
+<pre><code>## [1] 10 12 14 16</code></pre>
+<ul>
+<li><strong>Data frames</strong></li>
+</ul>
+<p>Les datas frames sont egalement des tableaux mais ils peuvent regrouper des elements de differents types.<br />
+C’est a dire que des colonnes preuvent presenter des chiffres alors que d’autre contiennent du texte.</p>
+<pre class="r"><code>a&lt;- c(&quot;Pierre&quot;, &quot;Paul&quot;, &quot;Jack&quot;, &quot;Bob&quot;) #vecteur de texte
+b&lt;- c(2,4,6,8) #vecteur numerique
+
+D1&lt;- data.frame(Colone1= a, Colone2= b)
+D1 #une data frame qui associe des vecteurs de differents types.</code></pre>
+<pre><code>##   Colone1 Colone2
+## 1  Pierre       2
+## 2    Paul       4
+## 3    Jack       6
+## 4     Bob       8</code></pre>
+<p>Un objet qui regroupe des vecteurs de type different est appele une liste.<br />
+Les data frame sont donc consideree par R comme des listes a 2 dimensions.</p>
+<p>On accede aux elements qu’elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].<br />
+On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l’indicateur “$”, place entre le nom de la data frame et le nom de la colonne.</p>
+<pre class="r"><code>D1[,1] #1ere colonne de D1</code></pre>
+<pre><code>## [1] Pierre Paul   Jack   Bob   
+## Levels: Bob Jack Paul Pierre</code></pre>
+<pre class="r"><code>D1$Colone1 #idem</code></pre>
+<pre><code>## [1] Pierre Paul   Jack   Bob   
+## Levels: Bob Jack Paul Pierre</code></pre>
+<pre class="r"><code>D1[D1$Colone2&gt;2,] # on souhaite dans D1, les lignes pour lesquels la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.</code></pre>
+<pre><code>##   Colone1 Colone2
+## 2    Paul       4
+## 3    Jack       6
+## 4     Bob       8</code></pre>
+</div>
+<div id="importersauvegarder" class="section level1">
+<h1>Importer/Sauvegarder</h1>
+<p>On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.<br />
+Le plus simple est d’utiliser l’onglet ‘Import Dataset’, dans le panel “Environment”.</p>
+<p>Des formats plus exotiques peuvent $etre importes via des packages et fonctions dediees.</p>
+<p>Les modifications effectuees sur la base de donnees ne sont presentes que dans la session active de R.<br />
+Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.</p>
+<p>Le format d’export le plus courant est le format texte (.csv). Different packages permettent d’exporter sous d’autres formats.</p>
+<pre class="r"><code>write.csv(Nom_de_la_bdd_a_sauvegarder, &quot;Nom_de_la_bdd_sauvee.csv&quot;, row.names=F)</code></pre>
+<hr />
+<p><a href="">Pour s’entrainer</a>mettre un lien vers doc pdf avec exos de gestion de base de base de donnee et subset ++++.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

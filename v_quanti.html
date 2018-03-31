@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="descriptions-des-variables" class="section level2">
+<h2>Descriptions des variables</h2>
+<p>On souhaite dans un premier temps decrire et observer nos donnees pour mieux les comprendre.</p>
+<p>Nous utiliserons le jeux de donnees ‘ais’, inclus dans le package “DAAG”.<br />
+(Pensez a telecharger le package une premiere fois via: install.package(“DAAG”)).</p>
+<p>Ce jeux de donnees contient des resultats d’analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html">ICI.</a></p>
+<p>A cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.</p>
+<pre class="r"><code>require(DAAG)
+data(ais)
+
+ais_NA&lt;- ais #creation de ais_NA qui est une bdd identique a ais.
+
+#on ajoute des donnees manquantes aleatoirement pour la variable ferr et sport.
+ais_NA$ferr[sample(1:length(ais_NA$ferr),10)]&lt;- NA 
+ais_NA$sport[sample(1:length(ais_NA$sport),10)]&lt;- NA</code></pre>
+</div>
+<div id="description-numeriques" class="section level1">
+<h1>1. Description numeriques</h1>
+<p>Pour se faire une idee du jeux de donnee, une description de la distribution de ses variables est importante.</p>
+<p><strong>- En univarie</strong></p>
+<p>On peut chercher a connaitre l’effectif, la tendance centrale (moyenne, medianne, mode) ainsi que la dispersion (ecart-type / variance, l’etendue des donnees, ses quantiles).</p>
+<p>La fonction summarise(), permet d’obtenir la majorite de ces indicateurs.<br />
+D’autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stop le calcul et renvoie une erreur presence de valeurs manquantes.</p>
+<p><strong>Dans le cas d’une variable qualitative, on remarquera et on gardera bien en tete que part defaut les donnees manquantes ne sont pas signalees.</strong></p>
+<pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
+
+summary(ais_NA$ferr) #la derniere colonne denombre les donnees manquantes pour cette variable.</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   12.00   41.00   64.00   74.93   94.00  234.00      10</code></pre>
+<pre class="r"><code>table(is.na(ais_NA$ferr)) #is.na() = la valeur est elle manquante ? / permet d&#39;obtenir les effectifs</code></pre>
+<pre><code>## 
+## FALSE  TRUE 
+##   192    10</code></pre>
+<pre class="r"><code>summary(ais_NA) #produit un resume de toutes les variables de la bdd
+
+mean(ais_NA$ferr,na.rm=TRUE) #na.rm = NA remove, l&#39;argument est parametre par defaut sur FALSE et stop le calcul.
+sd(ais_NA$ferr,na.rm=TRUE)
+range(ais_NA$ferr,na.rm=TRUE)
+quantile(ais_NA$ferr,na.rm=TRUE)</code></pre>
+<pre class="r"><code>#Dans le cas d&#39;une variable qualitative.
+
+table(ais_NA$sport, useNA = &quot;always&quot;) #useNA: doit on inclure les donnees manquantes &quot;always&quot; !</code></pre>
+<pre><code>## 
+##  B_Ball   Field     Gym Netball     Row    Swim  T_400m T_Sprnt  Tennis 
+##      24      19       4      23      34      21      27      13      11 
+##  W_Polo    &lt;NA&gt; 
+##      16      10</code></pre>
+<p><strong>- En bivarie</strong></p>
+<p>On peut egalement realiser une analyse bivariee, c-a-d decrire la distribution d’une variable selon differents groupes.</p>
+<pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
+
+tapply(ais_NA$ferr, #la variable que l&#39;on souhaite decrire
+       ais_NA$sex, #en fonction de cette categories
+       summary) #utiliser cette fonction de description</code></pre>
+<pre><code>## $f
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   12.00   36.00   50.00   56.57   71.00  182.00       2 
+## 
+## $m
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   20.00   53.50   87.00   94.07  121.00  234.00       8</code></pre>
+<pre class="r"><code>#Dans le cas d&#39;une variable qualitative
+
+table(ais_NA$sport, ais_NA$sex, useNA = &quot;always&quot;)</code></pre>
+<pre><code>##          
+##            f  m &lt;NA&gt;
+##   B_Ball  12 12    0
+##   Field    7 12    0
+##   Gym      4  0    0
+##   Netball 23  0    0
+##   Row     20 14    0
+##   Swim     9 12    0
+##   T_400m   9 18    0
+##   T_Sprnt  3 10    0
+##   Tennis   7  4    0
+##   W_Polo   0 16    0
+##   &lt;NA&gt;     6  4    0</code></pre>
+</div>
+<div id="representation-graphiques" class="section level1">
+<h1>2. Representation graphiques</h1>
+<p>R est un outil efficace pour visualiser ses donnees. Les fonctions de base permettent de realiser de nombreux graphiques. Neanmoins plusieurs packages populaires (<a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html">ggplot2</a>, <a href="http://www.sthda.com/english/wiki/lattice-graphs">lattice</a>), non vu ici, sont frequemment utilises pour etendre ces fonctionnalites.</p>
+<p>Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon l’arguments specifies.<br />
+R determine la nature des donnees entrees en argument et produit un graphique en consequence.<br />
+Si on souhaite voir un type de graphique en particulier (histogramme, boxplot, stripchart) on peut utiliser la fonction dediee a ce type particulier de graphique.</p>
+<pre class="r"><code>#Graphiques simples
+
+plot(ais_NA$ferr) #univarie
+plot(ais_NA$bmi, ais_NA$ferr) #bivarie</code></pre>
+<pre class="r"><code>#En specifiant plusieurs arguments utiles
+
+{plot(ais_NA$bmi, ais_NA$ferr, #formule
+      col=ais_NA$sex, #couleurs des symboles en fonction d&#39;une autre variable
+      pch=16, #motif du symbole
+      cex=1.5, #taille des symboles
+      xlab=&quot;IMC&quot;, ylab=&quot;Concentration en ferritine&quot;, #nom des axes
+      main=&quot;Taux de concentration en ferritine en fonction de l&#39;IMC.&quot;) #titre principal
+  
+abline(h=mean(ais_NA$ferr, na.rm=T) , lty=&quot;dotted&quot;, col=&quot;blue&quot;) #rajouter une ligne horizontale representant la moyenne de la concentration en ferritine
+abline(v=mean(ais_NA$bmi, na.rm=T) , lty=&quot;dotted&quot;, col=&quot;blue&quot;) #rajouter une ligne verticale representant la moyenne de l&#39;IMC
+
+  
+legend(&quot;topright&quot;, #ou souhaite t&#39;on faire apparaitre la legende
+       legend=c(&quot;Femme&quot;, &quot;Homme&quot;), #quels sont les etiquettes a rattacher a la legende
+       pch=16, #le symbole a afficher
+       col=unique(ais_NA$sex) #quels sont les couleurs definies
+)
+}</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>{
+par(mfrow=c(1,2)) #permet d&#39;afficher plusieurs graphiques sur une meme page, 
+stripchart(ais_NA$ferr, method=&quot;jitter&quot;, main= &quot;Stripchart: [ferritine]&quot;,xlab = &quot;[ferritine]&quot;)
+hist(ais_NA$ferr, main=&quot;Histogram: [ferritine]&quot;, xlab = &quot;[ferritine]&quot;)}</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>{
+par(mfrow=c(1,1))
+boxplot(ais_NA$ferr ~ ais_NA$sport, main=&quot;Boxplot: [ferritine] en fonction du sport&quot;)
+}</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

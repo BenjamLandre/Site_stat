@@ -1,0 +1,174 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+##Model lineaire
+
+Dans cette section on s'interesse a la facon de specifier un model lineaire dans R.   
+
+On ne cherchera pas a definir s'il est pertinent de lancer cette analyse.   
+En pratique c'est bien entendu une etape minutieuse qui doit etre faite avant de se lancer dans la construction d'un quelconque model.    
+
+On gardera egalement en tete que R est capable de produire des resultats pour a peu pres tous les calculs demandes qu'ils soient inapproprie ou faux dans votre contexte.   
+
+On ne verra pas non plus les etapes suivantes de validations et d'optimisation du model.
+Des packages et fonctions interessantes pour cela peuvent etre trouvees [ICI](https://www.statmethods.net/stats/regression.html). 
+
+************
+
+**Creation d'une BDD**
+
+Pour voir les etapes necessaires a la creation d'un model on va construire un jeu de donnee basique.    
+On pourra ainsi maitriser les parametres et definir les associations a trouver.
+
+On definit BDD, une data frame de 450 observations de 6 variables continues normales.   
+La variable d'interet est "var.1"" que l'on cherche a expliquer par les 5 autres variables.
+
+Par construction on connait la relation de var.1 avec les autres variables.
+
+```{r}
+
+#Variables
+
+var.2<- rnorm(450, 0, 12)
+var.3<- rnorm(450, 20, 24)
+var.4<- rnorm(450, 40, 36)
+var.5<- rnorm(450, 60, 48)
+var.6<- rnorm(450, 80, 60)
+
+#Coefficients
+
+A <- 3
+B <- 1
+C <- 0.5
+D <- 0.2
+E <- 0
+
+#On construit la variable d'interet "var.1", qui est la combinaison des variables precedemment crees, selon des coefficients determines, et un bruit blanc
+
+var.1 <- 48 + A*var.2 + B*var.3 + C*var.4 + D*var.5 + E*var.6 + rnorm(450, 0 , 17)  
+
+#On structure la BDD
+
+BDD <- data.frame(var.1,var.2, var.3, var.4, var.5, var.6)
+str(BDD)
+```
+
+**Visualisation des associations brutes**
+
+On peut visualiser dans un premiers temps la relation de notre variable d'interet avec les autres variables.    
+On constate comme attendu que les relations semblent lineaires, et proches des coefficients specifies plus haut.
+
+```{r, echo=FALSE}
+par(mfrow=c(2,3))
+plot(BDD$var.1, BDD$var.2, lty= 5)
+with(BDD, lines(loess.smooth(var.1, var.2), col = "tomato", lwd=3, lty= "dotted"))
+plot(BDD$var.1, BDD$var.3, lty= 5)
+with(BDD, lines(loess.smooth(var.1, var.3), col = "tomato", lwd=3, lty= "dotted"))
+plot(BDD$var.1, BDD$var.4, lty= 5)
+with(BDD, lines(loess.smooth(var.1, var.4), col = "tomato", lwd=3, lty= "dotted"))
+plot(BDD$var.1, BDD$var.5, lty= 5)
+with(BDD, lines(loess.smooth(var.1, var.5), col = "tomato", lwd=3, lty= "dotted"))
+plot(BDD$var.1, BDD$var.6, lty= 5)
+with(BDD, lines(loess.smooth(var.1, var.6), col = "tomato", lwd=3, lty= "dotted"))
+```
+
+#Specification d'un model
+
+On specifie un 1er model "M.Lineaire.1", qui est le model complet.    
+Il modelise la relation entre 'var.1' et l'ensemble des autres variables.   
+La fonction summary() permet d'afficher les details de ce model.
+
+La sortie comporte plusieurs compartiments:
+
+**Call:** rappel de la formule utilisee.
+
+**Residuals:** propose une description de la distribution des residus, on s'y interessera plus tard pour examiner la concordance du model avec les hypotheses du model.
+
+**Coefficients:** affiche le coefficient, l'ecart type, la valeur t et la p-value pour l'intercept et chaques coefficients testes dans le modele.
+
+Le dernier compartiment indique plusieurs indicateurs notamment le R² et le R² ajuste.
+
+```{r}
+M.Lineaire.1 <- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
+summary(M.Lineaire.1)
+```
+
+#Comparaison de models
+
+On peut comparer deux models a partir de la fonction anova(), a la condition qu'ils soient emboites.    
+
+On a cree le model 'M.lineaire.2' qui comporte les meme variables que le model precedent a l'exception de 'var.2', la variable la plus fortement associee a notre outcome.   
+
+La sortie affiche les models ainsi que la p-value associee a cette comparaison.
+On constatera qu'ils sont significativement differents.     
+On conserve le model 1 qui comporte le plus d'information.
+
+```{r}
+M.Lineaire.2 <- lm(formula = var.1 ~ var.3 + var.4 + var.5 + var.6, data= BDD)
+
+anova(M.Lineaire.1, M.Lineaire.2)
+```
+
+#Selection des variables
+
+Pour automatiser le processus precedent on peut s'aider de la fonction step().
+Elle permet d'effectuer une selection purement statistique des variables a partir de la comparaison automatisee des models emboites.
+
+La fonction part d'un model initial a tester, ajoute/retire des variables et compare les models ainsi cree selon un critere que l'on definit.
+C'est un processus iteratif qui continue jusqu'a otpimiser notre critere de selection.
+
+On doit specifier plusieurs choses:   
+(1) le model de depart    
+(2) dans quelle direction la fonction doit elle chercher (forward: ajoute des variables ; backward: retire des variables ; both)    
+(3) le domaine de recherche ; c-a-d les models extremes a partir desquels on souhaite que la fonction arrete de chercher.   
+(4) le critere de selection (generalement AIC ou BIC).
+
+On va specifier le model null et le model full qui sont respectivement le model le plus pauvre en information que l'on souhaite tester et le model le plus riche en information que l'on souhaite tester.   
+Par defaut R ira du model vide jusqu'au model complet.    
+Plusieurs options sont disponibles concernant la direction, on consultera la page d'aide pour plus de details. 
+
+La sortie de la fonction step est interessante a analyser.    
+Les deux premiers lignes indique la valeur du critere ainsi que la formule pour le model initial.   
+
+Le premier tableau indique les tests effectuer.   
+R a essaye calcule notre critere (ici le BIC malgre ce qu'affiche le tableau), dans plusieurs cas de figure:        
+- en ajoutant var.2   
+- en ajoutant var.3   
+- en retirant var.6   
+- en conservant le model tel quel   
+- en retirant var.5   
+-en retirant var.4    
+
+Il en conclut que ce qui minimise le BIC est d'ajouter var.2.   
+
+Il ajoute var.2 a notre model initial, et recommence la procedure.    
+
+Il continue ainsi jusqu'a obtenir un model pour lequel ajouter/retirer une variable penalise notre critere.    
+Il conserve ce model en dernieres lignes et nous affiche ses coefficients.
+
+```{r}
+M.Lineaire.0 <- lm(formula = var.1 ~ var.4 + var.5 + var.6, data= BDD)
+null <-lm(formula = var.1 ~ 1, data= BDD)
+full<- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
+
+step(M.Lineaire.0, #le model initial a tester
+     direction = "both", #regarde dans les deux directions, c'est a dire vers les models plus complets mais aussi vers ceux moins complet
+     scope = list(lower=null,upper=full), #les models le plus pauvre/riche autorise
+     criterion = "BIC", #1er arugment sur le critere de selection
+     k = log(nrow(BDD))) #2nd argument ; pour comparer en fonction de l'AIC on retirera ces deux derniers arguments
+```
+
+#Verification des hypotheses
+
+Une premiere etape succinte pour verifier les conditions d'application du model est de verifier graphiquement la distribution des residus.    
+On espere entre autre qu'ils suivent une loi normale de moyenne 0, qu'ils ne presentent pas de signe d'heteroscedascite, ou de points abherrants.
+
+Notre jeu de donnees ayant ete construit de toute piece, on s'est premunie de ces situations.
+```{r}
+par(mfrow=c(2,2))
+plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))
+```

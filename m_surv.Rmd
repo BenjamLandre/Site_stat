@@ -1,0 +1,79 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+##Model a duree de survie
+
+Dans cette section on s'interessera a comment specifier des models de survie simple (kaplan-meier et cox).
+
+On ne cherchera pas a definir s'il est judicieux d'utiliser ce genre de model, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modeles a risques proportionels.
+
+***************************
+
+On utilisera le jeu de donnees 'lung' du package survival. Cette BDD comprend le suivi de 228 personnes atteintes d'un cancer pulmonaire avance.
+Plus de details peuvent etre trouves [ici](https://vincentarelbundock.github.io/Rdatasets/doc/survival/lung.html).
+
+```{r}
+library(survival)
+data(lung)
+str(lung)
+```
+
+#Specification du model
+
+**1. Objet survie**
+
+Les models de suvie utilisent des donnees censurees. C'est a dire l'association entre une duree et un statut.    
+La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l'ensemble des models par la suite.
+```{r}
+Obj.surv <- Surv(lung$time, #duree de survie 
+                 lung$status) #statut a cette date
+```
+
+**2. Kaplan Meier**
+
+Un premier model possible est le Kaplan-meier.   
+Cest un model non parametrique qui permet de comparer les durees de survie selon plusieurs strates.
+
+```{r}
+#KM sans aucune strate
+KM <- survfit(Obj.surv ~ 1)
+KM
+plot(KM)
+
+#KM en stratifiant sur le sexe
+KM <- survfit(Obj.surv ~ lung$sex)
+plot(KM)
+
+#Test du log-rank
+survdiff(Obj.surv ~ lung$sex)
+```
+
+
+**3. Model de Cox**
+
+Le model de Cox est un model semi parametrique a risque proportionel.   
+Il contourne l'evaluation du risque de base en faisant l'hypothese que les risques sont proportionnels tout au long du suivi.   
+
+```{r}
+Cx.M1 <- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) 
+summary(Cx.M1)
+
+#Comparaison de models
+Cx.M2<- coxph(Obj.surv ~ ph.ecog + age, data=lung) 
+anova(Cx.M1, Cx.M2)
+```
+
+#Verification des residus
+
+Dans le cadre du model de Cox plusieurs elements sont a verifier, dont l'hypothese des risques proportionnels.    
+Pour valider cette hypothese on espere que les coefficients soient invariant au cours du temps.
+Pour cela on peut analyser les residus, dont les residus de Schoenfeld. 
+
+```{r}
+Verif <- cox.zph(Cx.M1)
+Verif
+plot(Verif)
+```

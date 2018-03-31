@@ -1,0 +1,88 @@
+---
+output: html_document
+---
+##Modification de bases de donnees
+
+On peut mettre en commun et joindre plusieurs bases de donnees.
+
+
+- en rajoutant une colonne ou une ligne a une BDD existante.
+Dans ce cas on ajoute un vecteur en colonne ou ligne a la BDD.
+
+- en joignant tout ou partie d'une BDD a une autre BDD. On utilisera le package "dplyr". 
+
+Pour l'illustrer on utilisera 2 BDD fictives D1 et D2.
+Elles presentent des caracteristiques differentes.
+Elles contiennent une variable commune ID et pour chacune des variables qui leur sont propres. 
+Certains individus sont present dans les deux BDD, tandis que certains ne sont present que dans une des deux. 
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+
+```{r}
+#Creation de BDD
+id.1<- 1:40
+ttt<- rep(c("A", "B"),20)
+val1<- rnorm(20,25,3)
+D1<- data.frame(ID= id.1, TTT= ttt, VAL1= val1) #40 observations de 3 variables: ID, TTT, VAL1
+str(D1)
+
+id.3<- 35:80
+val4<- rnorm(46,25,3)
+D2<- data.frame(ID= id.3, VAL3= val4) #46 observations de 2 variables: ID, VAL3
+str(D2)
+
+```
+
+**1. Rajout simple (fonctions de base)**
+
+On a une base de donnees a laquelle on souhaite rajouter une ou des colonnes/lignes issue d'une autre base de donnee.   
+La seule condition a respecter est que les tailles des deux elements soient compatibles.
+
+
+```{r}
+#Creation d'une bdd a ajouter
+
+random_variable1<- rnorm(20,50,3) #creation d'un vecteur, de meme taille que les variables de D1
+random_variable2<- rnorm(20,50,3) #creation d'un vecteur, de meme taille que les variables de D1
+add_table<- matrix(c(random_variable1, random_variable2), ncol = 2)
+
+#Ajout de la nouvelle bdd en tant que nouvelles colonnes.
+
+New_bdd<- cbind(D1, add_table) #cbind = colonn bind ~ lier colonnes
+str(New_bdd)
+
+#rajout d'une ligne a la bdd pre-existante.
+
+New_bdd<- rbind(D1, c(42, "A", 100)) #rbind = row bind ~ lier lignes
+str(New_bdd)
+
+#
+
+New_bdd<- cbind(D2, add_table) #impossible car objets de tailles differentes
+```
+
+**2. Mise en commun (package dplyr)**
+
+Contrairement au cas precedent on souhaite lier des bdd par une variable commune (generalement l'identifiant des individus).   
+Il est possible que seul une partie des individus soit commune entre les deux base de donees.   
+On souhaite mettre en commun les informations pour ces individus qui sont en communs dans ces 2 bdd.    
+Plusieurs cas de figure sont possibles selon comment on souhaite gerer les individus que l'on ne retrouve que dans une seule des deux bdd.    
+
+- on souhaite obtenir les informations dans bdd2, des individus de bdd1, sans conserver l'information des individus uniques a bdd2 => left_join().    
+- on souhaite conserver la totalite des informations uniquement chez les individus communs aux deux bdd => inner_join().   
+- on souhaite conserver la totalite de l'information des deux bdd => full_join.   
+
+```{r}
+#Mise en commun de bases de donnees
+
+New_bdd<- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour les individus de D1 retrouves dans D3
+str(New_bdd)
+
+New_bdd<- dplyr::full_join(D1,D2) #on conserve l'ensemble de l'information des deux tableaux
+str(New_bdd)
+New_bdd<- dplyr::inner_join(D1,D2) #on conserve l'information des individus present a la fois dans D1 et D2
+str(New_bdd)
+```

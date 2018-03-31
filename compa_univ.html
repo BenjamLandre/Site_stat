@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="comparer" class="section level2">
+<h2>Comparer</h2>
+<p>On souhaite extrapoler et objectiver les comparaisons que l’on observe. On va comparer les valeurs observees entre groupes.</p>
+<p>Nous utiliserons le jeux de donnees ‘ais’, inclus dans le package “DAAG”.<br />
+(Pensez a telecharger le package une premiere fois via: install.package(“DAAG”)).</p>
+<p>Ce jeux de donnees contient des resultats d’analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html">ICI</a>.</p>
+<pre class="r"><code>require(DAAG)</code></pre>
+<pre class="r"><code>data(ais)</code></pre>
+</div>
+<div id="de-moyennes" class="section level1">
+<h1>1. … de moyennes</h1>
+<p>Plusieurs tests de comparaisons de moyennes sont disponibles, dont le test de Student et de Wilcoxon.<br />
+L’utilisation de ces tests depend des effectifs en presence.<br />
+Cependant ils sont assez similaires dans leur specification.</p>
+<pre class="r"><code>#test de Student
+
+t.test(ais$ferr) #comparaison de la valeur par rapport a 0</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ais$ferr
+## t = 23.002, df = 201, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  70.28601 83.46646
+## sample estimates:
+## mean of x 
+##  76.87624</code></pre>
+<pre class="r"><code>t.test(ais$ferr ~ ais$sex, #valeurs a comparer ~ groupes a comparer
+       alternative= &quot;two.sided&quot;, #bilateral ou test d&#39;inferiorite/superiorite
+       paired= FALSE) #donnees appariees</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  ais$ferr by ais$sex
+## t = -6.5043, df = 163.96, p-value = 9.033e-10
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -51.41560 -27.46832
+## sample estimates:
+## mean in group f mean in group m 
+##        56.96000        96.40196</code></pre>
+<pre class="r"><code>#test de Wilcoxon
+
+wilcox.test(ais$ferr ~ ais$sex, alternative= &quot;two.sided&quot;, paired= FALSE) #memes arguments</code></pre>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  ais$ferr by ais$sex
+## W = 2604, p-value = 1.877e-09
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div id="de-proportions" class="section level1">
+<h1>2. … de proportions</h1>
+<p>En presence d’une variable categorielle on va comparer les pourcentages observes.<br />
+On peut utiliser le test du chi², en utilisant la correction de Yates si les effectifs theoriques sont inferieurs a 30.<br />
+Si les effectifs theoriques sont superieurs a 5, on pourra utiliser le test exact de Fisher.<br />
+Toutefois dans le cas de trop petits effectifs R est limite dans sa capacite a calculer une valeur-p.<br />
+Ceci peut etre partiellement contourne en utilisant la méthode <a href="https://stats.stackexchange.com/questions/62445/rules-to-apply-monte-carlo-simulation-of-p-values-for-chi-squared-test">simulation de Monte-Carlo</a>.</p>
+<pre class="r"><code>#Creation du tableau de contingence
+
+tableau_contingence&lt;- table(ais$sport, ais$sex)
+tableau_contingence #on observe d&#39;emble des valeurs theoriques trop faible pour le calcul.</code></pre>
+<pre><code>##          
+##            f  m
+##   B_Ball  13 12
+##   Field    7 12
+##   Gym      4  0
+##   Netball 23  0
+##   Row     22 15
+##   Swim     9 13
+##   T_400m  11 18
+##   T_Sprnt  4 11
+##   Tennis   7  4
+##   W_Polo   0 17</code></pre>
+<pre class="r"><code>#Test du chi (malgre les effectifs trop faibles)
+
+chisq.test(tableau_contingence,
+           correct = T) #correction de continuite de Yates</code></pre>
+<pre><code>## Warning in chisq.test(tableau_contingence, correct = T): Chi-squared
+## approximation may be incorrect</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tableau_contingence
+## X-squared = 53.167, df = 9, p-value = 2.717e-08</code></pre>
+<pre class="r"><code>chisq.test(matrix(c(13,7,4,23,22,9,11,4,7,0,12,12,0,0,15,13,18,11,4,17), ncol=2))</code></pre>
+<pre><code>## Warning in chisq.test(matrix(c(13, 7, 4, 23, 22, 9, 11, 4, 7, 0, 12, 12, :
+## Chi-squared approximation may be incorrect</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  matrix(c(13, 7, 4, 23, 22, 9, 11, 4, 7, 0, 12, 12, 0, 0, 15,     13, 18, 11, 4, 17), ncol = 2)
+## X-squared = 53.167, df = 9, p-value = 2.717e-08</code></pre>
+<pre class="r"><code>#Test exact de Fisher
+
+fisher.test(tableau_contingence) #effectifs insuffisants pour le calcul sans simulation.</code></pre>
+<pre><code>## Error in fisher.test(tableau_contingence): FEXACT error 7.
+## LDSTP is too small for this problem.
+## Try increasing the size of the workspace.</code></pre>
+<pre class="r"><code>#fisher.test(tableau_contingence, simulate.p.value=TRUE, B=1e5) #Monte-Carlo</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

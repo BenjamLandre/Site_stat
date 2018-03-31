@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="modification-de-bases-de-donnees" class="section level2">
+<h2>Modification de bases de donnees</h2>
+<p>On peut mettre en commun et joindre plusieurs bases de donnees.</p>
+<ul>
+<li><p>en rajoutant une colonne ou une ligne a une BDD existante. Dans ce cas on ajoute un vecteur en colonne ou ligne a la BDD.</p></li>
+<li><p>en joignant tout ou partie d’une BDD a une autre BDD. On utilisera le package “dplyr”.</p></li>
+</ul>
+<p>Pour l’illustrer on utilisera 2 BDD fictives D1 et D2. Elles presentent des caracteristiques differentes. Elles contiennent une variable commune ID et pour chacune des variables qui leur sont propres. Certains individus sont present dans les deux BDD, tandis que certains ne sont present que dans une des deux.</p>
+<pre class="r"><code>#Creation de BDD
+id.1&lt;- 1:40
+ttt&lt;- rep(c(&quot;A&quot;, &quot;B&quot;),20)
+val1&lt;- rnorm(20,25,3)
+D1&lt;- data.frame(ID= id.1, TTT= ttt, VAL1= val1) #40 observations de 3 variables: ID, TTT, VAL1
+str(D1)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    40 obs. of  3 variables:
+##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ VAL1: num  27 23.6 24.6 24 25.7 ...</code></pre>
+<pre class="r"><code>id.3&lt;- 35:80
+val4&lt;- rnorm(46,25,3)
+D2&lt;- data.frame(ID= id.3, VAL3= val4) #46 observations de 2 variables: ID, VAL3
+str(D2)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    46 obs. of  2 variables:
+##  $ ID  : int  35 36 37 38 39 40 41 42 43 44 ...
+##  $ VAL3: num  25.7 27.7 22.2 26.9 21.4 ...</code></pre>
+<p><strong>1. Rajout simple (fonctions de base)</strong></p>
+<p>On a une base de donnees a laquelle on souhaite rajouter une ou des colonnes/lignes issue d’une autre base de donnee.<br />
+La seule condition a respecter est que les tailles des deux elements soient compatibles.</p>
+<pre class="r"><code>#Creation d&#39;une bdd a ajouter
+
+random_variable1&lt;- rnorm(20,50,3) #creation d&#39;un vecteur, de meme taille que les variables de D1
+random_variable2&lt;- rnorm(20,50,3) #creation d&#39;un vecteur, de meme taille que les variables de D1
+add_table&lt;- matrix(c(random_variable1, random_variable2), ncol = 2)
+
+#Ajout de la nouvelle bdd en tant que nouvelles colonnes.
+
+New_bdd&lt;- cbind(D1, add_table) #cbind = colonn bind ~ lier colonnes
+str(New_bdd)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    40 obs. of  5 variables:
+##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ VAL1: num  27 23.6 24.6 24 25.7 ...
+##  $ 1   : num  50.4 53 48.5 48.8 52.5 ...
+##  $ 2   : num  49.4 51.8 46.6 46.4 52.3 ...</code></pre>
+<pre class="r"><code>#rajout d&#39;une ligne a la bdd pre-existante.
+
+New_bdd&lt;- rbind(D1, c(42, &quot;A&quot;, 100)) #rbind = row bind ~ lier lignes
+str(New_bdd)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    41 obs. of  3 variables:
+##  $ ID  : chr  &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ VAL1: chr  &quot;26.9632205654497&quot; &quot;23.5538493199165&quot; &quot;24.5634142668266&quot; &quot;23.9534750886754&quot; ...</code></pre>
+<pre class="r"><code>#
+
+New_bdd&lt;- cbind(D2, add_table) #impossible car objets de tailles differentes</code></pre>
+<pre><code>## Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 46, 20</code></pre>
+<p><strong>2. Mise en commun (package dplyr)</strong></p>
+<p>Contrairement au cas precedent on souhaite lier des bdd par une variable commune (generalement l’identifiant des individus).<br />
+Il est possible que seul une partie des individus soit commune entre les deux base de donees.<br />
+On souhaite mettre en commun les informations pour ces individus qui sont en communs dans ces 2 bdd.<br />
+Plusieurs cas de figure sont possibles selon comment on souhaite gerer les individus que l’on ne retrouve que dans une seule des deux bdd.</p>
+<ul>
+<li>on souhaite obtenir les informations dans bdd2, des individus de bdd1, sans conserver l’information des individus uniques a bdd2 =&gt; left_join().<br />
+</li>
+<li>on souhaite conserver la totalite des informations uniquement chez les individus communs aux deux bdd =&gt; inner_join().<br />
+</li>
+<li>on souhaite conserver la totalite de l’information des deux bdd =&gt; full_join.</li>
+</ul>
+<pre class="r"><code>#Mise en commun de bases de donnees
+
+New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour les individus de D1 retrouves dans D3</code></pre>
+<pre><code>## Joining, by = &quot;ID&quot;</code></pre>
+<pre class="r"><code>str(New_bdd)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    40 obs. of  4 variables:
+##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ VAL1: num  27 23.6 24.6 24 25.7 ...
+##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre class="r"><code>New_bdd&lt;- dplyr::full_join(D1,D2) #on conserve l&#39;ensemble de l&#39;information des deux tableaux</code></pre>
+<pre><code>## Joining, by = &quot;ID&quot;</code></pre>
+<pre class="r"><code>str(New_bdd)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    80 obs. of  4 variables:
+##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ VAL1: num  27 23.6 24.6 24 25.7 ...
+##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre class="r"><code>New_bdd&lt;- dplyr::inner_join(D1,D2) #on conserve l&#39;information des individus present a la fois dans D1 et D2</code></pre>
+<pre><code>## Joining, by = &quot;ID&quot;</code></pre>
+<pre class="r"><code>str(New_bdd)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    6 obs. of  4 variables:
+##  $ ID  : int  35 36 37 38 39 40
+##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2
+##  $ VAL1: num  23.5 27.7 25.4 25.7 31.6 ...
+##  $ VAL3: num  25.7 27.7 22.2 26.9 21.4 ...</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

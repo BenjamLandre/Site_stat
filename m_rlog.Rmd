@@ -1,0 +1,88 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+##Regression logistique
+
+Dans cette section on s'interesse a la facon de specifier un model logistique dans R.   
+Les fonctions sont tres similaires a celles utilisees dans le cadre de modeles lineaire.
+
+Comme dans le cas des models lineaires on ne cherchera pas a definir s'il est pertinent et judicieux de realiser ce type de model.    
+Ce sont des etapes importantes a faire en amont du model.
+
+
+***********************************
+
+**Jeu de donnee utilisee**
+
+On utilisera la BDD 'headInjury', inclus dans le package "DAAG".   
+(Pensez a telecharger le package au moins une fois pour utiliser ces donnees: install.package("DAAG")).   
+
+Cette data frame comporte 3121 observations de 11 variables, concernant la distribution de grenouilles en australie.   
+Plus d'information sont disponibles [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/headInjury.html).
+
+On prendra comme variable d'interet 'high.risk', qui decrit la presence (1) ou l'absence (0) d'un risque eleve d'une chirurgie neurologique pour le patient.   
+On etudiera son association avec 'age.65', 'amnesia.before', 'GCS.decrease' et 'vomiting'.
+
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
+require(DAAG)
+```
+```{r, eval=FALSE}
+require(DAAG)
+```
+```{r}
+data("headInjury")
+```
+
+#Specification du model
+
+Les regressions logistiques font partie de la famille des models lineaires generalise.    
+On specifie juste un lien "binomial" pour preciser un model logistique.
+
+```{r}
+RL.1<- glm( factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk")) ~ vomiting + age.65 + amnesia.before + GCS.decrease, family = "binomial", data=headInjury)
+summary(RL.1)
+```
+
+#Comparaison de models
+
+Pour la comparaison de models on pourra egalement utiliser la fonction dediee lrtest() du package "lmtest".    
+Elle donne le meme resultat que la fonction anonva().
+
+```{r}
+RL.2<- glm( factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk")) ~ vomiting + age.65, family = "binomial", data=headInjury)
+
+anova(RL.1, RL.2, test= "Chisq")
+
+#install.packages("lmtest")
+#library(lmtest)
+#lrtest(RL.1, RL.2)
+```
+
+#Selection des variables
+
+```{r}
+step(RL.1, #le model initial a tester
+     direction = "both", #regarde dans les deux directions, c'est a dire vers les models plus complets mais aussi vers ceux moins complet
+     criterion = "BIC", #1er arugment sur le critere de selection
+     k = log(nrow(headInjury)))
+```
+
+#Controle de la colinearite
+
+Une etape interessante est de controler la colinearite possible entre les variables du model.   
+On utilise generalement le variance inflator factor (VIF).    
+Il mesure le changement de variance des variables lorsque l'on retire une variable du model.    
+En presence de 2 variables colineaires, une part de la variance est partagee entre ces deux variables.    
+Si on retire une de ces variable, la variance de l'autre variable est fortement modifie.    
+
+Il n'y a pas de consensus sur la (les) valeurs critique(s) du VIF. Les valeurs seuils retenues varie de 4 a 10.    
+
+```{r}
+require(DAAG)
+vif(RL.1)
+```
+

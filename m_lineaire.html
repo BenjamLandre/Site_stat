@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="map map-marker-alt"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Bases</a>
+</li>
+<li>
+  <a href="importer.html">1. Importer</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    2. Modifier/Creer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="g_variables.html">...des variables</a>
+    </li>
+    <li>
+      <a href="g_bdd.html">...des bases de donnees</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">3. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    4. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    5. Communiquer
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="RMark.html">RMarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-square fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="model-lineaire" class="section level2">
+<h2>Model lineaire</h2>
+<p>Dans cette section on s’interesse a la facon de specifier un model lineaire dans R.</p>
+<p>On ne cherchera pas a definir s’il est pertinent de lancer cette analyse.<br />
+En pratique c’est bien entendu une etape minutieuse qui doit etre faite avant de se lancer dans la construction d’un quelconque model.</p>
+<p>On gardera egalement en tete que R est capable de produire des resultats pour a peu pres tous les calculs demandes qu’ils soient inapproprie ou faux dans votre contexte.</p>
+<p>On ne verra pas non plus les etapes suivantes de validations et d’optimisation du model. Des packages et fonctions interessantes pour cela peuvent etre trouvees <a href="https://www.statmethods.net/stats/regression.html">ICI</a>.</p>
+<hr />
+<p><strong>Creation d’une BDD</strong></p>
+<p>Pour voir les etapes necessaires a la creation d’un model on va construire un jeu de donnee basique.<br />
+On pourra ainsi maitriser les parametres et definir les associations a trouver.</p>
+<p>On definit BDD, une data frame de 450 observations de 6 variables continues normales.<br />
+La variable d’interet est “var.1”&quot; que l’on cherche a expliquer par les 5 autres variables.</p>
+<p>Par construction on connait la relation de var.1 avec les autres variables.</p>
+<pre class="r"><code>#Variables
+
+var.2&lt;- rnorm(450, 0, 12)
+var.3&lt;- rnorm(450, 20, 24)
+var.4&lt;- rnorm(450, 40, 36)
+var.5&lt;- rnorm(450, 60, 48)
+var.6&lt;- rnorm(450, 80, 60)
+
+#Coefficients
+
+A &lt;- 3
+B &lt;- 1
+C &lt;- 0.5
+D &lt;- 0.2
+E &lt;- 0
+
+#On construit la variable d&#39;interet &quot;var.1&quot;, qui est la combinaison des variables precedemment crees, selon des coefficients determines, et un bruit blanc
+
+var.1 &lt;- 48 + A*var.2 + B*var.3 + C*var.4 + D*var.5 + E*var.6 + rnorm(450, 0 , 17)  
+
+#On structure la BDD
+
+BDD &lt;- data.frame(var.1,var.2, var.3, var.4, var.5, var.6)
+str(BDD)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    450 obs. of  6 variables:
+##  $ var.1: num  104.4 77.3 136.7 80.3 87.2 ...
+##  $ var.2: num  2.82 4.29 12.35 1.36 16.04 ...
+##  $ var.3: num  26.039 6.671 5.774 24.804 0.559 ...
+##  $ var.4: num  37.4 17.8 22.6 17.2 -25.8 ...
+##  $ var.5: num  77.37 96.26 75.53 43.45 6.89 ...
+##  $ var.6: num  29.68 54.03 60.84 49.52 7.62 ...</code></pre>
+<p><strong>Visualisation des associations brutes</strong></p>
+<p>On peut visualiser dans un premiers temps la relation de notre variable d’interet avec les autres variables.<br />
+On constate comme attendu que les relations semblent lineaires, et proches des coefficients specifies plus haut.</p>
+<p><img src="m_lineaire_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="specification-dun-model" class="section level1">
+<h1>Specification d’un model</h1>
+<p>On specifie un 1er model “M.Lineaire.1”, qui est le model complet.<br />
+Il modelise la relation entre ‘var.1’ et l’ensemble des autres variables.<br />
+La fonction summary() permet d’afficher les details de ce model.</p>
+<p>La sortie comporte plusieurs compartiments:</p>
+<p><strong>Call:</strong> rappel de la formule utilisee.</p>
+<p><strong>Residuals:</strong> propose une description de la distribution des residus, on s’y interessera plus tard pour examiner la concordance du model avec les hypotheses du model.</p>
+<p><strong>Coefficients:</strong> affiche le coefficient, l’ecart type, la valeur t et la p-value pour l’intercept et chaques coefficients testes dans le modele.</p>
+<p>Le dernier compartiment indique plusieurs indicateurs notamment le R² et le R² ajuste.</p>
+<pre class="r"><code>M.Lineaire.1 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
+summary(M.Lineaire.1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data = BDD)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -62.849 -11.487   0.462  10.922  42.639 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 50.764587   1.822721  27.851   &lt;2e-16 ***
+## var.2        3.095849   0.068721  45.050   &lt;2e-16 ***
+## var.3        1.028837   0.031349  32.818   &lt;2e-16 ***
+## var.4        0.468405   0.022074  21.220   &lt;2e-16 ***
+## var.5        0.191850   0.015404  12.455   &lt;2e-16 ***
+## var.6       -0.009007   0.012500  -0.721    0.472    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.3 on 444 degrees of freedom
+## Multiple R-squared:  0.8921, Adjusted R-squared:  0.8909 
+## F-statistic: 734.3 on 5 and 444 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="comparaison-de-models" class="section level1">
+<h1>Comparaison de models</h1>
+<p>On peut comparer deux models a partir de la fonction anova(), a la condition qu’ils soient emboites.</p>
+<p>On a cree le model ‘M.lineaire.2’ qui comporte les meme variables que le model precedent a l’exception de ‘var.2’, la variable la plus fortement associee a notre outcome.</p>
+<p>La sortie affiche les models ainsi que la p-value associee a cette comparaison. On constatera qu’ils sont significativement differents.<br />
+On conserve le model 1 qui comporte le plus d’information.</p>
+<pre class="r"><code>M.Lineaire.2 &lt;- lm(formula = var.1 ~ var.3 + var.4 + var.5 + var.6, data= BDD)
+
+anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6
+## Model 2: var.1 ~ var.3 + var.4 + var.5 + var.6
+##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1    444 117957                                  
+## 2    445 657122 -1   -539165 2029.5 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="selection-des-variables" class="section level1">
+<h1>Selection des variables</h1>
+<p>Pour automatiser le processus precedent on peut s’aider de la fonction step(). Elle permet d’effectuer une selection purement statistique des variables a partir de la comparaison automatisee des models emboites.</p>
+<p>La fonction part d’un model initial a tester, ajoute/retire des variables et compare les models ainsi cree selon un critere que l’on definit. C’est un processus iteratif qui continue jusqu’a otpimiser notre critere de selection.</p>
+<p>On doit specifier plusieurs choses:<br />
+(1) le model de depart<br />
+(2) dans quelle direction la fonction doit elle chercher (forward: ajoute des variables ; backward: retire des variables ; both)<br />
+(3) le domaine de recherche ; c-a-d les models extremes a partir desquels on souhaite que la fonction arrete de chercher.<br />
+(4) le critere de selection (generalement AIC ou BIC).</p>
+<p>On va specifier le model null et le model full qui sont respectivement le model le plus pauvre en information que l’on souhaite tester et le model le plus riche en information que l’on souhaite tester.<br />
+Par defaut R ira du model vide jusqu’au model complet.<br />
+Plusieurs options sont disponibles concernant la direction, on consultera la page d’aide pour plus de details.</p>
+<p>La sortie de la fonction step est interessante a analyser.<br />
+Les deux premiers lignes indique la valeur du critere ainsi que la formule pour le model initial.</p>
+<p>Le premier tableau indique les tests effectuer.<br />
+R a essaye calcule notre critere (ici le BIC malgre ce qu’affiche le tableau), dans plusieurs cas de figure:<br />
+- en ajoutant var.2<br />
+- en ajoutant var.3<br />
+- en retirant var.6<br />
+- en conservant le model tel quel<br />
+- en retirant var.5<br />
+-en retirant var.4</p>
+<p>Il en conclut que ce qui minimise le BIC est d’ajouter var.2.</p>
+<p>Il ajoute var.2 a notre model initial, et recommence la procedure.</p>
+<p>Il continue ainsi jusqu’a obtenir un model pour lequel ajouter/retirer une variable penalise notre critere.<br />
+Il conserve ce model en dernieres lignes et nous affiche ses coefficients.</p>
+<pre class="r"><code>M.Lineaire.0 &lt;- lm(formula = var.1 ~ var.4 + var.5 + var.6, data= BDD)
+null &lt;-lm(formula = var.1 ~ 1, data= BDD)
+full&lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
+
+step(M.Lineaire.0, #le model initial a tester
+     direction = &quot;both&quot;, #regarde dans les deux directions, c&#39;est a dire vers les models plus complets mais aussi vers ceux moins complet
+     scope = list(lower=null,upper=full), #les models le plus pauvre/riche autorise
+     criterion = &quot;BIC&quot;, #1er arugment sur le critere de selection
+     k = log(nrow(BDD))) #2nd argument ; pour comparer en fonction de l&#39;AIC on retirera ces deux derniers arguments</code></pre>
+<pre><code>## Start:  AIC=3440.07
+## var.1 ~ var.4 + var.5 + var.6
+## 
+##         Df Sum of Sq     RSS    AIC
+## + var.2  1    486414  404096 3090.6
+## + var.3  1    233388  657122 3309.4
+## - var.6  1       450  890960 3434.2
+## &lt;none&gt;                890510 3440.1
+## - var.5  1     71014  961524 3468.5
+## - var.4  1    115627 1006138 3488.9
+## 
+## Step:  AIC=3090.62
+## var.1 ~ var.4 + var.5 + var.6 + var.2
+## 
+##         Df Sum of Sq    RSS    AIC
+## + var.3  1    286139 117957 2542.6
+## - var.6  1        68 404163 3084.6
+## &lt;none&gt;               404096 3090.6
+## - var.5  1     50683 454779 3137.7
+## - var.4  1     92251 496347 3177.0
+## - var.2  1    486414 890510 3440.1
+## 
+## Step:  AIC=2542.63
+## var.1 ~ var.4 + var.5 + var.6 + var.2 + var.3
+## 
+##         Df Sum of Sq    RSS    AIC
+## - var.6  1       138 118095 2537.0
+## &lt;none&gt;               117957 2542.6
+## - var.5  1     41211 159168 2671.4
+## - var.4  1    119627 237584 2851.6
+## - var.3  1    286139 404096 3090.6
+## - var.2  1    539165 657122 3309.4
+## 
+## Step:  AIC=2537.05
+## var.1 ~ var.4 + var.5 + var.2 + var.3
+## 
+##         Df Sum of Sq    RSS    AIC
+## &lt;none&gt;               118095 2537.0
+## + var.6  1       138 117957 2542.6
+## - var.5  1     41440 159535 2666.3
+## - var.4  1    119687 237783 2845.9
+## - var.3  1    286068 404163 3084.6
+## - var.2  1    539042 657137 3303.3</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = var.1 ~ var.4 + var.5 + var.2 + var.3, data = BDD)
+## 
+## Coefficients:
+## (Intercept)        var.4        var.5        var.2        var.3  
+##     50.0999       0.4685       0.1923       3.0948       1.0280</code></pre>
+</div>
+<div id="verification-des-hypotheses" class="section level1">
+<h1>Verification des hypotheses</h1>
+<p>Une premiere etape succinte pour verifier les conditions d’application du model est de verifier graphiquement la distribution des residus.<br />
+On espere entre autre qu’ils suivent une loi normale de moyenne 0, qu’ils ne presentent pas de signe d’heteroscedascite, ou de points abherrants.</p>
+<p>Notre jeu de donnees ayant ete construit de toute piece, on s’est premunie de ces situations.</p>
+<pre class="r"><code>par(mfrow=c(2,2))
+plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))</code></pre>
+<p><img src="m_lineaire_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+#Fonctionnement de base
+
+**1.  Calcul direct**   
+
+On peu utiliser R comme une calculatrice, pour effectuer directement ses calculs.   
+Soit dans la zone de script (ctrl+enter pour valider) soit directement dans la console (enter).
+
+```{r, eval=T}
+1+15
+
+15/4 + 12
+```
+
+**2.  Assignement** 
+
+La specificite de R est de pouvoir assigner a un objet, des elements (une valeur, un calcul, un ensemble d'operations, ...).
+
+```{r, eval=FALSE}
+X <- 2 #On assigne a l'objet X, l'element 2.
+X      #l'objet X contient l'element 2.
+X + X  #qui peu etre utilise dans autre calcul par la suite.
+
+Y <- X + X #ou assigne a un autre element.
+Y
+
+Y + 15
+```
+
+Plusieurs elements a remarquer:
+
+```{r, eval=F}
+Z <- 118 #un objet assigne n'est pas directement exprime dans la console.
+Z        #pour l'exprimer il faut l'appeler, c-a-d tapper le nom de l'objet (dans la console ou le script).
+
+Z<- 22   #si on assigne un nouvel element a un objet deja utilise, on ecrase la valeur precedente.
+Z        #Z ne contient plus l'element 118 mais 22.
+```
+
+#Vecteurs de donnees
+
+Un des interet de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.  
+Une façon de le faire est de regrouper un ensemble de donnees a l'interieur d'un objet.
+On peut utiliser la fonction c() (abreviation de concatenate).
+
+Ces objets, appeles vecteurs, regroupent un ensemble de donnees de meme categorie.   
+Ils constituent un element important dans la logique de calcul de R.
+
+```{r, eval= F}
+c(4,8)  #directement
+
+X<- c(4, 8)  #par assignement
+X
+```
+
+On peu effectuer des calculs directement a partir des vecteurs.  
+Ils font intervenir des regles particulieres de calculs.   
+
+Il existe plusieurs categories de vecteur selon les donnees qu'il contient.   
+Ils peuvent etre numerique et contenir des chiffres.     
+Ils peuvent egalement contenir du texte ou des resultats d'operateur logiques (TRUE / FALSE).
+
+```{r, eval= FALSE}
+X<- c("IMC normal", "IMC surpoids", "IMC surpoids") 
+X
+
+Y<- c(TRUE, FALSE, FALSE) 
+Y
+```
+
+Les premiers pourront etre utilises, par exemple, pour creer des variables categorielles.  
+Les seconds sont des resultats d'operations logiques.   
+Ils pourront etre utilises pour selectionner des sous-groupes dans notre base de donnees.
+
+#Selection d'un sous-ensemble
+
+Les vecteurs sont des ensembles d'elements. 
+On peut vouloir en selectionner un sous-ensemble particulier.
+Pour ce faire on utilisera "[]" juste apres le nom de notre vecteur. 
+
+```{r}
+a<- c(12,45,18,16,13,18,46)
+a[5] #selectione le 5eme element du vecteur a
+a[c(1,4)] #selectione les elements 1 et 4 du vecteur a
+```
+
+On peut egalement preciser une condition logique pour selectioner un sous-ensemble.
+
+```{r}
+a<- c(12,45,18,16,13,18,46)
+a[a>20] #selection, dans a, les elements pour lesquels a est superieur a 20
+
+b<- a[a>20] #on peut creer un vecteur comprenant ce sous-ensemble
+b #b est le sous ensemble de a comprenant les elements de a superieurs a 20
+a #a est inchange est comprent toujours l'ensemble de ces elements
+```
+
+#Valeurs manquantes
+
+Si l'on souhaite representer une donnee manquante.
+On utilisera l'indicateur "NA".
+
+```{r}
+a<- c(1,2,3, NA, 4)
+a
+
+a + 2 #la valeur NA n'est pas consideree comme 0, c'est une valeur non connue (Not Available)
+
+a[a>2] #dans l'objet a quelles sont les valeurs superieure a 2 ? ne peut etre evalue pour une valeur NA
+```
+
+
+#Les fonctions
+**1. Utilisation generale**
+
+R inclue des fonctions dites de base.  
+Elles permettent d'effectuer rapidement des ensembles de calculs pre-definis, en en controlant les conditions.
+
+
+```{r, eval=F}
+IMC_echantillon <- rnorm(15,23,3) #tirer au sort 15 elements d'une distribution normale,    de moyenne 23 et ecart type 3
+IMC_echantillon
+
+Moyenne_IMC<- mean(IMC_echantillon) #moyenne de la distribution
+Moyenne_IMC
+Variance_IMC<- var(IMC_echantillon) #variance de la distribution
+Variance_IMC
+```
+
+Chaque fonction comprend un ou plusieurs arguments qui permettent de preciser les conditions de calculs.   
+Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.   
+D'autres ont une valeur par defaut, c'est celle qui sera utilisee si l'utilisateur ne la modifie pas.
+
+```{r, eval= F}
+
+Model_lineaire <- lm(formula = ma_formule, #a renseigner obligatoirement
+                     data= bdd_IMC, #idem
+                     method = "qr") #la valeur "qr"" est la valeur par defaut,
+                                    #l'argument est facultatif
+```
+
+Pour connaitre les arguments d'une fonction on peut consulter la page d'aide.   
+Pour cela il suffit d'ajouter "?" devant la fonction et de la lancer dans la console.  
+L'aide concernant la fonction apparait dans la fenetre d'aide.
+Elle comprend une description de son utilisation, sa formulation complete, une liste des arguments avec leur detail d'utilisation et des exemples d'utilisation.
+
+**2. Importer des fonctions**
+
+Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calcul et d'actions.
+Cependant on peu acceder a des fonctions supplementaire a partir des packages.
+Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R.
+Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.
+
+Les packages sont disponibles sur le site [The Comprehensive R Archive Network - The CRAN](https://cran.r-project.org/).
+Pour chaques package vous disposez du manuel d'utilisation qui compile l'ensemble des fonctions disponibles dans le package et parfois d'un tutoriel.
+
+Pour instaler directement un package depuis RStudio, il faut:   
+1) Telecharger le package (- une seule fois)    
+puis    
+2) activer les fonctions du package (- a renouveller a chaque session).
+
+```{r, eval=F}
+Surv() #la fonction n'est pas disponible de base sur R
+
+install.packages("survival") #telecharge et installe le package
+
+library(survival) #active les fonctions pour la session en cours
+
+Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes
+
+```
+
+Comme tout nouveau langage que l'on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre.   Certaines fonctions seront decrites ici mais l'ecrasante majoritee reste a decouvrir.    Plus le vocabulaire s'enrichie plus on est capable de realiser des taches specifiques, precises ou combinees a d'autres.   
+Pour decouvrir de nouvelles fonctions le plus simple est de tapper 'l'action que l'on souhaite produire' suivi de 'in r' dans le moteur de recherche.   
+
+Par exemple:
+
+*Calculate cook's distance in r*
+
+Ou de consulter les (forums d'aide)[https://stats.stackexchange.com/].
+
+*************************
+
+[Pour s'entrainer]()mettre un lien vers doc pdf avec exos simples sur la creation de variables, regles de calculs entre vecteurs et installation d'un package utilisation d'une fonction.
+
+```{r, eval=F}
+#Ex 1.
+
+poids <- 58
+taille <- 165
+
+#Calculer l'IMC chez cet individu sans passer par les valeurs numeriques
+
+#
+
+#Ex 2.
+
+IMC_echantillon <- rnorm(15,23,3)
+IMC_echantillon
+
+id.1 <- "..." #assigner un IMC a chaque individu
+id.2 <- "..." #
+
+Moyenne<- "..."#calculer la moyenne des IMC
+Variance<- "..."#calculer la variance des IMC
+```
+
+Entre un chiffre et un vecteur: 
+
+```{r, eval=F}
+3 * c(4, 8, 12)  #multiplication un a un des elements de la serie de chiffre.
+
+3 +  c(2,4)      #addition un a un des elements.
+```
+
+Entre vecteurs:
+
+```{r, eval=F}
+c(3,2,4)  * c(4, 8, 12)  #sur la meme logique que precedement pour les series de 
+                         #tailles egales.
+c(3,2)   +  c(2,4) 
+```
+
+```{r, eval=F}
+c(3,2)   +  c(2,4,289,15,164,2)  #avec un recyclage du motif le plus petit lorsque  
+                               #les series sont de tailles inegales mais multiple 
+                               #l'un de l'autre.
+```
+```{r, eval=T}
+  #avec un recyclage incomplet lorsque les series
+  #ne sont pas de tailles compatible.
+```
