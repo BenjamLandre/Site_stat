@@ -14,8 +14,14 @@ Nous utiliserons le jeux de donnees 'cats', inclus dans le package 'MASS'.
 Ce jeux de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.   
 Plus de details [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html).   
 
-```{r}
+```{r, message=F, warning=FALSE}
 require(MASS)
+```
+```{r, eval=F}
+require(MASS)
+```
+
+```{r}
 data(cats)
 ```
 

@@ -377,15 +377,7 @@ div.tocify {
 <p>Ce jeux de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.<br />
 Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html">ICI</a>.</p>
 <pre class="r"><code>require(MASS)</code></pre>
-<pre><code>## Loading required package: MASS</code></pre>
-<pre><code>## 
-## Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     cats</code></pre>
-<pre><code>## The following object is masked from &#39;package:DAAG&#39;:
-## 
-##     hills</code></pre>
+<pre class="r"><code>require(MASS)</code></pre>
 <pre class="r"><code>data(cats)</code></pre>
 </div>
 <div id="structure-de-la-base-de-donnees" class="section level1">
@@ -460,7 +452,7 @@ cats$rapport_2C &lt;- cut(cats$rapport, #le vecteur numerique a categoriser
 cats$random &lt;- runif(144, #doit correspondre au nombre d&#39;observation (de lignes) dans la BDD
                      min = 0, max= 10) #parametres de la distribution
 str(cats$random)</code></pre>
-<pre><code>##  num [1:144] 5.43 3.75 1.67 2.36 9.05 ...</code></pre>
+<pre><code>##  num [1:144] 1.323 3.551 8.408 3.198 0.464 ...</code></pre>
 </div>
 <div id="modifier-une-variable" class="section level1">
 <h1>4. Modifier une variable</h1>

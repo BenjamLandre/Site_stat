@@ -397,7 +397,7 @@ D’autres fonctions permettent de les obtenir plus selectivement, un a un. Dans
 
 summary(ais_NA$ferr) #la derniere colonne denombre les donnees manquantes pour cette variable.</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##    8.00   41.75   66.50   77.31   97.50  234.00      10</code></pre>
+##    8.00   41.00   64.00   75.96   97.00  234.00      10</code></pre>
 <pre class="r"><code>table(is.na(ais_NA$ferr)) #is.na() = la valeur est elle manquante ? / permet d&#39;obtenir les effectifs</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
@@ -413,9 +413,9 @@ quantile(ais_NA$ferr,na.rm=TRUE)</code></pre>
 table(ais_NA$sport, useNA = &quot;always&quot;) #useNA: doit on inclure les donnees manquantes &quot;always&quot; !</code></pre>
 <pre><code>## 
 ##  B_Ball   Field     Gym Netball     Row    Swim  T_400m T_Sprnt  Tennis 
-##      24      19       3      21      33      22      28      15      10 
+##      24      17       4      23      34      22      28      15      10 
 ##  W_Polo    &lt;NA&gt; 
-##      17      10</code></pre>
+##      15      10</code></pre>
 <p><strong>- En bivarie</strong></p>
 <p>On peut egalement realiser une analyse bivariee, c-a-d decrire la distribution d’une variable selon differents groupes.</p>
 <pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
@@ -425,27 +425,27 @@ tapply(ais_NA$ferr, #la variable que l&#39;on souhaite decrire
        summary) #utiliser cette fonction de description</code></pre>
 <pre><code>## $f
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   12.00   36.50   50.00   57.62   73.00  182.00       5 
+##   12.00   36.00   50.00   56.77   71.00  182.00       3 
 ## 
 ## $m
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##     8.0    55.0    89.0    96.6   122.0   234.0       5</code></pre>
+##    8.00   53.00   87.00   95.55  120.00  234.00       7</code></pre>
 <pre class="r"><code>#Dans le cas d&#39;une variable qualitative
 
 table(ais_NA$sport, ais_NA$sex, useNA = &quot;always&quot;)</code></pre>
 <pre><code>##          
 ##            f  m &lt;NA&gt;
-##   B_Ball  13 11    0
-##   Field    7 12    0
-##   Gym      3  0    0
-##   Netball 21  0    0
-##   Row     18 15    0
+##   B_Ball  12 12    0
+##   Field    6 11    0
+##   Gym      4  0    0
+##   Netball 23  0    0
+##   Row     19 15    0
 ##   Swim     9 13    0
 ##   T_400m  11 17    0
 ##   T_Sprnt  4 11    0
 ##   Tennis   7  3    0
-##   W_Polo   0 17    0
-##   &lt;NA&gt;     7  3    0</code></pre>
+##   W_Polo   0 15    0
+##   &lt;NA&gt;     5  5    0</code></pre>
 </div>
 <div id="representation-graphiques" class="section level1">
 <h1>2. Representation graphiques</h1>

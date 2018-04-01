@@ -92,7 +92,7 @@ write.csv(Nom_de_la_bdd_a_sauvegarder, "Nom_de_la_bdd_sauvee.csv", row.names=F)
 
 *************************
 
-[Pour s'entrainer]()mettre un lien vers doc pdf avec exos de gestion de base de base de donnees et subset ++++.
+[Pour s'entrainer](entrainement_2.pdf)
 
 **Synthese des fonctions**
 

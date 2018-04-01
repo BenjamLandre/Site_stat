@@ -1,0 +1,41 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+(1) Ouvrez le projet crée précédemment (File > Open Project)    
+
+ou    
+
+recreez ces vecteurs à partir des commandes suivantes:    
+
+ID <- LETTERS[1:13]   
+Poids <- c(65, 62, 66, 70, 70, 63, 68, 58, 72, 58, 67, 178, 71)   
+Taille <- c(174, 177, 170, 163, 173, 184, 184, 162, 176, NA, 186, 64, 173)    
+
+(2) Creez la data frame "BDD", qui regroupe ces variables.    
+
+(3) Modifiez la BDD pour ajouter une taille à l'individu J et inversez la taille et le poids pour l'individu L.   
+
+(4) Creez une nouvelle colonne 'IMC', a partir des colonnes pre-existantes Poids et Taille.   
+
+On connait l'âge des individus. On souhaite ajouter cette information à BDD.    
+Les ages sont les suivants:   
+
+Age <- rnorm(13, 45, 10)    
+
+(5) Creez une nouvelle colonne 'Age', à partir de ce vecteur.   
+
+On souhaite travaillez seulement sur les données des individus ayant un IMC inférieur ou égal à 22.   
+
+(6) Creez BDD_1, qui contient les informations des individus ayant un IMC inférieur ou égal à 22.   
+  (6.1) En utilisant l'opérateur [,]    
+  (6.2) En utilisant la fonction subset()   
+
+(7) Créez la variable INDICATEUR, qui prend la valeur 1 pour tous les individus de BDD_1.   
+
+(8) Sauvez BDD_1 au format .csv   
+
+(9) Enregistrez le script, le workspace et fermez le projet.    

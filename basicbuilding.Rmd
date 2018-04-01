@@ -182,9 +182,9 @@ Pour decouvrir de nouvelles fonctions le plus simple est de tapper 'l'action que
 
 Par exemple:
 
-*Calculate cook's distance in r*
+> *Calculate cook's distance in r*
 
-Ou de consulter les (forums d'aide)[https://stats.stackexchange.com/].
+Ou en consultant les [forums d'aide](https://stats.stackexchange.com/).
 
 *************************
 
