@@ -80,3 +80,15 @@ fisher.test(tableau_contingence) #effectifs insuffisants pour le calcul sans sim
 
 ```
 
+*********************************
+
+Pour s'entrainer
+
+**Synthese des fonctions**
+
+| Fonction                               | Description                      |
+|----------------------------------------|----------------------------------|
+| t.test(,paired= , alternative= )       | calculer un test de student      |
+| wilcox.test(, paired= , alternative= ) | calculer un test de wilcoxon     |
+| chisq.test( , correct= )               | calculer un test du chi carre    |
+| fisher.test()                          | calculer un test exact de Fisher |

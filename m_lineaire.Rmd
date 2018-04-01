@@ -172,3 +172,14 @@ Notre jeu de donnees ayant ete construit de toute piece, on s'est premunie de ce
 par(mfrow=c(2,2))
 plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))
 ```
+
+*****************************************
+Pour s'entrainer.
+
+**Synthese des fonctions**
+
+| Fonction                                     | Description                                  |
+|----------------------------------------------|----------------------------------------------|
+| lm( outcome ~  variable1+ varible2, data= )  | model linaire                                |
+| anova(m1, m2)                                | comparaison des models m1 et m2              |
+| step(m1, direction= , scope(m.null , m.max)) | selection stepwise des variables du model m1 |

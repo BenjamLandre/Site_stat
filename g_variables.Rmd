@@ -140,3 +140,20 @@ cats$Bwt <- ifelse(cats$Sex == "M", #condition logique: "Si la variable Sex pren
 summary(cats$Bwt)
 ```
 
+**************
+
+Pour s'entrainer
+
+**Synthese des fonctions**
+
+| Fonction                            | Description                                               |
+|-------------------------------------|-----------------------------------------------------------|
+| data()                              | charge un jeu de donnees present dans une library         |
+| str()                               | description de la structure des donnees                   |
+| as.numeric()                        | convertit un element en element numerique (si possible)   |
+| as.character()                      | convertit une element en element de type character        |
+| as.factor()                         | convertit un element en element de type factor            |
+| factor( , , )                       | cree un vecteur de type factor                            |
+| cut( , , include.lowest= , right= ) | categorise un vecteur numerique                           |
+| summary()                           | produit des statistiques descriptive du vecteur renseigne |
+| ifelse(condition, v1, v2)           | attribue v1 si la condition est respectee sinon attribue v2 |

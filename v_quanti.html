@@ -397,7 +397,7 @@ D’autres fonctions permettent de les obtenir plus selectivement, un a un. Dans
 
 summary(ais_NA$ferr) #la derniere colonne denombre les donnees manquantes pour cette variable.</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   12.00   41.00   64.00   74.93   94.00  234.00      10</code></pre>
+##    8.00   41.75   66.50   77.31   97.50  234.00      10</code></pre>
 <pre class="r"><code>table(is.na(ais_NA$ferr)) #is.na() = la valeur est elle manquante ? / permet d&#39;obtenir les effectifs</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
@@ -413,9 +413,9 @@ quantile(ais_NA$ferr,na.rm=TRUE)</code></pre>
 table(ais_NA$sport, useNA = &quot;always&quot;) #useNA: doit on inclure les donnees manquantes &quot;always&quot; !</code></pre>
 <pre><code>## 
 ##  B_Ball   Field     Gym Netball     Row    Swim  T_400m T_Sprnt  Tennis 
-##      24      19       4      23      34      21      27      13      11 
+##      24      19       3      21      33      22      28      15      10 
 ##  W_Polo    &lt;NA&gt; 
-##      16      10</code></pre>
+##      17      10</code></pre>
 <p><strong>- En bivarie</strong></p>
 <p>On peut egalement realiser une analyse bivariee, c-a-d decrire la distribution d’une variable selon differents groupes.</p>
 <pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
@@ -425,27 +425,27 @@ tapply(ais_NA$ferr, #la variable que l&#39;on souhaite decrire
        summary) #utiliser cette fonction de description</code></pre>
 <pre><code>## $f
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   12.00   36.00   50.00   56.57   71.00  182.00       2 
+##   12.00   36.50   50.00   57.62   73.00  182.00       5 
 ## 
 ## $m
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   20.00   53.50   87.00   94.07  121.00  234.00       8</code></pre>
+##     8.0    55.0    89.0    96.6   122.0   234.0       5</code></pre>
 <pre class="r"><code>#Dans le cas d&#39;une variable qualitative
 
 table(ais_NA$sport, ais_NA$sex, useNA = &quot;always&quot;)</code></pre>
 <pre><code>##          
 ##            f  m &lt;NA&gt;
-##   B_Ball  12 12    0
+##   B_Ball  13 11    0
 ##   Field    7 12    0
-##   Gym      4  0    0
-##   Netball 23  0    0
-##   Row     20 14    0
-##   Swim     9 12    0
-##   T_400m   9 18    0
-##   T_Sprnt  3 10    0
-##   Tennis   7  4    0
-##   W_Polo   0 16    0
-##   &lt;NA&gt;     6  4    0</code></pre>
+##   Gym      3  0    0
+##   Netball 21  0    0
+##   Row     18 15    0
+##   Swim     9 13    0
+##   T_400m  11 17    0
+##   T_Sprnt  4 11    0
+##   Tennis   7  3    0
+##   W_Polo   0 17    0
+##   &lt;NA&gt;     7  3    0</code></pre>
 </div>
 <div id="representation-graphiques" class="section level1">
 <h1>2. Representation graphiques</h1>
@@ -487,6 +487,67 @@ par(mfrow=c(1,1))
 boxplot(ais_NA$ferr ~ ais_NA$sport, main=&quot;Boxplot: [ferritine] en fonction du sport&quot;)
 }</code></pre>
 <p><img src="v_quanti_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<hr />
+<p>Pour s’entrainer.</p>
+<p><strong>Synthese des fonctions</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>summary()</td>
+<td>fournit des statistiques descriptive sur l’objet</td>
+</tr>
+<tr class="even">
+<td>table(, useNA= “always”)</td>
+<td>tableau de contingence</td>
+</tr>
+<tr class="odd">
+<td>is.na()</td>
+<td>TRUE si l’element est NA, FALSE si non</td>
+</tr>
+<tr class="even">
+<td>mean(, na.rm=T)</td>
+<td>moyenne du vecteur</td>
+</tr>
+<tr class="odd">
+<td>sd( , na.rm=T)</td>
+<td>ecart-type du vecteur</td>
+</tr>
+<tr class="even">
+<td>range( , na.rm=T)</td>
+<td>valeur minimale et maximale du vecteur</td>
+</tr>
+<tr class="odd">
+<td>quantile( , na.rm=TRUE)</td>
+<td>quantile du vecteur</td>
+</tr>
+<tr class="even">
+<td>plot()</td>
+<td>fonction generique pour produire un graphique</td>
+</tr>
+<tr class="odd">
+<td>abline()</td>
+<td>ajouter une droite a un graphique</td>
+</tr>
+<tr class="even">
+<td>stripchart()</td>
+<td>produire un stripchart</td>
+</tr>
+<tr class="odd">
+<td>hist()</td>
+<td>produire un histogramme</td>
+</tr>
+<tr class="even">
+<td>boxplot()</td>
+<td>produire une boite a moustaches</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

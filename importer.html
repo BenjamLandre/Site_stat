@@ -403,7 +403,7 @@ M3 #M3 est une matrice construite a partir d&#39;un unique vecteur, qu&#39;on a 
 ## [3,]    6   14
 ## [4,]    8   16</code></pre>
 <p>Les matrices sont des vecteurs a plusieurs dimensions.<br />
-On peut acceder aux valeurs comprisent dans la matrice de la meme facon que l’on selectionne un sous-ensemble d’un vecteur.<br />
+On peut acceder aux valeurs comprises dans la matrice de la meme facon que l’on selectionne un sous-ensemble d’un vecteur.<br />
 On utilise l’indicateur “[]” juste apres le nom de la matrice, en precisant cette fois 2 parametres qui correspondent aux lignes et aux colonnes.</p>
 <pre class="r"><code>M1</code></pre>
 <pre><code>##      [,1] [,2]
@@ -425,13 +425,13 @@ C’est a dire que des colonnes preuvent presenter des chiffres alors que d’au
 <pre class="r"><code>a&lt;- c(&quot;Pierre&quot;, &quot;Paul&quot;, &quot;Jack&quot;, &quot;Bob&quot;) #vecteur de texte
 b&lt;- c(2,4,6,8) #vecteur numerique
 
-D1&lt;- data.frame(Colone1= a, Colone2= b)
+D1&lt;- data.frame(Colonne1= a, Colonne2= b)
 D1 #une data frame qui associe des vecteurs de differents types.</code></pre>
-<pre><code>##   Colone1 Colone2
-## 1  Pierre       2
-## 2    Paul       4
-## 3    Jack       6
-## 4     Bob       8</code></pre>
+<pre><code>##   Colonne1 Colonne2
+## 1   Pierre        2
+## 2     Paul        4
+## 3     Jack        6
+## 4      Bob        8</code></pre>
 <p>Un objet qui regroupe des vecteurs de type different est appele une liste.<br />
 Les data frame sont donc consideree par R comme des listes a 2 dimensions.</p>
 <p>On accede aux elements qu’elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].<br />
@@ -439,26 +439,54 @@ On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l�
 <pre class="r"><code>D1[,1] #1ere colonne de D1</code></pre>
 <pre><code>## [1] Pierre Paul   Jack   Bob   
 ## Levels: Bob Jack Paul Pierre</code></pre>
-<pre class="r"><code>D1$Colone1 #idem</code></pre>
+<pre class="r"><code>D1$Colonne1 #idem</code></pre>
 <pre><code>## [1] Pierre Paul   Jack   Bob   
 ## Levels: Bob Jack Paul Pierre</code></pre>
-<pre class="r"><code>D1[D1$Colone2&gt;2,] # on souhaite dans D1, les lignes pour lesquels la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.</code></pre>
-<pre><code>##   Colone1 Colone2
-## 2    Paul       4
-## 3    Jack       6
-## 4     Bob       8</code></pre>
+<pre class="r"><code>D1[D1$Colonne2&gt;2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.</code></pre>
+<pre><code>##   Colonne1 Colonne2
+## 2     Paul        4
+## 3     Jack        6
+## 4      Bob        8</code></pre>
+<pre class="r"><code>subset(D1, Colonne2&gt;2) # une alternative en passant par la fonction subset</code></pre>
+<pre><code>##   Colonne1 Colonne2
+## 2     Paul        4
+## 3     Jack        6
+## 4      Bob        8</code></pre>
 </div>
 <div id="importersauvegarder" class="section level1">
 <h1>Importer/Sauvegarder</h1>
 <p>On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.<br />
 Le plus simple est d’utiliser l’onglet ‘Import Dataset’, dans le panel “Environment”.</p>
-<p>Des formats plus exotiques peuvent $etre importes via des packages et fonctions dediees.</p>
+<p>Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.</p>
 <p>Les modifications effectuees sur la base de donnees ne sont presentes que dans la session active de R.<br />
 Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.</p>
 <p>Le format d’export le plus courant est le format texte (.csv). Different packages permettent d’exporter sous d’autres formats.</p>
 <pre class="r"><code>write.csv(Nom_de_la_bdd_a_sauvegarder, &quot;Nom_de_la_bdd_sauvee.csv&quot;, row.names=F)</code></pre>
 <hr />
-<p><a href="">Pour s’entrainer</a>mettre un lien vers doc pdf avec exos de gestion de base de base de donnee et subset ++++.</p>
+<p><a href="">Pour s’entrainer</a>mettre un lien vers doc pdf avec exos de gestion de base de base de donnees et subset ++++.</p>
+<p><strong>Synthese des fonctions</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>matrix( , ncol= )</td>
+<td>creer une matrice</td>
+</tr>
+<tr class="even">
+<td>data.frame()</td>
+<td>creer une data frame</td>
+</tr>
+<tr class="odd">
+<td>write.csv()</td>
+<td>sauver au format csv une base de donnees</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

@@ -86,3 +86,19 @@ str(New_bdd)
 New_bdd<- dplyr::inner_join(D1,D2) #on conserve l'information des individus present a la fois dans D1 et D2
 str(New_bdd)
 ```
+
+*************************************
+
+Pour s'entrainer
+
+**Synthese des fonctions**
+
+| Fonction               | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| rep( element , n)      | repete une element n fois                                                   |
+| rnorm(n, m, s)         | cree aleatoirement n element suivant une loi normale de parametre m et s    |
+| rbind()                | joindre deux objets leurs lignes                                            |
+| cbind()                | joindre deux objets par leurs colonnes                                      |
+| left_join(bdd1, bdd2)  | joindre a bdd1 les donnees de bdd2, des individus de bdd1 present dans bdd2 |
+| inner_join(bdd1, bdd2) | joindre bdd1 et bdd2 en ne conservant que ceux present dans les deux bdd    |
+| full_join(bdd1, bdd2)  | joindre les deux bdd en conservant toute l'information                      |

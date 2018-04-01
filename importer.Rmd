@@ -33,7 +33,7 @@ M3 #M3 est une matrice construite a partir d'un unique vecteur, qu'on a repartis
 ```
 
 Les matrices sont des vecteurs a plusieurs dimensions.    
-On peut acceder aux valeurs comprisent dans la matrice de la meme facon que l'on selectionne un sous-ensemble d'un vecteur.  
+On peut acceder aux valeurs comprises dans la matrice de la meme facon que l'on selectionne un sous-ensemble d'un vecteur.  
 On utilise l'indicateur "[]" juste apres le nom de la matrice, en precisant cette fois 2 parametres qui correspondent aux lignes et aux colonnes.
 
 ```{r}
@@ -52,7 +52,7 @@ C'est a dire que des colonnes preuvent presenter des chiffres alors que d'autre 
 a<- c("Pierre", "Paul", "Jack", "Bob") #vecteur de texte
 b<- c(2,4,6,8) #vecteur numerique
 
-D1<- data.frame(Colone1= a, Colone2= b)
+D1<- data.frame(Colonne1= a, Colonne2= b)
 D1 #une data frame qui associe des vecteurs de differents types.
 
 ```
@@ -66,9 +66,11 @@ On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l'
 ```{r}
 D1[,1] #1ere colonne de D1
 
-D1$Colone1 #idem
+D1$Colonne1 #idem
 
-D1[D1$Colone2>2,] # on souhaite dans D1, les lignes pour lesquels la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.
+D1[D1$Colonne2>2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.
+
+subset(D1, Colonne2>2) # une alternative en passant par la fonction subset
 ```
 
 #Importer/Sauvegarder
@@ -76,7 +78,7 @@ D1[D1$Colone2>2,] # on souhaite dans D1, les lignes pour lesquels la valeur de l
 On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.    
 Le plus simple est d'utiliser l'onglet 'Import Dataset', dans le panel "Environment".
 
-Des formats plus exotiques peuvent $etre importes via des packages et fonctions dediees.
+Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.
 
 Les modifications effectuees sur la base de donnees ne sont presentes que dans la session active de R.     
 Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.  
@@ -90,4 +92,12 @@ write.csv(Nom_de_la_bdd_a_sauvegarder, "Nom_de_la_bdd_sauvee.csv", row.names=F)
 
 *************************
 
-[Pour s'entrainer]()mettre un lien vers doc pdf avec exos de gestion de base de base de donnee et subset ++++.
+[Pour s'entrainer]()mettre un lien vers doc pdf avec exos de gestion de base de base de donnees et subset ++++.
+
+**Synthese des fonctions**
+
+| Fonction          | Description                              |
+|-------------------|------------------------------------------|
+| matrix( , ncol= ) | creer une matrice                        |
+| data.frame()      | creer une data frame                     |
+| write.csv()       | sauver au format csv une base de donnees |

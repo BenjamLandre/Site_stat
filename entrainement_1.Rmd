@@ -1,0 +1,101 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+
+(1) Ouvrez un nouveau projet : File > New Project > New directory.    
+
+[Vous pouvez gérer les projets en haut à droite de l'interface RStudio, au dessus du panel Environment.]    
+
+#A. Premiers calculs
+
+On utilisera le jeu de données correspondant au tableau suivant.    
+Chez 13 personnes identifiés de A à M, on dispose de leurs poids et de leur taille.   
+
+(2) Caculez l'IMC de l'individu A.    
+(3) Créez un vecteur ID contenant tous les identifiants [les chaînes de caractères sont à mettre entre guillemets].   
+(4) Créez un vecteur Poids et un vecteur Taille.    
+
+Il y a une valeur manquante pour l'individu J, et une inversion des variables pour l'individu L.    
+On souhaite corriger les valeurs chez ces deux individus.     
+
+(5) Modifiez le vecteur taille pour renseignez la taille de l'individu J (10eme élément du vecteur).    
+(6) Modifiez le vecteur poids et taille pour inverser les valeurs de ces vecteurs pour l'individu L (12eme élément des vecteurs).   
+
+| ID | Poids | Taille |
+|----|-------|--------|
+| A  | 65    | 174    |
+| B  | 62    | 177    |
+| C  | 66    | 170    |
+| D  | 70    | 163    |
+| E  | 70    | 173    |
+| F  | 63    | 184    |
+| G  | 68    | 184    |
+| H  | 58    | 162    |
+| I  | 72    | 176    |
+| J  | 58    | NA     |
+| K  | 67    | 189    |
+| L  | 178   | 64     |
+| M  | 71    | 173    |
+
+(7) Créez un vecteur IMC, qui contient l'ensemble des IMC de tous les individus, à partir des vecteurs precedemment crée.   
+(8) Installez le package "prettyR", chargez le.       
+(9) Utilisez la fonction describe(), pour décrire le vecteur IMC.   
+(10) Calculez la moyenne, puis la variance et l'écart type de l'IMC en vous aidant des fonctions sum() et length().   
+[?fonction() pour accèder à la page d'aide sur la fonction]    
+
+#B. Règles de calcul pour vecteurs.
+
+On va utiliser les données des individus A à D.   
+
+(11) Créez un vecteur Taille_2 et Poids_2 qui contient la taill et le poids de ces 4 individus.   
+
+On va regarder ce qu'il se passe lorsque l'on effectue certains calculs implicant des vecteurs.   
+
+On suppose que la balance est biaisée, elle ajoute systématiquement à tous les individus.   
+On souhaite corriger ce biais.    
+On sait que la balance ajoute un poids fixe de 2kg identique à tout le monde, ainsi qu'un poids qui est proportionnel au poids de l'individu.   
+
+(12) Retirez 2kg à tous les éléments du vecteur Poids_2.    
+(13) Multipliez tous les éléments du vecteur Poids_2 par un coefficient 0.9.    
+
+On peut facilement ajouter ou multiplier chaque éléments d'un vecteur par un chiffre unique.        
+Chaque éléments du vecteur est modifié.   
+
+Les choses sont différentes lorsque l'on fait interagir un vecteur avec un autre vecteur.   
+Il y a 2 situations possibles: soit les vecteurs sont de tailles égales soit ils sont de tailles inégales.    
+Lorsqu'ils sont de tailles inégales: ( taille vecteur 1 / taille vecteur 2) est il un entier positif ?    
+
+On souhaite apporter une correction plus fine à nos poids biaisés.    
+On estime le biais pour chaques individus.    
+La part fixe ajoutée par la balance est de -2.3 kg, +0.2kg, -1.3kg et -0.8kg.    
+La part variable ajoutée par la balance est de \*0.9, \*0.7, pour les individus A et B seulement.   
+
+(14) Effectuez la correction de la part fixe à partir de Poids_2 et d'un vecteur de correction.   
+
+Essayez la formule suivante:    
+
+> Poids_2 * c(0.9, 0.7)
+
+Que se passe t'il? Est ce la correction attendue?   
+
+Poids_2 comporte 4 éléments, la correction n'en comporte que 2.   
+R va corriger les 2 premiers poids, puis ré-utiliser les valeurs 0.9 et 0.7 sur les deux poids suivants.    
+
+Le poids des individus 3 et 4 sont échangées, elles sont multipliées par 1.   
+
+> Poids_2 * c(0.9, 0.7, 1)
+
+R renvoi une erreur. Qu'a t'il calculé ?    
+
+Poids_2 comporte toujours 4 éléments, la correction n'en comporte que 3.    
+R corrige les 3 premiers poids puis recycle partiellement le vecteur en ré-utilisant le premier élément de la correction.      
+
+La correction attendue fait intervenir des vecteurs de tailles égales :   
+
+> Poids_2 * c(0.9, 0.7, 1, 1)
+
+(15) Sauver votre script (ctrl+s), enregistrez le workspace (Session > Save workspace as), fermez le projet.    

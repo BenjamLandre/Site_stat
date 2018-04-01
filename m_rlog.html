@@ -505,6 +505,39 @@ Si on retire une de ces variable, la variance de l’autre variable est fortemen
 vif(RL.1)</code></pre>
 <pre><code>##       vomiting         age.65 amnesia.before   GCS.decrease 
 ##         1.0049         1.0109         1.0048         1.0120</code></pre>
+<hr />
+<p>Pour s’entrainer.</p>
+<p><strong>Synthese des fonctions</strong></p>
+<table>
+<colgroup>
+<col width="58%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>glm( outcome ~ variable1+ varible2, family= “binomial”,data= )</td>
+<td>regression logistique</td>
+</tr>
+<tr class="even">
+<td>anova(m1, m2, test= “Chisq”)</td>
+<td>comparaison des models m1 et m2</td>
+</tr>
+<tr class="odd">
+<td>step(m1, direction= , scope(m.null , m.max))</td>
+<td>selection stepwise des variables du model m1</td>
+</tr>
+<tr class="even">
+<td>vif(m1)</td>
+<td>calcul les VIF des variables du model m1</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

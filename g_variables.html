@@ -380,6 +380,9 @@ Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/MASS
 <pre><code>## Loading required package: MASS</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
+## 
+##     cats</code></pre>
 <pre><code>## The following object is masked from &#39;package:DAAG&#39;:
 ## 
 ##     hills</code></pre>
@@ -457,7 +460,7 @@ cats$rapport_2C &lt;- cut(cats$rapport, #le vecteur numerique a categoriser
 cats$random &lt;- runif(144, #doit correspondre au nombre d&#39;observation (de lignes) dans la BDD
                      min = 0, max= 10) #parametres de la distribution
 str(cats$random)</code></pre>
-<pre><code>##  num [1:144] 3.257 9.851 3.606 0.113 2.95 ...</code></pre>
+<pre><code>##  num [1:144] 5.43 3.75 1.67 2.36 9.05 ...</code></pre>
 </div>
 <div id="modifier-une-variable" class="section level1">
 <h1>4. Modifier une variable</h1>
@@ -487,6 +490,59 @@ cats$Bwt &lt;- ifelse(cats$Sex == &quot;M&quot;, #condition logique: &quot;Si la
 summary(cats$Bwt)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   2.080   2.678   4.972   4.610   5.899   7.605</code></pre>
+<hr />
+<p>Pour s’entrainer</p>
+<p><strong>Synthese des fonctions</strong></p>
+<table>
+<colgroup>
+<col width="38%" />
+<col width="61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data()</td>
+<td>charge un jeu de donnees present dans une library</td>
+</tr>
+<tr class="even">
+<td>str()</td>
+<td>description de la structure des donnees</td>
+</tr>
+<tr class="odd">
+<td>as.numeric()</td>
+<td>convertit un element en element numerique (si possible)</td>
+</tr>
+<tr class="even">
+<td>as.character()</td>
+<td>convertit une element en element de type character</td>
+</tr>
+<tr class="odd">
+<td>as.factor()</td>
+<td>convertit un element en element de type factor</td>
+</tr>
+<tr class="even">
+<td>factor( , , )</td>
+<td>cree un vecteur de type factor</td>
+</tr>
+<tr class="odd">
+<td>cut( , , include.lowest= , right= )</td>
+<td>categorise un vecteur numerique</td>
+</tr>
+<tr class="even">
+<td>summary()</td>
+<td>produit des statistiques descriptive du vecteur renseigne</td>
+</tr>
+<tr class="odd">
+<td>ifelse(condition, v1, v2)</td>
+<td>attribue v1 si la condition est respectee sinon attribue v2</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

@@ -288,14 +288,14 @@ str(D1)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  3 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27 23.6 24.6 24 25.7 ...</code></pre>
+##  $ VAL1: num  29.1 32.7 25.8 27 26.7 ...</code></pre>
 <pre class="r"><code>id.3&lt;- 35:80
 val4&lt;- rnorm(46,25,3)
 D2&lt;- data.frame(ID= id.3, VAL3= val4) #46 observations de 2 variables: ID, VAL3
 str(D2)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    46 obs. of  2 variables:
 ##  $ ID  : int  35 36 37 38 39 40 41 42 43 44 ...
-##  $ VAL3: num  25.7 27.7 22.2 26.9 21.4 ...</code></pre>
+##  $ VAL3: num  32.5 25.3 26.7 28.7 19.4 ...</code></pre>
 <p><strong>1. Rajout simple (fonctions de base)</strong></p>
 <p>On a une base de donnees a laquelle on souhaite rajouter une ou des colonnes/lignes issue d’une autre base de donnee.<br />
 La seule condition a respecter est que les tailles des deux elements soient compatibles.</p>
@@ -312,9 +312,9 @@ str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  5 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27 23.6 24.6 24 25.7 ...
-##  $ 1   : num  50.4 53 48.5 48.8 52.5 ...
-##  $ 2   : num  49.4 51.8 46.6 46.4 52.3 ...</code></pre>
+##  $ VAL1: num  29.1 32.7 25.8 27 26.7 ...
+##  $ 1   : num  54.6 51.7 56.4 44.7 51.4 ...
+##  $ 2   : num  47.1 51.9 46.2 51.6 53.2 ...</code></pre>
 <pre class="r"><code>#rajout d&#39;une ligne a la bdd pre-existante.
 
 New_bdd&lt;- rbind(D1, c(42, &quot;A&quot;, 100)) #rbind = row bind ~ lier lignes
@@ -322,7 +322,7 @@ str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    41 obs. of  3 variables:
 ##  $ ID  : chr  &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: chr  &quot;26.9632205654497&quot; &quot;23.5538493199165&quot; &quot;24.5634142668266&quot; &quot;23.9534750886754&quot; ...</code></pre>
+##  $ VAL1: chr  &quot;29.1022006970404&quot; &quot;32.7209400303727&quot; &quot;25.8060340417685&quot; &quot;26.9785819718765&quot; ...</code></pre>
 <pre class="r"><code>#
 
 New_bdd&lt;- cbind(D2, add_table) #impossible car objets de tailles differentes</code></pre>
@@ -347,7 +347,7 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  4 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27 23.6 24.6 24 25.7 ...
+##  $ VAL1: num  29.1 32.7 25.8 27 26.7 ...
 ##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <pre class="r"><code>New_bdd&lt;- dplyr::full_join(D1,D2) #on conserve l&#39;ensemble de l&#39;information des deux tableaux</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
@@ -355,7 +355,7 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    80 obs. of  4 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27 23.6 24.6 24 25.7 ...
+##  $ VAL1: num  29.1 32.7 25.8 27 26.7 ...
 ##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <pre class="r"><code>New_bdd&lt;- dplyr::inner_join(D1,D2) #on conserve l&#39;information des individus present a la fois dans D1 et D2</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
@@ -363,8 +363,53 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    6 obs. of  4 variables:
 ##  $ ID  : int  35 36 37 38 39 40
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2
-##  $ VAL1: num  23.5 27.7 25.4 25.7 31.6 ...
-##  $ VAL3: num  25.7 27.7 22.2 26.9 21.4 ...</code></pre>
+##  $ VAL1: num  20.3 24.1 27.7 23.5 30.5 ...
+##  $ VAL3: num  32.5 25.3 26.7 28.7 19.4 ...</code></pre>
+<hr />
+<p>Pour s’entrainer</p>
+<p><strong>Synthese des fonctions</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="24%" />
+<col width="75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rep( element , n)</td>
+<td>repete une element n fois</td>
+</tr>
+<tr class="even">
+<td>rnorm(n, m, s)</td>
+<td>cree aleatoirement n element suivant une loi normale de parametre m et s</td>
+</tr>
+<tr class="odd">
+<td>rbind()</td>
+<td>joindre deux objets leurs lignes</td>
+</tr>
+<tr class="even">
+<td>cbind()</td>
+<td>joindre deux objets par leurs colonnes</td>
+</tr>
+<tr class="odd">
+<td>left_join(bdd1, bdd2)</td>
+<td>joindre a bdd1 les donnees de bdd2, des individus de bdd1 present dans bdd2</td>
+</tr>
+<tr class="even">
+<td>inner_join(bdd1, bdd2)</td>
+<td>joindre bdd1 et bdd2 en ne conservant que ceux present dans les deux bdd</td>
+</tr>
+<tr class="odd">
+<td>full_join(bdd1, bdd2)</td>
+<td>joindre les deux bdd en conservant toute l’information</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

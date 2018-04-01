@@ -86,3 +86,15 @@ require(DAAG)
 vif(RL.1)
 ```
 
+*************************************
+
+Pour s'entrainer.
+
+**Synthese des fonctions**
+
+| Fonction                                                        | Description                                  |
+|-----------------------------------------------------------------|----------------------------------------------|
+| glm( outcome ~  variable1+ varible2, family= "binomial",data= ) | regression logistique                        |
+| anova(m1, m2, test= "Chisq")                                    | comparaison des models m1 et m2              |
+| step(m1, direction= , scope(m.null , m.max))                    | selection stepwise des variables du model m1 |
+| vif(m1)                                                         | calcul les VIF des variables du model m1     |

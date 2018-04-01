@@ -134,3 +134,23 @@ boxplot(ais_NA$ferr ~ ais_NA$sport, main="Boxplot: [ferritine] en fonction du sp
 }
 ```
 
+******************************
+
+Pour s'entrainer.
+
+**Synthese des fonctions**
+
+| Fonction                 | Description                                      |
+|--------------------------|--------------------------------------------------|
+| summary()                | fournit des statistiques descriptive sur l'objet |
+| table(, useNA= "always") | tableau de contingence                           |
+| is.na()                  | TRUE si l'element est NA, FALSE si non           |
+| mean(, na.rm=T)          | moyenne du vecteur                               |
+| sd( , na.rm=T)           | ecart-type du vecteur                            |
+| range( , na.rm=T)        | valeur minimale et maximale du vecteur           |
+| quantile( , na.rm=TRUE)  | quantile du vecteur                              |
+| plot()                   | fonction generique pour produire un graphique    |
+| abline()                 | ajouter une droite a un graphique                |
+| stripchart()             | produire un stripchart                           |
+| hist()                   | produire un histogramme                          |
+| boxplot()                | produire une boite a moustaches                  |

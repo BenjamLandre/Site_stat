@@ -408,12 +408,12 @@ var.1 &lt;- 48 + A*var.2 + B*var.3 + C*var.4 + D*var.5 + E*var.6 + rnorm(450, 0 
 BDD &lt;- data.frame(var.1,var.2, var.3, var.4, var.5, var.6)
 str(BDD)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    450 obs. of  6 variables:
-##  $ var.1: num  104.4 77.3 136.7 80.3 87.2 ...
-##  $ var.2: num  2.82 4.29 12.35 1.36 16.04 ...
-##  $ var.3: num  26.039 6.671 5.774 24.804 0.559 ...
-##  $ var.4: num  37.4 17.8 22.6 17.2 -25.8 ...
-##  $ var.5: num  77.37 96.26 75.53 43.45 6.89 ...
-##  $ var.6: num  29.68 54.03 60.84 49.52 7.62 ...</code></pre>
+##  $ var.1: num  147.46 133.2 239.85 5.85 134.93 ...
+##  $ var.2: num  -1.9 19.99 24.84 -38.14 8.19 ...
+##  $ var.3: num  30.95 14.54 23.28 2.12 14.27 ...
+##  $ var.4: num  116.71 30.63 78.09 6.93 69.77 ...
+##  $ var.5: num  35.9 46.8 111.9 112.4 77.6 ...
+##  $ var.6: num  45 80.3 52.2 32.5 164.2 ...</code></pre>
 <p><strong>Visualisation des associations brutes</strong></p>
 <p>On peut visualiser dans un premiers temps la relation de notre variable d’interet avec les autres variables.<br />
 On constate comme attendu que les relations semblent lineaires, et proches des coefficients specifies plus haut.</p>
@@ -437,22 +437,22 @@ summary(M.Lineaire.1)</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -62.849 -11.487   0.462  10.922  42.639 
+## -50.763 -11.946  -0.578  10.566  58.363 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 50.764587   1.822721  27.851   &lt;2e-16 ***
-## var.2        3.095849   0.068721  45.050   &lt;2e-16 ***
-## var.3        1.028837   0.031349  32.818   &lt;2e-16 ***
-## var.4        0.468405   0.022074  21.220   &lt;2e-16 ***
-## var.5        0.191850   0.015404  12.455   &lt;2e-16 ***
-## var.6       -0.009007   0.012500  -0.721    0.472    
+## (Intercept) 45.794549   2.065455  22.172   &lt;2e-16 ***
+## var.2        2.839394   0.069044  41.124   &lt;2e-16 ***
+## var.3        0.998625   0.033441  29.862   &lt;2e-16 ***
+## var.4        0.518075   0.022850  22.673   &lt;2e-16 ***
+## var.5        0.217497   0.017072  12.740   &lt;2e-16 ***
+## var.6       -0.002469   0.012812  -0.193    0.847    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 16.3 on 444 degrees of freedom
-## Multiple R-squared:  0.8921, Adjusted R-squared:  0.8909 
-## F-statistic: 734.3 on 5 and 444 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 16.5 on 444 degrees of freedom
+## Multiple R-squared:  0.8893, Adjusted R-squared:  0.8881 
+## F-statistic: 713.7 on 5 and 444 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="comparaison-de-models" class="section level1">
 <h1>Comparaison de models</h1>
@@ -468,8 +468,8 @@ anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
 ## Model 1: var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6
 ## Model 2: var.1 ~ var.3 + var.4 + var.5 + var.6
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    444 117957                                  
-## 2    445 657122 -1   -539165 2029.5 &lt; 2.2e-16 ***
+## 1    444 120938                                  
+## 2    445 581599 -1   -460660 1691.2 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
@@ -508,56 +508,56 @@ step(M.Lineaire.0, #le model initial a tester
      scope = list(lower=null,upper=full), #les models le plus pauvre/riche autorise
      criterion = &quot;BIC&quot;, #1er arugment sur le critere de selection
      k = log(nrow(BDD))) #2nd argument ; pour comparer en fonction de l&#39;AIC on retirera ces deux derniers arguments</code></pre>
-<pre><code>## Start:  AIC=3440.07
+<pre><code>## Start:  AIC=3443.27
 ## var.1 ~ var.4 + var.5 + var.6
 ## 
 ##         Df Sum of Sq     RSS    AIC
-## + var.2  1    486414  404096 3090.6
-## + var.3  1    233388  657122 3309.4
-## - var.6  1       450  890960 3434.2
-## &lt;none&gt;                890510 3440.1
-## - var.5  1     71014  961524 3468.5
-## - var.4  1    115627 1006138 3488.9
+## + var.2  1    533018  363836 3043.4
+## + var.3  1    315255  581599 3254.5
+## - var.6  1        43  896897 3437.2
+## &lt;none&gt;                896854 3443.3
+## - var.5  1     58299  955153 3465.5
+## - var.4  1    160368 1057222 3511.2
 ## 
-## Step:  AIC=3090.62
+## Step:  AIC=3043.39
 ## var.1 ~ var.4 + var.5 + var.6 + var.2
 ## 
 ##         Df Sum of Sq    RSS    AIC
-## + var.3  1    286139 117957 2542.6
-## - var.6  1        68 404163 3084.6
-## &lt;none&gt;               404096 3090.6
-## - var.5  1     50683 454779 3137.7
-## - var.4  1     92251 496347 3177.0
-## - var.2  1    486414 890510 3440.1
+## + var.3  1    242898 120938 2553.9
+## - var.6  1       274 364110 3037.6
+## &lt;none&gt;               363836 3043.4
+## - var.5  1     41526 405362 3085.9
+## - var.4  1    155289 519125 3197.2
+## - var.2  1    533018 896854 3443.3
 ## 
-## Step:  AIC=2542.63
+## Step:  AIC=2553.86
 ## var.1 ~ var.4 + var.5 + var.6 + var.2 + var.3
 ## 
 ##         Df Sum of Sq    RSS    AIC
-## - var.6  1       138 118095 2537.0
-## &lt;none&gt;               117957 2542.6
-## - var.5  1     41211 159168 2671.4
-## - var.4  1    119627 237584 2851.6
-## - var.3  1    286139 404096 3090.6
-## - var.2  1    539165 657122 3309.4
+## - var.6  1        10 120948 2547.8
+## &lt;none&gt;               120938 2553.9
+## - var.5  1     44208 165147 2688.0
+## - var.4  1    140025 260964 2893.8
+## - var.3  1    242898 363836 3043.4
+## - var.2  1    460660 581599 3254.5
 ## 
-## Step:  AIC=2537.05
+## Step:  AIC=2547.79
 ## var.1 ~ var.4 + var.5 + var.2 + var.3
 ## 
 ##         Df Sum of Sq    RSS    AIC
-## &lt;none&gt;               118095 2537.0
-## + var.6  1       138 117957 2542.6
-## - var.5  1     41440 159535 2666.3
-## - var.4  1    119687 237783 2845.9
-## - var.3  1    286068 404163 3084.6
-## - var.2  1    539042 657137 3303.3</code></pre>
+## &lt;none&gt;               120948 2547.8
+## + var.6  1        10 120938 2553.9
+## - var.5  1     44302 165250 2682.1
+## - var.4  1    140355 261303 2888.3
+## - var.3  1    243161 364110 3037.6
+## - var.2  1    460712 581660 3248.4</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = var.1 ~ var.4 + var.5 + var.2 + var.3, data = BDD)
 ## 
 ## Coefficients:
 ## (Intercept)        var.4        var.5        var.2        var.3  
-##     50.0999       0.4685       0.1923       3.0948       1.0280</code></pre>
+##     45.6016       0.5178       0.2176       2.8392       0.9988</code></pre>
 </div>
 <div id="verification-des-hypotheses" class="section level1">
 <h1>Verification des hypotheses</h1>
@@ -567,6 +567,35 @@ On espere entre autre qu’ils suivent une loi normale de moyenne 0, qu’ils ne
 <pre class="r"><code>par(mfrow=c(2,2))
 plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))</code></pre>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<hr />
+<p>Pour s’entrainer.</p>
+<p><strong>Synthese des fonctions</strong></p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lm( outcome ~ variable1+ varible2, data= )</td>
+<td>model linaire</td>
+</tr>
+<tr class="even">
+<td>anova(m1, m2)</td>
+<td>comparaison des models m1 et m2</td>
+</tr>
+<tr class="odd">
+<td>step(m1, direction= , scope(m.null , m.max))</td>
+<td>selection stepwise des variables du model m1</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

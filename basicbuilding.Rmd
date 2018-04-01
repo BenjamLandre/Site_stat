@@ -10,7 +10,7 @@ output:
 
 **1.  Calcul direct**   
 
-On peu utiliser R comme une calculatrice, pour effectuer directement ses calculs.   
+On peut utiliser R comme une calculatrice, pour effectuer directement ses calculs.   
 Soit dans la zone de script (ctrl+enter pour valider) soit directement dans la console (enter).
 
 ```{r, eval=T}
@@ -26,7 +26,7 @@ La specificite de R est de pouvoir assigner a un objet, des elements (une valeur
 ```{r, eval=FALSE}
 X <- 2 #On assigne a l'objet X, l'element 2.
 X      #l'objet X contient l'element 2.
-X + X  #qui peu etre utilise dans autre calcul par la suite.
+X + X  #qui peut etre utilise dans autre calcul par la suite.
 
 Y <- X + X #ou assigne a un autre element.
 Y
@@ -46,7 +46,7 @@ Z        #Z ne contient plus l'element 118 mais 22.
 
 #Vecteurs de donnees
 
-Un des interet de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.  
+Un des interets de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.  
 Une façon de le faire est de regrouper un ensemble de donnees a l'interieur d'un objet.
 On peut utiliser la fonction c() (abreviation de concatenate).
 
@@ -60,12 +60,12 @@ X<- c(4, 8)  #par assignement
 X
 ```
 
-On peu effectuer des calculs directement a partir des vecteurs.  
+On peut effectuer des calculs directement a partir des vecteurs.  
 Ils font intervenir des regles particulieres de calculs.   
 
-Il existe plusieurs categories de vecteur selon les donnees qu'il contient.   
+Il existe plusieurs categories de vecteur. Cela depend des donnees qu'il contient.   
 Ils peuvent etre numerique et contenir des chiffres.     
-Ils peuvent egalement contenir du texte ou des resultats d'operateur logiques (TRUE / FALSE).
+Ils peuvent egalement contenir du texte (tout element mis entre guillemets) ou des resultats d'operateurs logiques (TRUE / FALSE).
 
 ```{r, eval= FALSE}
 X<- c("IMC normal", "IMC surpoids", "IMC surpoids") 
@@ -75,7 +75,7 @@ Y<- c(TRUE, FALSE, FALSE)
 Y
 ```
 
-Les premiers pourront etre utilises, par exemple, pour creer des variables categorielles.  
+Les premiers pourront etre utilises, par exemple, pour creer des variables categorielles.   
 Les seconds sont des resultats d'operations logiques.   
 Ils pourront etre utilises pour selectionner des sous-groupes dans notre base de donnees.
 
@@ -87,11 +87,11 @@ Pour ce faire on utilisera "[]" juste apres le nom de notre vecteur.
 
 ```{r}
 a<- c(12,45,18,16,13,18,46)
-a[5] #selectione le 5eme element du vecteur a
-a[c(1,4)] #selectione les elements 1 et 4 du vecteur a
+a[5] #selectionne le 5eme element du vecteur a
+a[c(1,4)] #selectionne les elements 1 et 4 du vecteur a
 ```
 
-On peut egalement preciser une condition logique pour selectioner un sous-ensemble.
+On peut egalement preciser une condition logique pour selectionner un sous-ensemble.
 
 ```{r}
 a<- c(12,45,18,16,13,18,46)
@@ -153,8 +153,8 @@ Elle comprend une description de son utilisation, sa formulation complete, une l
 
 **2. Importer des fonctions**
 
-Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calcul et d'actions.
-Cependant on peu acceder a des fonctions supplementaire a partir des packages.
+Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calculs et d'actions.
+Cependant on peut acceder a des fonctions supplementaire a partir des packages.
 Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R.
 Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.
 
@@ -188,52 +188,12 @@ Ou de consulter les (forums d'aide)[https://stats.stackexchange.com/].
 
 *************************
 
-[Pour s'entrainer]()mettre un lien vers doc pdf avec exos simples sur la creation de variables, regles de calculs entre vecteurs et installation d'un package utilisation d'une fonction.
+[Pour s'entrainer](entrainement_1.pdf)
 
-```{r, eval=F}
-#Ex 1.
+**Synthese des fonctions**
 
-poids <- 58
-taille <- 165
-
-#Calculer l'IMC chez cet individu sans passer par les valeurs numeriques
-
-#
-
-#Ex 2.
-
-IMC_echantillon <- rnorm(15,23,3)
-IMC_echantillon
-
-id.1 <- "..." #assigner un IMC a chaque individu
-id.2 <- "..." #
-
-Moyenne<- "..."#calculer la moyenne des IMC
-Variance<- "..."#calculer la variance des IMC
-```
-
-Entre un chiffre et un vecteur: 
-
-```{r, eval=F}
-3 * c(4, 8, 12)  #multiplication un a un des elements de la serie de chiffre.
-
-3 +  c(2,4)      #addition un a un des elements.
-```
-
-Entre vecteurs:
-
-```{r, eval=F}
-c(3,2,4)  * c(4, 8, 12)  #sur la meme logique que precedement pour les series de 
-                         #tailles egales.
-c(3,2)   +  c(2,4) 
-```
-
-```{r, eval=F}
-c(3,2)   +  c(2,4,289,15,164,2)  #avec un recyclage du motif le plus petit lorsque  
-                               #les series sont de tailles inegales mais multiple 
-                               #l'un de l'autre.
-```
-```{r, eval=T}
-  #avec un recyclage incomplet lorsque les series
-  #ne sont pas de tailles compatible.
-```
+| Fonction          | Description                                               |
+|-------------------|-----------------------------------------------------------|
+| install.package() | telecharger les packages du CRAN                          |
+| library()         | charger dans la session active un package                 |
+| c()               | regrouper une suite d'elements a l'interieur d'un vecteur |

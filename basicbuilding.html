@@ -372,7 +372,7 @@ div.tocify {
 <div id="fonctionnement-de-base" class="section level1">
 <h1>Fonctionnement de base</h1>
 <p><strong>1. Calcul direct</strong></p>
-<p>On peu utiliser R comme une calculatrice, pour effectuer directement ses calculs.<br />
+<p>On peut utiliser R comme une calculatrice, pour effectuer directement ses calculs.<br />
 Soit dans la zone de script (ctrl+enter pour valider) soit directement dans la console (enter).</p>
 <pre class="r"><code>1+15</code></pre>
 <pre><code>## [1] 16</code></pre>
@@ -382,7 +382,7 @@ Soit dans la zone de script (ctrl+enter pour valider) soit directement dans la c
 <p>La specificite de R est de pouvoir assigner a un objet, des elements (une valeur, un calcul, un ensemble d’operations, …).</p>
 <pre class="r"><code>X &lt;- 2 #On assigne a l&#39;objet X, l&#39;element 2.
 X      #l&#39;objet X contient l&#39;element 2.
-X + X  #qui peu etre utilise dans autre calcul par la suite.
+X + X  #qui peut etre utilise dans autre calcul par la suite.
 
 Y &lt;- X + X #ou assigne a un autre element.
 Y
@@ -397,7 +397,7 @@ Z        #Z ne contient plus l&#39;element 118 mais 22.</code></pre>
 </div>
 <div id="vecteurs-de-donnees" class="section level1">
 <h1>Vecteurs de donnees</h1>
-<p>Un des interet de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.<br />
+<p>Un des interets de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.<br />
 Une façon de le faire est de regrouper un ensemble de donnees a l’interieur d’un objet. On peut utiliser la fonction c() (abreviation de concatenate).</p>
 <p>Ces objets, appeles vecteurs, regroupent un ensemble de donnees de meme categorie.<br />
 Ils constituent un element important dans la logique de calcul de R.</p>
@@ -405,11 +405,11 @@ Ils constituent un element important dans la logique de calcul de R.</p>
 
 X&lt;- c(4, 8)  #par assignement
 X</code></pre>
-<p>On peu effectuer des calculs directement a partir des vecteurs.<br />
+<p>On peut effectuer des calculs directement a partir des vecteurs.<br />
 Ils font intervenir des regles particulieres de calculs.</p>
-<p>Il existe plusieurs categories de vecteur selon les donnees qu’il contient.<br />
+<p>Il existe plusieurs categories de vecteur. Cela depend des donnees qu’il contient.<br />
 Ils peuvent etre numerique et contenir des chiffres.<br />
-Ils peuvent egalement contenir du texte ou des resultats d’operateur logiques (TRUE / FALSE).</p>
+Ils peuvent egalement contenir du texte (tout element mis entre guillemets) ou des resultats d’operateurs logiques (TRUE / FALSE).</p>
 <pre class="r"><code>X&lt;- c(&quot;IMC normal&quot;, &quot;IMC surpoids&quot;, &quot;IMC surpoids&quot;) 
 X
 
@@ -423,11 +423,11 @@ Ils pourront etre utilises pour selectionner des sous-groupes dans notre base de
 <h1>Selection d’un sous-ensemble</h1>
 <p>Les vecteurs sont des ensembles d’elements. On peut vouloir en selectionner un sous-ensemble particulier. Pour ce faire on utilisera “[]” juste apres le nom de notre vecteur.</p>
 <pre class="r"><code>a&lt;- c(12,45,18,16,13,18,46)
-a[5] #selectione le 5eme element du vecteur a</code></pre>
+a[5] #selectionne le 5eme element du vecteur a</code></pre>
 <pre><code>## [1] 13</code></pre>
-<pre class="r"><code>a[c(1,4)] #selectione les elements 1 et 4 du vecteur a</code></pre>
+<pre class="r"><code>a[c(1,4)] #selectionne les elements 1 et 4 du vecteur a</code></pre>
 <pre><code>## [1] 12 16</code></pre>
-<p>On peut egalement preciser une condition logique pour selectioner un sous-ensemble.</p>
+<p>On peut egalement preciser une condition logique pour selectionner un sous-ensemble.</p>
 <pre class="r"><code>a&lt;- c(12,45,18,16,13,18,46)
 a[a&gt;20] #selection, dans a, les elements pour lesquels a est superieur a 20</code></pre>
 <pre><code>## [1] 45 46</code></pre>
@@ -471,7 +471,7 @@ D’autres ont une valeur par defaut, c’est celle qui sera utilisee si l’uti
 Pour cela il suffit d’ajouter “?” devant la fonction et de la lancer dans la console.<br />
 L’aide concernant la fonction apparait dans la fenetre d’aide. Elle comprend une description de son utilisation, sa formulation complete, une liste des arguments avec leur detail d’utilisation et des exemples d’utilisation.</p>
 <p><strong>2. Importer des fonctions</strong></p>
-<p>Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calcul et d’actions. Cependant on peu acceder a des fonctions supplementaire a partir des packages. Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R. Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.</p>
+<p>Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calculs et d’actions. Cependant on peut acceder a des fonctions supplementaire a partir des packages. Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R. Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.</p>
 <p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>. Pour chaques package vous disposez du manuel d’utilisation qui compile l’ensemble des fonctions disponibles dans le package et parfois d’un tutoriel.</p>
 <p>Pour instaler directement un package depuis RStudio, il faut:<br />
 1) Telecharger le package (- une seule fois)<br />
@@ -490,39 +490,30 @@ Pour decouvrir de nouvelles fonctions le plus simple est de tapper ‘l’action
 <p><em>Calculate cook’s distance in r</em></p>
 <p>Ou de consulter les (forums d’aide)[<a href="https://stats.stackexchange.com/" class="uri">https://stats.stackexchange.com/</a>].</p>
 <hr />
-<p><a href="">Pour s’entrainer</a>mettre un lien vers doc pdf avec exos simples sur la creation de variables, regles de calculs entre vecteurs et installation d’un package utilisation d’une fonction.</p>
-<pre class="r"><code>#Ex 1.
-
-poids &lt;- 58
-taille &lt;- 165
-
-#Calculer l&#39;IMC chez cet individu sans passer par les valeurs numeriques
-
-#
-
-#Ex 2.
-
-IMC_echantillon &lt;- rnorm(15,23,3)
-IMC_echantillon
-
-id.1 &lt;- &quot;...&quot; #assigner un IMC a chaque individu
-id.2 &lt;- &quot;...&quot; #
-
-Moyenne&lt;- &quot;...&quot;#calculer la moyenne des IMC
-Variance&lt;- &quot;...&quot;#calculer la variance des IMC</code></pre>
-<p>Entre un chiffre et un vecteur:</p>
-<pre class="r"><code>3 * c(4, 8, 12)  #multiplication un a un des elements de la serie de chiffre.
-
-3 +  c(2,4)      #addition un a un des elements.</code></pre>
-<p>Entre vecteurs:</p>
-<pre class="r"><code>c(3,2,4)  * c(4, 8, 12)  #sur la meme logique que precedement pour les series de 
-                         #tailles egales.
-c(3,2)   +  c(2,4) </code></pre>
-<pre class="r"><code>c(3,2)   +  c(2,4,289,15,164,2)  #avec un recyclage du motif le plus petit lorsque  
-                               #les series sont de tailles inegales mais multiple 
-                               #l&#39;un de l&#39;autre.</code></pre>
-<pre class="r"><code>  #avec un recyclage incomplet lorsque les series
-  #ne sont pas de tailles compatible.</code></pre>
+<p><a href="entrainement_1.pdf">Pour s’entrainer</a></p>
+<p><strong>Synthese des fonctions</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>install.package()</td>
+<td>telecharger les packages du CRAN</td>
+</tr>
+<tr class="even">
+<td>library()</td>
+<td>charger dans la session active un package</td>
+</tr>
+<tr class="odd">
+<td>c()</td>
+<td>regrouper une suite d’elements a l’interieur d’un vecteur</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
