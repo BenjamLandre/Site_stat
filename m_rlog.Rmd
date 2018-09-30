@@ -7,11 +7,10 @@ output:
 
 ##Regression logistique
 
-Dans cette section on s'interesse a la facon de specifier un model logistique dans R.   
-Les fonctions sont tres similaires a celles utilisees dans le cadre de modeles lineaire.
+Dans cette section on s'interesse a la facon de specifier un modele logistique dans R.   
+Les fonctions sont tres similaires a celles utilisees dans le cadre de modelees lineaire.
 
-Comme dans le cas des models lineaires on ne cherchera pas a definir s'il est pertinent et judicieux de realiser ce type de model.    
-Ce sont des etapes importantes a faire en amont du model.
+Un ensemble de vidéos expliquant simplement le concept des modeles logistiques peut etre trouve [ICI](https://www.youtube.com/watch?v=yIYKR4sgzI8). 
 
 
 ***********************************
@@ -21,7 +20,6 @@ Ce sont des etapes importantes a faire en amont du model.
 On utilisera la BDD 'headInjury', inclus dans le package "DAAG".   
 (Pensez a telecharger le package au moins une fois pour utiliser ces donnees: install.package("DAAG")).   
 
-Cette data frame comporte 3121 observations de 11 variables, concernant la distribution de grenouilles en australie.   
 Plus d'information sont disponibles [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/headInjury.html).
 
 On prendra comme variable d'interet 'high.risk', qui decrit la presence (1) ou l'absence (0) d'un risque eleve d'une chirurgie neurologique pour le patient.   
@@ -37,20 +35,22 @@ require(DAAG)
 data("headInjury")
 ```
 
-#Specification du model
+#Specification du modele
 
-Les regressions logistiques font partie de la famille des models lineaires generalise.    
-On specifie juste un lien "binomial" pour preciser un model logistique.
+Les regressions logistiques font partie de la famille des modeles lineaires generalise.    
+On specifie juste un lien "binomial" pour preciser un modele logistique.
 
 ```{r}
 RL.1<- glm( factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk")) ~ vomiting + age.65 + amnesia.before + GCS.decrease, family = "binomial", data=headInjury)
 summary(RL.1)
+
+exp(RL.1$coefficients) #affiche les coefficients de la regression, les affiche en terme d'odds-ratio
 ```
 
-#Comparaison de models
+#Comparaison de modeles
 
-Pour la comparaison de models on pourra egalement utiliser la fonction dediee lrtest() du package "lmtest".    
-Elle donne le meme resultat que la fonction anonva().
+Pour la comparaison de modeles on pourra egalement utiliser la fonction dediee lrtest() du package "lmtest".    
+Elle donne le meme resultat que la fonction anova().
 
 ```{r}
 RL.2<- glm( factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk")) ~ vomiting + age.65, family = "binomial", data=headInjury)
@@ -65,17 +65,17 @@ anova(RL.1, RL.2, test= "Chisq")
 #Selection des variables
 
 ```{r}
-step(RL.1, #le model initial a tester
-     direction = "both", #regarde dans les deux directions, c'est a dire vers les models plus complets mais aussi vers ceux moins complet
+step(RL.1, #le modele initial a tester
+     direction = "both", #regarde dans les deux directions, c'est a dire vers les modeles plus complets mais aussi vers ceux moins complet
      criterion = "BIC", #1er arugment sur le critere de selection
      k = log(nrow(headInjury)))
 ```
 
 #Controle de la colinearite
 
-Une etape interessante est de controler la colinearite possible entre les variables du model.   
+Une etape interessante est de controler la colinearite possible entre les variables du modele.   
 On utilise generalement le variance inflator factor (VIF).    
-Il mesure le changement de variance des variables lorsque l'on retire une variable du model.    
+Il mesure le changement de variance des variables lorsque l'on retire une variable du modele.    
 En presence de 2 variables colineaires, une part de la variance est partagee entre ces deux variables.    
 Si on retire une de ces variable, la variance de l'autre variable est fortement modifie.    
 
@@ -95,6 +95,6 @@ Pour s'entrainer.
 | Fonction                                                        | Description                                  |
 |-----------------------------------------------------------------|----------------------------------------------|
 | glm( outcome ~  variable1+ varible2, family= "binomial",data= ) | regression logistique                        |
-| anova(m1, m2, test= "Chisq")                                    | comparaison des models m1 et m2              |
-| step(m1, direction= , scope(m.null , m.max))                    | selection stepwise des variables du model m1 |
-| vif(m1)                                                         | calcul les VIF des variables du model m1     |
+| anova(m1, m2, test= "Chisq")                                    | comparaison des modeles m1 et m2              |
+| step(m1, direction= , scope(m.null , m.max))                    | selection stepwise des variables du modele m1 |
+| vif(m1)                                                         | calcul les VIF des variables du modele m1     |

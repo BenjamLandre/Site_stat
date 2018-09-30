@@ -8,13 +8,13 @@ output:
 
 Avant d'analyser ses donnees il est parfois necessaire de modifier, ou creer ses propres variables.   
 
-Nous utiliserons le jeux de donnees 'cats', inclus dans le package 'MASS'.    
+Nous utiliserons le jeu de donnees 'cats', inclus dans le package 'MASS'.    
 (Pensez a telecharger une 1ere fois le package: install.package("MASS")).   
 
-Ce jeux de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.   
+Ce jeu de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.   
 Plus de details [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html).   
 
-```{r, message=F, warning=FALSE}
+```{r, message=F, warning=FALSE, results='hide', echo=FALSE}
 require(MASS)
 ```
 ```{r, eval=F}
@@ -28,10 +28,9 @@ data(cats)
 #1. Structure de la base de donnees
 
 Une premiere etape est de comprendre la structure et la composition de l'ensemble des donnees.    
-La fonction str() ('structure') permet une premiers description de la base de donnee (BDD).   
+La fonction str() ('structure') permet une premiers description de la base de donnees (BDD).   
 La fonction View() permet d'observer directement le tableau.    
-Cependant, en cas de BDD massive, il est impossible d'afficher l'entierete de l'objet.    
-Il est plus prudent donc de s'avoir s'en passer.    
+Cependant, en cas de BDD massive, il est impossible d'afficher l'entierete de l'objet.        
 
 ```{r}
 str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)
@@ -40,14 +39,14 @@ str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)
 
 #2. Types de vecteur
 
-Il existe plusieurs type de vecteur.    
+Il existe plusieurs types de vecteur.    
 On peut utiliser la fonction str() directement sur une variable de la BDD pour comprendre de quel type de vecteur il s'agit.    
 
 ```{r}
 str(cats$Sex)
 ```
 
-Cete variable est enregistree de facon interne comme un ensemble de chiffre (1 et 2).   
+Cette variable est enregistree de facon interne comme un ensemble de chiffres (1 et 2).   
 Cependant R associe et affiche le caractere 'M' a tous les 2 et 'F' a tous les 1.   
 C'est une variable categorielle.    
 
@@ -57,11 +56,11 @@ On peut en changer le type si on le souhaite.
 {
 cats$Sex <- as.numeric(cats$Sex)
 str(cats$Sex) #la variable Sex devient un vecteur numerique
-mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (ce qui n'a toujours pas de sens dans notre cas)
+mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (meme si ca n'as pas de sens dans notre cas)
 }
 ```
 
-Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu'elles representes.    
+Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu'elles representent.    
 
 ```{r}
 {
@@ -75,16 +74,13 @@ cats$Sex <- factor(cats$Sex, #la variable a transformer
 
 #3. Creer une variable
 
-On peut creer des variables de different types et de differentes facons.    
+On peut creer des variables de differents types et de differentes facons.    
 
-Dans tous les cas, il faut commencer par indiquer le nom de l'objet que l'on souhaite creer.    
-Ici on souhaite assigner a la BDD une nouvelle variable (un nouvelle colonne).    
-On indique donc le nom de la BDD, puis le nom de la variable, separe par le signe $.    
+Dans tous les cas, il faut commencer par indiquer le nom de la colonne que l’on souhaite ajouter, en commençant par le nom de la BDD, suivi du signe $ et du nom de variable.    
 
-Ensuite on precie les conditions pour determiner cette nouvelle variable.   
-Soit a partir de donnees deja existantes dans la BDD, soit a partir d'un vecteur independant de celle ci.   
-Dans ce dernier cas, la seule condition est que la longueur du vecteur cree soit de meme dimension qu'une colonne de la BDD.    
-On ne peut pas ajouter a un tableau une colonne qui lui serait plus petite.   
+Ensuite on precise les conditions pour determiner cette nouvelle variable.   
+Soit a partir de donnees deja existantes dans la BDD, soit a partir d'un vecteur independant de celle-ci.   
+Dans ce dernier cas, la seule condition est que la longueur du vecteur corresponde au nombre de lignes de la BDD.   
 
 ```{r}
 #Variable numerique continue "rapport",
@@ -118,15 +114,11 @@ str(cats$random)
 
 #4. Modifier une variable
 
-On peut modifier une variable pre-existante. Cela revient a creer une variable qui remplace une variable pre-existante.   
-Soit en assignant simplement une nouvelle valeur ou une nouvelle formule a tous les elements de l'ancienne variable.    
-Soit en en l'assignant conditionnellement a la valeur prise par une autre covariable.   
+On peut modifier une variable existante, de façon homogène pour l’ensemble des individus ou de façon conditionnelle a la valeur prise par une autre covariable.      
+Dans ce dernier cas nous utiliserons la fonction ifelse() qui précise la condition et les modifications à apporter selon que la condition est présente ou non.    
 
-Pour cette derniere situation, on pourra utiliser selon les cas:    
-- la fonction ifelse(), qui prend pour arguments (1) une condition logique, (2) une valeur valeur prise si cette condition est respectee, (3) une autre valeur dans le cas contraire.   
-- une selection d'un sous-ensemble du vecteur pour lui assigner une valeur.   
-
-Dans tous les cas, on fera attention car la variable cree va ecraser la variable remplacee.     
+    
+Attention, mieux vaut créer un duplicata de la variable avant de la modifier, au risque de perdre l’originale.    
 En cas d'erreur et que l'on souhaite recuperer l'ancienne variable, il faudra recharger la base de donnee.     
 Il est donc souvent plus prudent de cree une nouvelle variable plutot que d'ecraser une ancienne.
 

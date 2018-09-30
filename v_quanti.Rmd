@@ -13,7 +13,7 @@ Nous utiliserons le jeux de donnees 'ais', inclus dans le package "DAAG".
 
 Ce jeux de donnees contient des resultats d'analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details [ICI.](https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html)
 
-A cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.
+Dans cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.
 
 ```{r}
 require(DAAG)
@@ -33,12 +33,12 @@ Pour se faire une idee du jeux de donnee, une description de la distribution de 
 
 **- En univarie**    
 
-On peut chercher a connaitre l'effectif, la tendance centrale (moyenne, medianne, mode) ainsi que la dispersion (ecart-type / variance, l'etendue des donnees, ses quantiles).
+On peut chercher a connaitre l'effectif, la tendance centrale (moyenne, mediane, mode) ainsi que la dispersion (ecart-type / variance, l'etendue des donnees, ses quantiles).
 
 La fonction summarise(), permet d'obtenir la majorite de ces indicateurs.    
-D'autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stop le calcul et renvoie une erreur presence de valeurs manquantes.
+D'autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stoppe le calcul et renvoie une erreur presence de valeurs manquantes.
 
-**Dans le cas d'une variable qualitative, on remarquera et on gardera bien en tete que part defaut les donnees manquantes ne sont pas signalees.**
+**Dans le cas d'une variable qualitative, on remarquera et on gardera bien en tete que par defaut les donnees manquantes ne sont pas signalees.**
 
 
 ```{r}
@@ -61,8 +61,11 @@ quantile(ais_NA$ferr,na.rm=TRUE)
 ```{r}
 #Dans le cas d'une variable qualitative.
 
-table(ais_NA$sport, useNA = "always") #useNA: doit on inclure les donnees manquantes "always" !
+#indique les effectifs
+table(ais_NA$sport, useNA = "always") #useNA: permet d’avoir le nb de valeurs manquantes dans une colonne supplémentaire.
 
+#indique les pourcentages
+prop.table(table(ais_NA$sport, useNA = "always"))
 ```
 
 **- En bivarie**
@@ -90,7 +93,7 @@ R est un outil efficace pour visualiser ses donnees.
 Les fonctions de base permettent de realiser de nombreux graphiques.
 Neanmoins plusieurs packages populaires ([ggplot2](http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html), [lattice](http://www.sthda.com/english/wiki/lattice-graphs)), non vu ici, sont frequemment utilises pour etendre ces fonctionnalites. 
 
-Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon l'arguments specifies.   
+Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon les arguments specifies.   
 R determine la nature des donnees entrees en argument et produit un graphique en consequence.    
 Si on souhaite voir un type de graphique en particulier (histogramme, boxplot, stripchart) on peut utiliser la fonction dediee a ce type particulier de graphique.
 
@@ -118,7 +121,7 @@ abline(v=mean(ais_NA$bmi, na.rm=T) , lty="dotted", col="blue") #rajouter une lig
 legend("topright", #ou souhaite t'on faire apparaitre la legende
        legend=c("Femme", "Homme"), #quels sont les etiquettes a rattacher a la legende
        pch=16, #le symbole a afficher
-       col=unique(ais_NA$sex) #quels sont les couleurs definies
+       col=unique(ais_NA$sex) #quelles sont les couleurs definies
 )
 }
 ```

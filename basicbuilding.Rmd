@@ -50,7 +50,7 @@ Un des interets de R est de pouvoir realiser des calculs sur de grand ensembles 
 Une façon de le faire est de regrouper un ensemble de donnees a l'interieur d'un objet.
 On peut utiliser la fonction c() (abreviation de concatenate).
 
-Ces objets, appeles vecteurs, regroupent un ensemble de donnees de meme categorie.   
+Ces objets, appeles vecteurs, regroupent un ensemble de donnees de même nature.   
 Ils constituent un element important dans la logique de calcul de R.
 
 ```{r, eval= F}
@@ -99,7 +99,7 @@ a[a>20] #selection, dans a, les elements pour lesquels a est superieur a 20
 
 b<- a[a>20] #on peut creer un vecteur comprenant ce sous-ensemble
 b #b est le sous ensemble de a comprenant les elements de a superieurs a 20
-a #a est inchange est comprent toujours l'ensemble de ces elements
+a #a est inchange est comprend toujours l'ensemble des valeurs de depart
 ```
 
 #Valeurs manquantes
@@ -120,7 +120,7 @@ a[a>2] #dans l'objet a quelles sont les valeurs superieure a 2 ? ne peut etre ev
 #Les fonctions
 **1. Utilisation generale**
 
-R inclue des fonctions dites de base.  
+R inclut des fonctions dites de base.  
 Elles permettent d'effectuer rapidement des ensembles de calculs pre-definis, en en controlant les conditions.
 
 
@@ -139,11 +139,12 @@ Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.
 D'autres ont une valeur par defaut, c'est celle qui sera utilisee si l'utilisateur ne la modifie pas.
 
 ```{r, eval= F}
-
-Model_lineaire <- lm(formula = ma_formule, #a renseigner obligatoirement
-                     data= bdd_IMC, #idem
+data(cars)
+Modele_lineaire <- lm(formula = speed ~ dist, #a renseigner obligatoirement
+                     data= cars, #idem
                      method = "qr") #la valeur "qr"" est la valeur par defaut,
                                     #l'argument est facultatif
+summary(Modele_lineaire)
 ```
 
 Pour connaitre les arguments d'une fonction on peut consulter la page d'aide.   
@@ -158,8 +159,8 @@ Cependant on peut acceder a des fonctions supplementaire a partir des packages.
 Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R.
 Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.
 
-Les packages sont disponibles sur le site [The Comprehensive R Archive Network - The CRAN](https://cran.r-project.org/).
-Pour chaques package vous disposez du manuel d'utilisation qui compile l'ensemble des fonctions disponibles dans le package et parfois d'un tutoriel.
+Les packages sont disponibles sur le site [The Comprehensive R Archive Network - The CRAN](https://cran.r-project.org/).    
+Pour chaques package vous disposez du manuel d’utilisation qui compile l’ensemble des fonctions disponibles dans le package, avec parfois un tutoriel.
 
 Pour instaler directement un package depuis RStudio, il faut:   
 1) Telecharger le package (- une seule fois)    
@@ -177,7 +178,7 @@ Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes
 
 ```
 
-Comme tout nouveau langage que l'on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre.   Certaines fonctions seront decrites ici mais l'ecrasante majoritee reste a decouvrir.    Plus le vocabulaire s'enrichie plus on est capable de realiser des taches specifiques, precises ou combinees a d'autres.   
+Comme tout nouveau langage que l'on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre.   Certaines fonctions seront decrites ici mais l’ecrasante majorite reste a decouvrir.     Plus le vocabulaire s’enrichit plus on est capable de realiser des taches specifiques, precises ou combinees a d’autres.   
 Pour decouvrir de nouvelles fonctions le plus simple est de tapper 'l'action que l'on souhaite produire' suivi de 'in r' dans le moteur de recherche.   
 
 Par exemple:

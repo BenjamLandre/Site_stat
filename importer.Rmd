@@ -12,7 +12,7 @@ Les plus souvent rencontrees sont les matrices et les data frames.
 - **Matrices**   
 
 Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d'un seul type.  
-C'est a dire uniquement des chiffres, du texte ou des resultats logiques.
+C'est a dire uniquement des chiffres, du texte ou des resultats logiques (= Vrai / Faux).
 
 Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.  
 Ce sont donc des vecteurs a plusieurs dimensions.
@@ -46,7 +46,7 @@ M1[,2] #tous les elements de la seconde colonne
 - **Data frames**    
 
 Les datas frames sont egalement des tableaux mais ils peuvent regrouper des elements de differents types.  
-C'est a dire que des colonnes preuvent presenter des chiffres alors que d'autre contiennent du texte.
+C’est a dire que des colonnes peuvent presenter des chiffres alors que d’autres contiennent du texte.
 
 ```{r}
 a<- c("Pierre", "Paul", "Jack", "Bob") #vecteur de texte
@@ -57,8 +57,8 @@ D1 #une data frame qui associe des vecteurs de differents types.
 
 ```
 
-Un objet qui regroupe des vecteurs de type different est appele une liste.  
-Les data frame sont donc consideree par R comme des listes a 2 dimensions.
+Un objet qui regroupe des vecteurs de différents types est appele une liste. 
+Les data frames sont donc considerees par R comme des listes a 2 dimensions.
 
 On accede aux elements qu'elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].  
 On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l'indicateur "$", place entre le nom de la data frame et le nom de la colonne.
@@ -68,7 +68,7 @@ D1[,1] #1ere colonne de D1
 
 D1$Colonne1 #idem
 
-D1[D1$Colonne2>2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.
+D1[D1$Colonne2>2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieure a 2, avec présentation de toutes les colonnes.
 
 subset(D1, Colonne2>2) # une alternative en passant par la fonction subset
 ```
@@ -80,7 +80,7 @@ Le plus simple est d'utiliser l'onglet 'Import Dataset', dans le panel "Environm
 
 Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.
 
-Les modifications effectuees sur la base de donnees ne sont presentes que dans la session active de R.     
+Les modifications effectuees sur la base de donnees ne sont presentees que dans la session active de R.     
 Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.  
 
 Le format d'export le plus courant est le format texte (.csv).  Different packages permettent d'exporter sous d'autres formats.

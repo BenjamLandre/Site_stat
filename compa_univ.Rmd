@@ -10,8 +10,7 @@ knitr::opts_chunk$set(error = TRUE)
 
 ##Comparer
 
-On souhaite extrapoler et objectiver les comparaisons que l'on observe.
-On va comparer les valeurs observees entre groupes.
+On souhaite tester statistiquement la différence entre deux groupes.
 
 Nous utiliserons le jeux de donnees 'ais', inclus dans le package "DAAG".  
 (Pensez a telecharger le package une premiere fois via: install.package("DAAG")).
@@ -30,7 +29,7 @@ data(ais)
 ```
 
 
-#1. ... de moyennes
+#1. Deux moyennes
 
 Plusieurs tests de comparaisons de moyennes sont disponibles, dont le test de Student et de Wilcoxon.   
 L'utilisation de ces tests depend des effectifs en presence.     
@@ -42,7 +41,7 @@ Cependant ils sont assez similaires dans leur specification.
 
 t.test(ais$ferr) #comparaison de la valeur par rapport a 0
 
-t.test(ais$ferr ~ ais$sex, #valeurs a comparer ~ groupes a comparer
+t.test(ais$ferr ~ ais$sex, #variable ~ groupes a comparer
        alternative= "two.sided", #bilateral ou test d'inferiorite/superiorite
        paired= FALSE) #donnees appariees
 
@@ -63,12 +62,15 @@ Ceci peut etre partiellement contourne en utilisant la méthode [simulation de M
 #Creation du tableau de contingence
 
 tableau_contingence<- table(ais$sport, ais$sex)
-tableau_contingence #on observe d'emble des valeurs theoriques trop faible pour le calcul.
+tableau_contingence #on observe d'emblee des valeurs theoriques trop faibles pour le calcul.
 
 #Test du chi (malgre les effectifs trop faibles)
 
 chisq.test(tableau_contingence,
            correct = T) #correction de continuite de Yates
+
+chisq.test(tableau_contingence,
+           correct = T)$expected #affiche les effectifs attendus
 
 chisq.test(matrix(c(13,7,4,23,22,9,11,4,7,0,12,12,0,0,15,13,18,11,4,17), ncol=2))
 

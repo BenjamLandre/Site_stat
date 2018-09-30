@@ -23,7 +23,7 @@ navbar:
       href: v_quanti.html
     - text: "4. Analyser"
       menu:
-        - text: "Comparaisons univariees"
+        - text: "Comparaisons bivariees"
           href: compa_univ.html
         - text: "Modele lineaire"
           href: m_lineaire.html
@@ -31,10 +31,6 @@ navbar:
           href: m_rlog.html
         - text: "Modele de survie"
           href: m_surv.html
-    - text: "5. Communiquer"
-      menu:
-        - text: "RMarkdown"
-          href: RMark.html
   right:
     - icon: fa-envelope-square fa-lg
       href: contact.html

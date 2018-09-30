@@ -14,7 +14,7 @@ Dans ce cas on ajoute un vecteur en colonne ou ligne a la BDD.
 Pour l'illustrer on utilisera 2 BDD fictives D1 et D2.
 Elles presentent des caracteristiques differentes.
 Elles contiennent une variable commune ID et pour chacune des variables qui leur sont propres. 
-Certains individus sont present dans les deux BDD, tandis que certains ne sont present que dans une des deux. 
+Certains individus sont present dans les deux BDD, tandis que certains ne sont presents que dans une des deux. 
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(error = TRUE)
@@ -29,9 +29,9 @@ val1<- rnorm(20,25,3)
 D1<- data.frame(ID= id.1, TTT= ttt, VAL1= val1) #40 observations de 3 variables: ID, TTT, VAL1
 str(D1)
 
-id.3<- 35:80
-val4<- rnorm(46,25,3)
-D2<- data.frame(ID= id.3, VAL3= val4) #46 observations de 2 variables: ID, VAL3
+id.2<- 35:80
+val2<- rnorm(46,25,3)
+D2<- data.frame(ID= id.2, VAL2= val2) #46 observations de 2 variables: ID, VAL3
 str(D2)
 
 ```
@@ -83,7 +83,8 @@ str(New_bdd)
 
 New_bdd<- dplyr::full_join(D1,D2) #on conserve l'ensemble de l'information des deux tableaux
 str(New_bdd)
-New_bdd<- dplyr::inner_join(D1,D2) #on conserve l'information des individus present a la fois dans D1 et D2
+
+New_bdd<- dplyr::inner_join(D1,D2) #on conserve l'information des individus presents a la fois dans D1 et D2
 str(New_bdd)
 ```
 
@@ -99,6 +100,6 @@ Pour s'entrainer
 | rnorm(n, m, s)         | cree aleatoirement n element suivant une loi normale de parametre m et s    |
 | rbind()                | joindre deux objets leurs lignes                                            |
 | cbind()                | joindre deux objets par leurs colonnes                                      |
-| left_join(bdd1, bdd2)  | joindre a bdd1 les donnees de bdd2, des individus de bdd1 present dans bdd2 |
-| inner_join(bdd1, bdd2) | joindre bdd1 et bdd2 en ne conservant que ceux present dans les deux bdd    |
+| left_join(bdd1, bdd2)  | joindre a bdd1 les donnees de bdd2, des individus de bdd1 presents dans bdd2 |
+| inner_join(bdd1, bdd2) | joindre bdd1 et bdd2 en ne conservant que ceux presents dans les deux bdd    |
 | full_join(bdd1, bdd2)  | joindre les deux bdd en conservant toute l'information                      |

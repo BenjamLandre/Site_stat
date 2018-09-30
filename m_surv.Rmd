@@ -4,11 +4,11 @@ output:
     toc: true
     toc_float: true
 ---
-##Model a duree de survie
+##modele a duree de survie
 
-Dans cette section on s'interessera a comment specifier des models de survie simple (kaplan-meier et cox).
+Dans cette section on s'interessera a comment specifier des modeles de survie simple (kaplan-meier et cox).
 
-On ne cherchera pas a definir s'il est judicieux d'utiliser ce genre de model, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modeles a risques proportionels.
+On ne cherchera pas a definir s'il est judicieux d'utiliser ce genre de modele, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modelees a risques proportionels.
 
 ***************************
 
@@ -21,12 +21,12 @@ data(lung)
 str(lung)
 ```
 
-#Specification du model
+#Specification du modele
 
 **1. Objet survie**
 
-Les models de suvie utilisent des donnees censurees. C'est a dire l'association entre une duree et un statut.    
-La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l'ensemble des models par la suite.
+Les modeles de suvie utilisent des donnees censurees. C'est a dire la combinaison entre une duree et un statut.    
+La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l'ensemble des modeles par la suite.
 ```{r}
 Obj.surv <- Surv(lung$time, #duree de survie 
                  lung$status) #statut a cette date
@@ -34,8 +34,8 @@ Obj.surv <- Surv(lung$time, #duree de survie
 
 **2. Kaplan Meier**
 
-Un premier model possible est le Kaplan-meier.   
-Cest un model non parametrique qui permet de comparer les durees de survie selon plusieurs strates.
+Un premier modele possible est le Kaplan-meier.   
+Cest un modele non parametrique qui permet de comparer les durees de survie selon plusieurs strates.
 
 ```{r}
 #KM sans aucune strate
@@ -52,23 +52,23 @@ survdiff(Obj.surv ~ lung$sex)
 ```
 
 
-**3. Model de Cox**
+**3. modele de Cox**
 
-Le model de Cox est un model semi parametrique a risque proportionel.   
+Le modele de Cox est un modele semi parametrique a risque proportionel.   
 Il contourne l'evaluation du risque de base en faisant l'hypothese que les risques sont proportionnels tout au long du suivi.   
 
 ```{r}
-Cx.M1 <- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) 
+Cx.M1 <- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) # l'indicateur * permet de definir une interaction entre 2 variables
 summary(Cx.M1)
 
-#Comparaison de models
+#Comparaison de modeles
 Cx.M2<- coxph(Obj.surv ~ ph.ecog + age, data=lung) 
 anova(Cx.M1, Cx.M2)
 ```
 
 #Verification des residus
 
-Dans le cadre du model de Cox plusieurs elements sont a verifier, dont l'hypothese des risques proportionnels.    
+Dans le cadre du modele de Cox plusieurs elements sont a verifier, dont l'hypothese des risques proportionnels.    
 Pour valider cette hypothese on espere que les coefficients soient invariant au cours du temps.
 Pour cela on peut analyser les residus, dont les residus de Schoenfeld. 
 
@@ -87,7 +87,7 @@ Pour s'entrainer.
 | Fonction          | Description                    |
 |-------------------|--------------------------------|
 | Surv(time, event) | creation de donnees censurees  |
-| survift()         | model Kaplan Meier             |
+| survift()         | modele Kaplan Meier             |
 | survdiff()        | log rank test                  |
-| coxph()           | model de cox                   |
+| coxph()           | modele de cox                   |
 | cox.zph()         | test des residus de Schoenfeld |
