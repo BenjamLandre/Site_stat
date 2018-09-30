@@ -12,7 +12,7 @@ Les plus souvent rencontrees sont les matrices et les data frames.
 - **Matrices**   
 
 Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d'un seul type.  
-C'est a dire uniquement des chiffres, du texte ou des resultats logiques (= Vrai / Faux).
+C'est a dire uniquement des chiffres, du texte ou des resultats logiques (= Vrai ou Faux).
 
 Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.  
 Ce sont donc des vecteurs a plusieurs dimensions.
@@ -57,7 +57,7 @@ D1 #une data frame qui associe des vecteurs de differents types.
 
 ```
 
-Un objet qui regroupe des vecteurs de différents types est appele une liste. 
+Un objet qui regroupe des vecteurs de differents types est appele une liste. 
 Les data frames sont donc considerees par R comme des listes a 2 dimensions.
 
 On accede aux elements qu'elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].  
@@ -68,7 +68,7 @@ D1[,1] #1ere colonne de D1
 
 D1$Colonne1 #idem
 
-D1[D1$Colonne2>2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieure a 2, avec présentation de toutes les colonnes.
+D1[D1$Colonne2>2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieure a 2, avec presentation de toutes les colonnes.
 
 subset(D1, Colonne2>2) # une alternative en passant par la fonction subset
 ```
@@ -81,7 +81,7 @@ Le plus simple est d'utiliser l'onglet 'Import Dataset', dans le panel "Environm
 Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.
 
 Les modifications effectuees sur la base de donnees ne sont presentees que dans la session active de R.     
-Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.  
+Pour enregistrer definitivement celles ci il faut sauvegarder la base de donnees.  
 
 Le format d'export le plus courant est le format texte (.csv).  Different packages permettent d'exporter sous d'autres formats.
 

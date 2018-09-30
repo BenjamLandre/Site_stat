@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -377,7 +370,7 @@ Les plus souvent rencontrees sont les matrices et les data frames.</p>
 <li><strong>Matrices</strong></li>
 </ul>
 <p>Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d’un seul type.<br />
-C’est a dire uniquement des chiffres, du texte ou des resultats logiques.</p>
+C’est a dire uniquement des chiffres, du texte ou des resultats logiques (= Vrai / Faux).</p>
 <p>Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.<br />
 Ce sont donc des vecteurs a plusieurs dimensions.</p>
 <pre class="r"><code>a&lt;- c(2,4,6,8)
@@ -421,7 +414,7 @@ On utilise l’indicateur “[]” juste apres le nom de la matrice, en precisan
 <li><strong>Data frames</strong></li>
 </ul>
 <p>Les datas frames sont egalement des tableaux mais ils peuvent regrouper des elements de differents types.<br />
-C’est a dire que des colonnes preuvent presenter des chiffres alors que d’autre contiennent du texte.</p>
+C’est a dire que des colonnes peuvent presenter des chiffres alors que d’autres contiennent du texte.</p>
 <pre class="r"><code>a&lt;- c(&quot;Pierre&quot;, &quot;Paul&quot;, &quot;Jack&quot;, &quot;Bob&quot;) #vecteur de texte
 b&lt;- c(2,4,6,8) #vecteur numerique
 
@@ -432,8 +425,7 @@ D1 #une data frame qui associe des vecteurs de differents types.</code></pre>
 ## 2     Paul        4
 ## 3     Jack        6
 ## 4      Bob        8</code></pre>
-<p>Un objet qui regroupe des vecteurs de type different est appele une liste.<br />
-Les data frame sont donc consideree par R comme des listes a 2 dimensions.</p>
+<p>Un objet qui regroupe des vecteurs de differents types est appele une liste. Les data frames sont donc considerees par R comme des listes a 2 dimensions.</p>
 <p>On accede aux elements qu’elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].<br />
 On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l’indicateur “$”, place entre le nom de la data frame et le nom de la colonne.</p>
 <pre class="r"><code>D1[,1] #1ere colonne de D1</code></pre>
@@ -442,7 +434,7 @@ On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l�
 <pre class="r"><code>D1$Colonne1 #idem</code></pre>
 <pre><code>## [1] Pierre Paul   Jack   Bob   
 ## Levels: Bob Jack Paul Pierre</code></pre>
-<pre class="r"><code>D1[D1$Colonne2&gt;2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieur a 2, on en souhaite toutes les colonnes.</code></pre>
+<pre class="r"><code>D1[D1$Colonne2&gt;2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieure a 2, avec presentation de toutes les colonnes.</code></pre>
 <pre><code>##   Colonne1 Colonne2
 ## 2     Paul        4
 ## 3     Jack        6
@@ -458,8 +450,8 @@ On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l�
 <p>On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.<br />
 Le plus simple est d’utiliser l’onglet ‘Import Dataset’, dans le panel “Environment”.</p>
 <p>Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.</p>
-<p>Les modifications effectuees sur la base de donnees ne sont presentes que dans la session active de R.<br />
-Pour enregistrer definitivement celles-ci il faut sauvegarder la base de donnees.</p>
+<p>Les modifications effectuees sur la base de donnees ne sont presentees que dans la session active de R.<br />
+Pour enregistrer definitivement celles ci il faut sauvegarder la base de donnees.</p>
 <p>Le format d’export le plus courant est le format texte (.csv). Different packages permettent d’exporter sous d’autres formats.</p>
 <pre class="r"><code>write.csv(Nom_de_la_bdd_a_sauvegarder, &quot;Nom_de_la_bdd_sauvee.csv&quot;, row.names=F)</code></pre>
 <hr />

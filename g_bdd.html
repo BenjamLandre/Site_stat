@@ -22,7 +22,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -91,6 +93,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -225,7 +230,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -235,18 +240,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -278,7 +271,7 @@ $(document).ready(function () {
 <li><p>en rajoutant une colonne ou une ligne a une BDD existante. Dans ce cas on ajoute un vecteur en colonne ou ligne a la BDD.</p></li>
 <li><p>en joignant tout ou partie d’une BDD a une autre BDD. On utilisera le package “dplyr”.</p></li>
 </ul>
-<p>Pour l’illustrer on utilisera 2 BDD fictives D1 et D2. Elles presentent des caracteristiques differentes. Elles contiennent une variable commune ID et pour chacune des variables qui leur sont propres. Certains individus sont present dans les deux BDD, tandis que certains ne sont present que dans une des deux.</p>
+<p>Pour l’illustrer on utilisera 2 BDD fictives D1 et D2. Elles presentent des caracteristiques differentes. Elles contiennent une variable commune ID et pour chacune des variables qui leur sont propres. Certains individus sont present dans les deux BDD, tandis que certains ne sont presents que dans une des deux.</p>
 <pre class="r"><code>#Creation de BDD
 id.1&lt;- 1:40
 ttt&lt;- rep(c(&quot;A&quot;, &quot;B&quot;),20)
@@ -288,14 +281,14 @@ str(D1)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  3 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  26.1 20.4 22.5 30.3 24 ...</code></pre>
-<pre class="r"><code>id.3&lt;- 35:80
-val4&lt;- rnorm(46,25,3)
-D2&lt;- data.frame(ID= id.3, VAL3= val4) #46 observations de 2 variables: ID, VAL3
+##  $ VAL1: num  22.1 26 21.4 22.9 22.6 ...</code></pre>
+<pre class="r"><code>id.2&lt;- 35:80
+val2&lt;- rnorm(46,25,3)
+D2&lt;- data.frame(ID= id.2, VAL2= val2) #46 observations de 2 variables: ID, VAL3
 str(D2)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    46 obs. of  2 variables:
 ##  $ ID  : int  35 36 37 38 39 40 41 42 43 44 ...
-##  $ VAL3: num  26.5 23.3 22.2 26.8 24.4 ...</code></pre>
+##  $ VAL2: num  27.7 26.4 21.7 20.6 27.2 ...</code></pre>
 <p><strong>1. Rajout simple (fonctions de base)</strong></p>
 <p>On a une base de donnees a laquelle on souhaite rajouter une ou des colonnes/lignes issue d’une autre base de donnee.<br />
 La seule condition a respecter est que les tailles des deux elements soient compatibles.</p>
@@ -312,9 +305,9 @@ str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  5 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  26.1 20.4 22.5 30.3 24 ...
-##  $ 1   : num  50.5 47.7 54.3 49 52.1 ...
-##  $ 2   : num  45.4 49 52.7 53.5 50.2 ...</code></pre>
+##  $ VAL1: num  22.1 26 21.4 22.9 22.6 ...
+##  $ 1   : num  46.4 49.8 50.5 48.3 49.1 ...
+##  $ 2   : num  50.5 54.3 51.3 54.8 50 ...</code></pre>
 <pre class="r"><code>#rajout d&#39;une ligne a la bdd pre-existante.
 
 New_bdd&lt;- rbind(D1, c(42, &quot;A&quot;, 100)) #rbind = row bind ~ lier lignes
@@ -322,7 +315,7 @@ str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    41 obs. of  3 variables:
 ##  $ ID  : chr  &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: chr  &quot;26.149549924726&quot; &quot;20.4144329830216&quot; &quot;22.5048263879376&quot; &quot;30.3387027263788&quot; ...</code></pre>
+##  $ VAL1: chr  &quot;22.1237227306614&quot; &quot;25.964248475835&quot; &quot;21.4048212981818&quot; &quot;22.8644167542976&quot; ...</code></pre>
 <pre class="r"><code>#
 
 New_bdd&lt;- cbind(D2, add_table) #impossible car objets de tailles differentes</code></pre>
@@ -347,24 +340,24 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  4 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  26.1 20.4 22.5 30.3 24 ...
-##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+##  $ VAL1: num  22.1 26 21.4 22.9 22.6 ...
+##  $ VAL2: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <pre class="r"><code>New_bdd&lt;- dplyr::full_join(D1,D2) #on conserve l&#39;ensemble de l&#39;information des deux tableaux</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
 <pre class="r"><code>str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    80 obs. of  4 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  26.1 20.4 22.5 30.3 24 ...
-##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
-<pre class="r"><code>New_bdd&lt;- dplyr::inner_join(D1,D2) #on conserve l&#39;information des individus present a la fois dans D1 et D2</code></pre>
+##  $ VAL1: num  22.1 26 21.4 22.9 22.6 ...
+##  $ VAL2: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre class="r"><code>New_bdd&lt;- dplyr::inner_join(D1,D2) #on conserve l&#39;information des individus presents a la fois dans D1 et D2</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
 <pre class="r"><code>str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    6 obs. of  4 variables:
 ##  $ ID  : int  35 36 37 38 39 40
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2
-##  $ VAL1: num  26.8 24.4 31 26 27 ...
-##  $ VAL3: num  26.5 23.3 22.2 26.8 24.4 ...</code></pre>
+##  $ VAL1: num  27.6 27.5 24.6 25.5 21 ...
+##  $ VAL2: num  27.7 26.4 21.7 20.6 27.2 ...</code></pre>
 <hr />
 <p>Pour s’entrainer</p>
 <p><strong>Synthese des fonctions</strong></p>
@@ -398,11 +391,11 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 </tr>
 <tr class="odd">
 <td>left_join(bdd1, bdd2)</td>
-<td>joindre a bdd1 les donnees de bdd2, des individus de bdd1 present dans bdd2</td>
+<td>joindre a bdd1 les donnees de bdd2, des individus de bdd1 presents dans bdd2</td>
 </tr>
 <tr class="even">
 <td>inner_join(bdd1, bdd2)</td>
-<td>joindre bdd1 et bdd2 en ne conservant que ceux present dans les deux bdd</td>
+<td>joindre bdd1 et bdd2 en ne conservant que ceux presents dans les deux bdd</td>
 </tr>
 <tr class="odd">
 <td>full_join(bdd1, bdd2)</td>

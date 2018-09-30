@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -371,15 +364,15 @@ div.tocify {
 
 <div id="comparer" class="section level2">
 <h2>Comparer</h2>
-<p>On souhaite extrapoler et objectiver les comparaisons que l’on observe. On va comparer les valeurs observees entre groupes.</p>
+<p>On souhaite tester statistiquement la différence entre deux groupes.</p>
 <p>Nous utiliserons le jeux de donnees ‘ais’, inclus dans le package “DAAG”.<br />
 (Pensez a telecharger le package une premiere fois via: install.package(“DAAG”)).</p>
 <p>Ce jeux de donnees contient des resultats d’analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html">ICI</a>.</p>
 <pre class="r"><code>require(DAAG)</code></pre>
 <pre class="r"><code>data(ais)</code></pre>
 </div>
-<div id="de-moyennes" class="section level1">
-<h1>1. … de moyennes</h1>
+<div id="deux-moyennes" class="section level1">
+<h1>1. Deux moyennes</h1>
 <p>Plusieurs tests de comparaisons de moyennes sont disponibles, dont le test de Student et de Wilcoxon.<br />
 L’utilisation de ces tests depend des effectifs en presence.<br />
 Cependant ils sont assez similaires dans leur specification.</p>
@@ -397,7 +390,7 @@ t.test(ais$ferr) #comparaison de la valeur par rapport a 0</code></pre>
 ## sample estimates:
 ## mean of x 
 ##  76.87624</code></pre>
-<pre class="r"><code>t.test(ais$ferr ~ ais$sex, #valeurs a comparer ~ groupes a comparer
+<pre class="r"><code>t.test(ais$ferr ~ ais$sex, #variable ~ groupes a comparer
        alternative= &quot;two.sided&quot;, #bilateral ou test d&#39;inferiorite/superiorite
        paired= FALSE) #donnees appariees</code></pre>
 <pre><code>## 
@@ -431,7 +424,7 @@ Ceci peut etre partiellement contourne en utilisant la méthode <a href="https:/
 <pre class="r"><code>#Creation du tableau de contingence
 
 tableau_contingence&lt;- table(ais$sport, ais$sex)
-tableau_contingence #on observe d&#39;emble des valeurs theoriques trop faible pour le calcul.</code></pre>
+tableau_contingence #on observe d&#39;emblee des valeurs theoriques trop faibles pour le calcul.</code></pre>
 <pre><code>##          
 ##            f  m
 ##   B_Ball  13 12
@@ -455,6 +448,22 @@ chisq.test(tableau_contingence,
 ## 
 ## data:  tableau_contingence
 ## X-squared = 53.167, df = 9, p-value = 2.717e-08</code></pre>
+<pre class="r"><code>chisq.test(tableau_contingence,
+           correct = T)$expected #affiche les effectifs attendus</code></pre>
+<pre><code>## Warning in chisq.test(tableau_contingence, correct = T): Chi-squared
+## approximation may be incorrect</code></pre>
+<pre><code>##          
+##                   f         m
+##   B_Ball  12.376238 12.623762
+##   Field    9.405941  9.594059
+##   Gym      1.980198  2.019802
+##   Netball 11.386139 11.613861
+##   Row     18.316832 18.683168
+##   Swim    10.891089 11.108911
+##   T_400m  14.356436 14.643564
+##   T_Sprnt  7.425743  7.574257
+##   Tennis   5.445545  5.554455
+##   W_Polo   8.415842  8.584158</code></pre>
 <pre class="r"><code>chisq.test(matrix(c(13,7,4,23,22,9,11,4,7,0,12,12,0,0,15,13,18,11,4,17), ncol=2))</code></pre>
 <pre><code>## Warning in chisq.test(matrix(c(13, 7, 4, 23, 22, 9, 11, 4, 7, 0, 12, 12, :
 ## Chi-squared approximation may be incorrect</code></pre>

@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -369,19 +362,14 @@ div.tocify {
 </div>
 
 
-<div id="model-a-duree-de-survie" class="section level2">
-<h2>Model a duree de survie</h2>
-<p>Dans cette section on s’interessera a comment specifier des models de survie simple (kaplan-meier et cox).</p>
-<p>On ne cherchera pas a definir s’il est judicieux d’utiliser ce genre de model, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modeles a risques proportionels.</p>
+<div id="modele-a-duree-de-survie" class="section level2">
+<h2>modele a duree de survie</h2>
+<p>Dans cette section on s’interessera a comment specifier des modeles de survie simple (kaplan-meier et cox).</p>
+<p>On ne cherchera pas a definir s’il est judicieux d’utiliser ce genre de modele, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modelees a risques proportionels.</p>
 <hr />
 <p>On utilisera le jeu de donnees ‘lung’ du package survival. Cette BDD comprend le suivi de 228 personnes atteintes d’un cancer pulmonaire avance. Plus de details peuvent etre trouves <a href="https://vincentarelbundock.github.io/Rdatasets/doc/survival/lung.html">ici</a>.</p>
-<pre class="r"><code>library(survival)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;survival&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:DAAG&#39;:
-## 
-##     lung</code></pre>
-<pre class="r"><code>data(lung)
+<pre class="r"><code>library(survival)
+data(lung)
 str(lung)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    228 obs. of  10 variables:
 ##  $ inst     : num  3 3 3 5 1 12 7 11 1 7 ...
@@ -395,16 +383,16 @@ str(lung)</code></pre>
 ##  $ meal.cal : num  1175 1225 NA 1150 NA ...
 ##  $ wt.loss  : num  NA 15 15 11 0 0 10 1 16 34 ...</code></pre>
 </div>
-<div id="specification-du-model" class="section level1">
-<h1>Specification du model</h1>
+<div id="specification-du-modele" class="section level1">
+<h1>Specification du modele</h1>
 <p><strong>1. Objet survie</strong></p>
-<p>Les models de suvie utilisent des donnees censurees. C’est a dire l’association entre une duree et un statut.<br />
-La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l’ensemble des models par la suite.</p>
+<p>Les modeles de suvie utilisent des donnees censurees. C’est a dire la combinaison entre une duree et un statut.<br />
+La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l’ensemble des modeles par la suite.</p>
 <pre class="r"><code>Obj.surv &lt;- Surv(lung$time, #duree de survie 
                  lung$status) #statut a cette date</code></pre>
 <p><strong>2. Kaplan Meier</strong></p>
-<p>Un premier model possible est le Kaplan-meier.<br />
-Cest un model non parametrique qui permet de comparer les durees de survie selon plusieurs strates.</p>
+<p>Un premier modele possible est le Kaplan-meier.<br />
+Cest un modele non parametrique qui permet de comparer les durees de survie selon plusieurs strates.</p>
 <pre class="r"><code>#KM sans aucune strate
 KM &lt;- survfit(Obj.surv ~ 1)
 KM</code></pre>
@@ -427,11 +415,11 @@ survdiff(Obj.surv ~ lung$sex)</code></pre>
 ## lung$sex=1 138      112     91.6      4.55      10.3
 ## lung$sex=2  90       53     73.4      5.68      10.3
 ## 
-##  Chisq= 10.3  on 1 degrees of freedom, p= 0.00131</code></pre>
-<p><strong>3. Model de Cox</strong></p>
-<p>Le model de Cox est un model semi parametrique a risque proportionel.<br />
+##  Chisq= 10.3  on 1 degrees of freedom, p= 0.001</code></pre>
+<p><strong>3. modele de Cox</strong></p>
+<p>Le modele de Cox est un modele semi parametrique a risque proportionel.<br />
 Il contourne l’evaluation du risque de base en faisant l’hypothese que les risques sont proportionnels tout au long du suivi.</p>
-<pre class="r"><code>Cx.M1 &lt;- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) 
+<pre class="r"><code>Cx.M1 &lt;- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) # l&#39;indicateur * permet de definir une interaction entre 2 variables
 summary(Cx.M1)</code></pre>
 <pre><code>## Call:
 ## coxph(formula = Obj.surv ~ ph.ecog * sex + age, data = lung)
@@ -455,10 +443,10 @@ summary(Cx.M1)</code></pre>
 ## 
 ## Concordance= 0.637  (se = 0.026 )
 ## Rsquare= 0.126   (max possible= 0.999 )
-## Likelihood ratio test= 30.66  on 4 df,   p=3.588e-06
-## Wald test            = 29.21  on 4 df,   p=7.071e-06
-## Score (logrank) test = 31.01  on 4 df,   p=3.052e-06</code></pre>
-<pre class="r"><code>#Comparaison de models
+## Likelihood ratio test= 30.66  on 4 df,   p=4e-06
+## Wald test            = 29.21  on 4 df,   p=7e-06
+## Score (logrank) test = 31.01  on 4 df,   p=3e-06</code></pre>
+<pre class="r"><code>#Comparaison de modeles
 Cx.M2&lt;- coxph(Obj.surv ~ ph.ecog + age, data=lung) 
 anova(Cx.M1, Cx.M2)</code></pre>
 <pre><code>## Analysis of Deviance Table
@@ -473,7 +461,7 @@ anova(Cx.M1, Cx.M2)</code></pre>
 </div>
 <div id="verification-des-residus" class="section level1">
 <h1>Verification des residus</h1>
-<p>Dans le cadre du model de Cox plusieurs elements sont a verifier, dont l’hypothese des risques proportionnels.<br />
+<p>Dans le cadre du modele de Cox plusieurs elements sont a verifier, dont l’hypothese des risques proportionnels.<br />
 Pour valider cette hypothese on espere que les coefficients soient invariant au cours du temps. Pour cela on peut analyser les residus, dont les residus de Schoenfeld.</p>
 <pre class="r"><code>Verif &lt;- cox.zph(Cx.M1)
 Verif</code></pre>
@@ -502,7 +490,7 @@ Verif</code></pre>
 </tr>
 <tr class="even">
 <td>survift()</td>
-<td>model Kaplan Meier</td>
+<td>modele Kaplan Meier</td>
 </tr>
 <tr class="odd">
 <td>survdiff()</td>
@@ -510,7 +498,7 @@ Verif</code></pre>
 </tr>
 <tr class="even">
 <td>coxph()</td>
-<td>model de cox</td>
+<td>modele de cox</td>
 </tr>
 <tr class="odd">
 <td>cox.zph()</td>

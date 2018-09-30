@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -372,21 +365,19 @@ div.tocify {
 <div id="modification-de-variables" class="section level2">
 <h2>Modification de variables</h2>
 <p>Avant d’analyser ses donnees il est parfois necessaire de modifier, ou creer ses propres variables.</p>
-<p>Nous utiliserons le jeux de donnees ‘cats’, inclus dans le package ‘MASS’.<br />
+<p>Nous utiliserons le jeu de donnees ‘cats’, inclus dans le package ‘MASS’.<br />
 (Pensez a telecharger une 1ere fois le package: install.package(“MASS”)).</p>
-<p>Ce jeux de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.<br />
+<p>Ce jeu de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.<br />
 Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html">ICI</a>.</p>
-<pre class="r"><code>require(MASS)</code></pre>
 <pre class="r"><code>require(MASS)</code></pre>
 <pre class="r"><code>data(cats)</code></pre>
 </div>
 <div id="structure-de-la-base-de-donnees" class="section level1">
 <h1>1. Structure de la base de donnees</h1>
 <p>Une premiere etape est de comprendre la structure et la composition de l’ensemble des donnees.<br />
-La fonction str() (‘structure’) permet une premiers description de la base de donnee (BDD).<br />
+La fonction str() (‘structure’) permet une premiers description de la base de donnees (BDD).<br />
 La fonction View() permet d’observer directement le tableau.<br />
-Cependant, en cas de BDD massive, il est impossible d’afficher l’entierete de l’objet.<br />
-Il est plus prudent donc de s’avoir s’en passer.</p>
+Cependant, en cas de BDD massive, il est impossible d’afficher l’entierete de l’objet.</p>
 <pre class="r"><code>str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    144 obs. of  3 variables:
 ##  $ Sex: Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 1 1 1 1 1 1 1 1 ...
@@ -396,22 +387,22 @@ Il est plus prudent donc de s’avoir s’en passer.</p>
 </div>
 <div id="types-de-vecteur" class="section level1">
 <h1>2. Types de vecteur</h1>
-<p>Il existe plusieurs type de vecteur.<br />
+<p>Il existe plusieurs types de vecteur.<br />
 On peut utiliser la fonction str() directement sur une variable de la BDD pour comprendre de quel type de vecteur il s’agit.</p>
 <pre class="r"><code>str(cats$Sex)</code></pre>
 <pre><code>##  Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
-<p>Cete variable est enregistree de facon interne comme un ensemble de chiffre (1 et 2).<br />
+<p>Cette variable est enregistree de facon interne comme un ensemble de chiffres (1 et 2).<br />
 Cependant R associe et affiche le caractere ‘M’ a tous les 2 et ‘F’ a tous les 1.<br />
 C’est une variable categorielle.</p>
 <p>On peut en changer le type si on le souhaite.</p>
 <pre class="r"><code>{
 cats$Sex &lt;- as.numeric(cats$Sex)
 str(cats$Sex) #la variable Sex devient un vecteur numerique
-mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (ce qui n&#39;a toujours pas de sens dans notre cas)
+mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (meme si ca n&#39;as pas de sens dans notre cas)
 }</code></pre>
 <pre><code>##  num [1:144] 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <pre><code>## [1] 1.673611</code></pre>
-<p>Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu’elles representes.</p>
+<p>Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu’elles representent.</p>
 <pre class="r"><code>{
 #Retablir la variable categorielle
 cats$Sex &lt;- factor(cats$Sex, #la variable a transformer
@@ -422,14 +413,11 @@ cats$Sex &lt;- factor(cats$Sex, #la variable a transformer
 </div>
 <div id="creer-une-variable" class="section level1">
 <h1>3. Creer une variable</h1>
-<p>On peut creer des variables de different types et de differentes facons.</p>
-<p>Dans tous les cas, il faut commencer par indiquer le nom de l’objet que l’on souhaite creer.<br />
-Ici on souhaite assigner a la BDD une nouvelle variable (un nouvelle colonne).<br />
-On indique donc le nom de la BDD, puis le nom de la variable, separe par le signe $.</p>
-<p>Ensuite on precie les conditions pour determiner cette nouvelle variable.<br />
-Soit a partir de donnees deja existantes dans la BDD, soit a partir d’un vecteur independant de celle ci.<br />
-Dans ce dernier cas, la seule condition est que la longueur du vecteur cree soit de meme dimension qu’une colonne de la BDD.<br />
-On ne peut pas ajouter a un tableau une colonne qui lui serait plus petite.</p>
+<p>On peut creer des variables de differents types et de differentes facons.</p>
+<p>Dans tous les cas, il faut commencer par indiquer le nom de la colonne que l’on souhaite ajouter, en commençant par le nom de la BDD, suivi du signe $ et du nom de variable.</p>
+<p>Ensuite on precise les conditions pour determiner cette nouvelle variable.<br />
+Soit a partir de donnees deja existantes dans la BDD, soit a partir d’un vecteur independant de celle-ci.<br />
+Dans ce dernier cas, la seule condition est que la longueur du vecteur corresponde au nombre de lignes de la BDD.</p>
 <pre class="r"><code>#Variable numerique continue &quot;rapport&quot;,
 #qui est le rapport entre les variables Hwt et Bwt de la BDD
 
@@ -452,17 +440,13 @@ cats$rapport_2C &lt;- cut(cats$rapport, #le vecteur numerique a categoriser
 cats$random &lt;- runif(144, #doit correspondre au nombre d&#39;observation (de lignes) dans la BDD
                      min = 0, max= 10) #parametres de la distribution
 str(cats$random)</code></pre>
-<pre><code>##  num [1:144] 1.323 3.551 8.408 3.198 0.464 ...</code></pre>
+<pre><code>##  num [1:144] 0.877 7.606 3.693 7.095 5.304 ...</code></pre>
 </div>
 <div id="modifier-une-variable" class="section level1">
 <h1>4. Modifier une variable</h1>
-<p>On peut modifier une variable pre-existante. Cela revient a creer une variable qui remplace une variable pre-existante.<br />
-Soit en assignant simplement une nouvelle valeur ou une nouvelle formule a tous les elements de l’ancienne variable.<br />
-Soit en en l’assignant conditionnellement a la valeur prise par une autre covariable.</p>
-<p>Pour cette derniere situation, on pourra utiliser selon les cas:<br />
-- la fonction ifelse(), qui prend pour arguments (1) une condition logique, (2) une valeur valeur prise si cette condition est respectee, (3) une autre valeur dans le cas contraire.<br />
-- une selection d’un sous-ensemble du vecteur pour lui assigner une valeur.</p>
-<p>Dans tous les cas, on fera attention car la variable cree va ecraser la variable remplacee.<br />
+<p>On peut modifier une variable existante, de façon homogène pour l’ensemble des individus ou de façon conditionnelle a la valeur prise par une autre covariable.<br />
+Dans ce dernier cas nous utiliserons la fonction ifelse() qui précise la condition et les modifications à apporter selon que la condition est présente ou non.</p>
+<p>Attention, mieux vaut créer un duplicata de la variable avant de la modifier, au risque de perdre l’originale.<br />
 En cas d’erreur et que l’on souhaite recuperer l’ancienne variable, il faudra recharger la base de donnee.<br />
 Il est donc souvent plus prudent de cree une nouvelle variable plutot que d’ecraser une ancienne.</p>
 <pre class="r"><code>summary(cats$Bwt)</code></pre>
@@ -473,7 +457,7 @@ Il est donc souvent plus prudent de cree une nouvelle variable plutot que d’ec
 cats$Bwt &lt;- cats$Bwt * 1.3
 summary(cats$Bwt)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   2.600   2.990   3.510   3.541   3.932   5.070</code></pre>
+##   2.600   2.990   3.510   3.541   3.933   5.070</code></pre>
 <pre class="r"><code>#modification conditionnelle
 
 cats$Bwt &lt;- ifelse(cats$Sex == &quot;M&quot;, #condition logique: &quot;Si la variable Sex prend la valeur &quot;M&quot;&quot;
@@ -481,7 +465,7 @@ cats$Bwt &lt;- ifelse(cats$Sex == &quot;M&quot;, #condition logique: &quot;Si la
                    cats$Bwt * 0.8) #sinon elle prend cette valeur
 summary(cats$Bwt)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   2.080   2.678   4.972   4.610   5.899   7.605</code></pre>
+##   2.080   2.678   4.973   4.610   5.899   7.605</code></pre>
 <hr />
 <p>Pour s’entrainer</p>
 <p><strong>Synthese des fonctions</strong></p>

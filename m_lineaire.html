@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -369,16 +362,14 @@ div.tocify {
 </div>
 
 
-<div id="model-lineaire" class="section level2">
-<h2>Model lineaire</h2>
-<p>Dans cette section on s’interesse a la facon de specifier un model lineaire dans R.</p>
-<p>On ne cherchera pas a definir s’il est pertinent de lancer cette analyse.<br />
-En pratique c’est bien entendu une etape minutieuse qui doit etre faite avant de se lancer dans la construction d’un quelconque model.</p>
-<p>On gardera egalement en tete que R est capable de produire des resultats pour a peu pres tous les calculs demandes qu’ils soient inapproprie ou faux dans votre contexte.</p>
-<p>On ne verra pas non plus les etapes suivantes de validations et d’optimisation du model. Des packages et fonctions interessantes pour cela peuvent etre trouvees <a href="https://www.statmethods.net/stats/regression.html">ICI</a>.</p>
+<div id="modele-lineaire" class="section level2">
+<h2>modele lineaire</h2>
+<p>Dans cette section on s’interesse a la facon de specifier un modele lineaire dans R.</p>
+<p>Un ensemble de vidéos expliquant simplement le concept des modeles lineaires peut etre trouve <a href="https://www.youtube.com/watch?v=PaFPbb66DxQ&amp;list=PLblh5JKOoLUIzaEkCLIUxQFjPIlapw8nU">ICI</a>.</p>
+<p>On ne verra pas les etapes suivantes de validations et d’optimisation du modele. Des packages et fonctions interessantes pour cela peuvent etre trouvees <a href="https://www.statmethods.net/stats/regression.html">ICI</a>.</p>
 <hr />
 <p><strong>Creation d’une BDD</strong></p>
-<p>Pour voir les etapes necessaires a la creation d’un model on va construire un jeu de donnee basique.<br />
+<p>Pour voir les etapes necessaires a la creation d’un modele on va construire un jeu de donnee basique.<br />
 On pourra ainsi maitriser les parametres et definir les associations a trouver.</p>
 <p>On definit BDD, une data frame de 450 observations de 6 variables continues normales.<br />
 La variable d’interet est “var.1”&quot; que l’on cherche a expliquer par les 5 autres variables.</p>
@@ -408,26 +399,26 @@ var.1 &lt;- 48 + A*var.2 + B*var.3 + C*var.4 + D*var.5 + E*var.6 + rnorm(450, 0 
 BDD &lt;- data.frame(var.1,var.2, var.3, var.4, var.5, var.6)
 str(BDD)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    450 obs. of  6 variables:
-##  $ var.1: num  143.5 54.1 122.1 125.4 35 ...
-##  $ var.2: num  15.92 -13.26 -3.26 -4.13 -18.81 ...
-##  $ var.3: num  18.8 18.4 37 24.7 43.7 ...
-##  $ var.4: num  45.52 48.85 60.69 66.85 -3.65 ...
-##  $ var.5: num  69.9 90.4 44 44.7 37.6 ...
-##  $ var.6: num  127.3 112.9 196.2 40.7 61.8 ...</code></pre>
+##  $ var.1: num  163.6 100.6 62 140.2 15.2 ...
+##  $ var.2: num  15.59 -14.661 0.138 -14.152 -10.047 ...
+##  $ var.3: num  36.18 25.23 11.49 53.98 8.72 ...
+##  $ var.4: num  23.8 59.3 24.3 43.5 -15.3 ...
+##  $ var.5: num  144.93 79.93 7.82 127.91 44.34 ...
+##  $ var.6: num  76.5 51.8 116.5 53.2 19.3 ...</code></pre>
 <p><strong>Visualisation des associations brutes</strong></p>
 <p>On peut visualiser dans un premiers temps la relation de notre variable d’interet avec les autres variables.<br />
 On constate comme attendu que les relations semblent lineaires, et proches des coefficients specifies plus haut.</p>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="specification-dun-model" class="section level1">
-<h1>Specification d’un model</h1>
-<p>On specifie un 1er model “M.Lineaire.1”, qui est le model complet.<br />
-Il modelise la relation entre ‘var.1’ et l’ensemble des autres variables.<br />
-La fonction summary() permet d’afficher les details de ce model.</p>
+<div id="specification-dun-modele" class="section level1">
+<h1>Specification d’un modele</h1>
+<p>On specifie un 1er modele “M.Lineaire.1”, qui est le modele complet.<br />
+Il modeleise la relation entre ‘var.1’ et l’ensemble des autres variables.<br />
+La fonction summary() permet d’afficher les details de ce modele.</p>
 <p>La sortie comporte plusieurs compartiments:</p>
 <p><strong>Call:</strong> rappel de la formule utilisee.</p>
-<p><strong>Residuals:</strong> propose une description de la distribution des residus, on s’y interessera plus tard pour examiner la concordance du model avec les hypotheses du model.</p>
-<p><strong>Coefficients:</strong> affiche le coefficient, l’ecart type, la valeur t et la p-value pour l’intercept et chaques coefficients testes dans le modele.</p>
+<p><strong>Residuals:</strong> propose une description de la distribution des residus, on s’y interessera plus tard pour examiner la concordance du modele avec les hypotheses du modele.</p>
+<p><strong>Coefficients:</strong> affiche le coefficient, l’ecart type, la valeur t et la p-value pour l’intercept et chaques coefficients testes dans le modelee.</p>
 <p>Le dernier compartiment indique plusieurs indicateurs notamment le R² et le R² ajuste.</p>
 <pre class="r"><code>M.Lineaire.1 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
 summary(M.Lineaire.1)</code></pre>
@@ -437,29 +428,29 @@ summary(M.Lineaire.1)</code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -50.837 -11.924   0.207  12.459  56.805 
+## -49.139 -10.706  -0.549  11.159  62.236 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 46.97867    2.21822  21.179   &lt;2e-16 ***
-## var.2        3.09086    0.07024  44.005   &lt;2e-16 ***
-## var.3        0.94728    0.03464  27.349   &lt;2e-16 ***
-## var.4        0.55279    0.02388  23.153   &lt;2e-16 ***
-## var.5        0.18175    0.01823   9.969   &lt;2e-16 ***
-## var.6        0.02604    0.01362   1.912   0.0565 .  
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 48.973066   1.949150   25.12   &lt;2e-16 ***
+## var.2        3.014095   0.068420   44.05   &lt;2e-16 ***
+## var.3        1.036454   0.035528   29.17   &lt;2e-16 ***
+## var.4        0.503681   0.022952   21.95   &lt;2e-16 ***
+## var.5        0.190081   0.016869   11.27   &lt;2e-16 ***
+## var.6       -0.004485   0.013188   -0.34    0.734    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 17.82 on 444 degrees of freedom
-## Multiple R-squared:  0.8889, Adjusted R-squared:  0.8877 
-## F-statistic: 710.8 on 5 and 444 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 16.89 on 444 degrees of freedom
+## Multiple R-squared:  0.8987, Adjusted R-squared:  0.8976 
+## F-statistic:   788 on 5 and 444 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div id="comparaison-de-models" class="section level1">
-<h1>Comparaison de models</h1>
-<p>On peut comparer deux models a partir de la fonction anova(), a la condition qu’ils soient emboites.</p>
-<p>On a cree le model ‘M.lineaire.2’ qui comporte les meme variables que le model precedent a l’exception de ‘var.2’, la variable la plus fortement associee a notre outcome.</p>
-<p>La sortie affiche les models ainsi que la p-value associee a cette comparaison. On constatera qu’ils sont significativement differents.<br />
-On conserve le model 1 qui comporte le plus d’information.</p>
+<div id="comparaison-de-modeles" class="section level1">
+<h1>Comparaison de modeles</h1>
+<p>On peut comparer deux modeles a partir de la fonction anova(), a la condition qu’ils soient emboites.</p>
+<p>On a cree le modele ‘M.lineaire.2’ qui comporte les meme variables que le modele precedent a l’exception de ‘var.2’, la variable la plus fortement associee a notre outcome.</p>
+<p>La sortie affiche les modeles ainsi que la p-value associee a cette comparaison. On constatera qu’ils sont significativement differents.<br />
+On conserve le modele 1 qui comporte le plus d’information.</p>
 <pre class="r"><code>M.Lineaire.2 &lt;- lm(formula = var.1 ~ var.3 + var.4 + var.5 + var.6, data= BDD)
 
 anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
@@ -468,102 +459,102 @@ anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
 ## Model 1: var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6
 ## Model 2: var.1 ~ var.3 + var.4 + var.5 + var.6
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    444 141000                                  
-## 2    445 755938 -1   -614939 1936.4 &lt; 2.2e-16 ***
+## 1    444 126666                                  
+## 2    445 680293 -1   -553627 1940.6 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="selection-des-variables" class="section level1">
 <h1>Selection des variables</h1>
-<p>Pour automatiser le processus precedent on peut s’aider de la fonction step(). Elle permet d’effectuer une selection purement statistique des variables a partir de la comparaison automatisee des models emboites.</p>
-<p>La fonction part d’un model initial a tester, ajoute/retire des variables et compare les models ainsi cree selon un critere que l’on definit. C’est un processus iteratif qui continue jusqu’a otpimiser notre critere de selection.</p>
+<p>Pour automatiser le processus precedent on peut s’aider de la fonction step(). Elle permet d’effectuer une selection purement statistique des variables a partir de la comparaison automatisee des modeles emboites.</p>
+<p>La fonction part d’un modele initial a tester, ajoute/retire des variables et compare les modeles ainsi cree selon un critere que l’on definit. C’est un processus iteratif qui continue jusqu’a otpimiser notre critere de selection.</p>
 <p>On doit specifier plusieurs choses:<br />
-(1) le model de depart<br />
+(1) le modele de depart<br />
 (2) dans quelle direction la fonction doit elle chercher (forward: ajoute des variables ; backward: retire des variables ; both)<br />
-(3) le domaine de recherche ; c-a-d les models extremes a partir desquels on souhaite que la fonction arrete de chercher.<br />
+(3) le domaine de recherche : c-a-d définir les modèles qui encadrent (le plus riche, le plus pauvre en information) l’ensemble des modèles que l’on souhaite explorer<br />
 (4) le critere de selection (generalement AIC ou BIC).</p>
-<p>On va specifier le model null et le model full qui sont respectivement le model le plus pauvre en information que l’on souhaite tester et le model le plus riche en information que l’on souhaite tester.<br />
-Par defaut R ira du model vide jusqu’au model complet.<br />
+<p>On va specifier le modele null et le modele full qui sont respectivement le modele le plus pauvre en information que l’on souhaite tester et le modele le plus riche en information que l’on souhaite tester.<br />
+Par defaut R ira du modele vide jusqu’au modele complet.<br />
 Plusieurs options sont disponibles concernant la direction, on consultera la page d’aide pour plus de details.</p>
 <p>La sortie de la fonction step est interessante a analyser.<br />
-Les deux premiers lignes indique la valeur du critere ainsi que la formule pour le model initial.</p>
-<p>Le premier tableau indique les tests effectuer.<br />
-R a essaye calcule notre critere (ici le BIC malgre ce qu’affiche le tableau), dans plusieurs cas de figure:<br />
+Les deux premiers lignes indique la valeur du critere ainsi que la formule pour le modele initial.</p>
+<p>Le premier tableau indique les tests effectues.<br />
+Le critere (ici le BIC malgre ce qu’affiche le tableau) est evalue dans plusieurs cas de figure:<br />
 - en ajoutant var.2<br />
 - en ajoutant var.3<br />
 - en retirant var.6<br />
-- en conservant le model tel quel<br />
+- en conservant le modele tel quel<br />
 - en retirant var.5<br />
 -en retirant var.4</p>
 <p>Il en conclut que ce qui minimise le BIC est d’ajouter var.2.</p>
-<p>Il ajoute var.2 a notre model initial, et recommence la procedure.</p>
-<p>Il continue ainsi jusqu’a obtenir un model pour lequel ajouter/retirer une variable penalise notre critere.<br />
-Il conserve ce model en dernieres lignes et nous affiche ses coefficients.</p>
+<p>Il ajoute var.2 a notre modele initial, et recommence la procedure.</p>
+<p>Il continue ainsi jusqu’a obtenir un modele pour lequel ajouter/retirer une variable penalise notre critere.<br />
+Il conserve ce modele en dernieres lignes et nous affiche ses coefficients.</p>
 <pre class="r"><code>M.Lineaire.0 &lt;- lm(formula = var.1 ~ var.4 + var.5 + var.6, data= BDD)
 null &lt;-lm(formula = var.1 ~ 1, data= BDD)
 full&lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
 
-step(M.Lineaire.0, #le model initial a tester
-     direction = &quot;both&quot;, #regarde dans les deux directions, c&#39;est a dire vers les models plus complets mais aussi vers ceux moins complet
-     scope = list(lower=null,upper=full), #les models le plus pauvre/riche autorise
+step(M.Lineaire.0, #le modele initial a tester
+     direction = &quot;both&quot;, #regarde dans les deux directions, c&#39;est a dire vers les modeles plus complets mais aussi plus parcimonieux
+     scope = list(lower=null,upper=full), #les modeles le plus pauvre/riche autorise
      criterion = &quot;BIC&quot;, #1er arugment sur le critere de selection
      k = log(nrow(BDD))) #2nd argument ; pour comparer en fonction de l&#39;AIC on retirera ces deux derniers arguments</code></pre>
-<pre><code>## Start:  AIC=3514.91
+<pre><code>## Start:  AIC=3523.13
 ## var.1 ~ var.4 + var.5 + var.6
 ## 
 ##         Df Sum of Sq     RSS    AIC
-## + var.2  1    673088  378534 3061.2
-## + var.3  1    295684  755938 3372.5
-## - var.6  1      3472 1055094 3510.3
-## &lt;none&gt;               1051622 3514.9
-## - var.5  1     29303 1080925 3521.2
-## - var.4  1    182905 1234527 3581.0
+## + var.2  1    701563  369464 3050.3
+## + var.3  1    390734  680293 3325.0
+## - var.6  1      1134 1072161 3517.5
+## &lt;none&gt;               1071027 3523.1
+## - var.5  1     26918 1097945 3528.2
+## - var.4  1    152226 1223254 3576.8
 ## 
-## Step:  AIC=3061.21
+## Step:  AIC=3050.3
 ## var.1 ~ var.4 + var.5 + var.6 + var.2
 ## 
 ##         Df Sum of Sq     RSS    AIC
-## + var.3  1    237535  141000 2622.9
-## - var.6  1      1946  380480 3057.4
-## &lt;none&gt;                378534 3061.2
-## - var.5  1     31176  409710 3090.7
-## - var.4  1    171136  549671 3223.0
-## - var.2  1    673088 1051622 3514.9
+## + var.3  1    242798  126666 2574.7
+## - var.6  1        68  369532 3044.3
+## &lt;none&gt;                369464 3050.3
+## - var.5  1     36275  405739 3086.3
+## - var.4  1    160554  530018 3206.6
+## - var.2  1    701563 1071027 3523.1
 ## 
-## Step:  AIC=2622.92
+## Step:  AIC=2574.68
 ## var.1 ~ var.4 + var.5 + var.6 + var.2 + var.3
 ## 
 ##         Df Sum of Sq    RSS    AIC
-## - var.6  1      1162 142161 2620.5
-## &lt;none&gt;               141000 2622.9
-## - var.5  1     31561 172561 2707.7
-## - var.4  1    170230 311230 2973.1
-## - var.3  1    237535 378534 3061.2
-## - var.2  1    614939 755938 3372.5
+## - var.6  1        33 126699 2568.7
+## &lt;none&gt;               126666 2574.7
+## - var.5  1     36221 162887 2681.7
+## - var.4  1    137382 264048 2899.1
+## - var.3  1    242798 369464 3050.3
+## - var.2  1    553627 680293 3325.0
 ## 
-## Step:  AIC=2620.51
+## Step:  AIC=2568.69
 ## var.1 ~ var.4 + var.5 + var.2 + var.3
 ## 
 ##         Df Sum of Sq    RSS    AIC
-## &lt;none&gt;               142161 2620.5
-## + var.6  1      1162 141000 2622.9
-## - var.5  1     31656 173817 2704.9
-## - var.4  1    169632 311793 2967.8
-## - var.3  1    238319 380480 3057.4
-## - var.2  1    615992 758153 3367.7</code></pre>
+## &lt;none&gt;               126699 2568.7
+## + var.6  1        33 126666 2574.7
+## - var.5  1     36223 162922 2675.7
+## - var.4  1    137367 264066 2893.1
+## - var.3  1    242833 369532 3044.3
+## - var.2  1    554344 681043 3319.4</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = var.1 ~ var.4 + var.5 + var.2 + var.3, data = BDD)
 ## 
 ## Coefficients:
 ## (Intercept)        var.4        var.5        var.2        var.3  
-##     49.2799       0.5516       0.1820       3.0931       0.9486</code></pre>
+##     48.6206       0.5035       0.1901       3.0148       1.0365</code></pre>
 </div>
 <div id="verification-des-hypotheses" class="section level1">
 <h1>Verification des hypotheses</h1>
-<p>Une premiere etape succinte pour verifier les conditions d’application du model est de verifier graphiquement la distribution des residus.<br />
+<p>Une premiere etape succinte pour verifier les conditions d’application du modele est de verifier graphiquement la distribution des residus.<br />
 On espere entre autre qu’ils suivent une loi normale de moyenne 0, qu’ils ne presentent pas de signe d’heteroscedascite, ou de points abherrants.</p>
-<p>Notre jeu de donnees ayant ete construit de toute piece, on s’est premunie de ces situations.</p>
+<p>Notre jeu de donnees ayant ete construit de toute piece, on s’est premuni de ces situations.</p>
 <pre class="r"><code>par(mfrow=c(2,2))
 plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))</code></pre>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
@@ -584,15 +575,15 @@ plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))</code></pre
 <tbody>
 <tr class="odd">
 <td>lm( outcome ~ variable1+ varible2, data= )</td>
-<td>model linaire</td>
+<td>modele linaire</td>
 </tr>
 <tr class="even">
 <td>anova(m1, m2)</td>
-<td>comparaison des models m1 et m2</td>
+<td>comparaison des modeles m1 et m2</td>
 </tr>
 <tr class="odd">
 <td>step(m1, direction= , scope(m.null , m.max))</td>
-<td>selection stepwise des variables du model m1</td>
+<td>selection stepwise des variables du modele m1</td>
 </tr>
 </tbody>
 </table>

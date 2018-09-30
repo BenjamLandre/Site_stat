@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -371,25 +364,23 @@ div.tocify {
 
 <div id="regression-logistique" class="section level2">
 <h2>Regression logistique</h2>
-<p>Dans cette section on s’interesse a la facon de specifier un model logistique dans R.<br />
-Les fonctions sont tres similaires a celles utilisees dans le cadre de modeles lineaire.</p>
-<p>Comme dans le cas des models lineaires on ne cherchera pas a definir s’il est pertinent et judicieux de realiser ce type de model.<br />
-Ce sont des etapes importantes a faire en amont du model.</p>
+<p>Dans cette section on s’interesse a la facon de specifier un modele logistique dans R.<br />
+Les fonctions sont tres similaires a celles utilisees dans le cadre de modelees lineaire.</p>
+<p>Un ensemble de vidéos expliquant simplement le concept des modeles logistiques peut etre trouve <a href="https://www.youtube.com/watch?v=yIYKR4sgzI8">ICI</a>.</p>
 <hr />
 <p><strong>Jeu de donnee utilisee</strong></p>
 <p>On utilisera la BDD ‘headInjury’, inclus dans le package “DAAG”.<br />
 (Pensez a telecharger le package au moins une fois pour utiliser ces donnees: install.package(“DAAG”)).</p>
-<p>Cette data frame comporte 3121 observations de 11 variables, concernant la distribution de grenouilles en australie.<br />
-Plus d’information sont disponibles <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/headInjury.html">ICI</a>.</p>
+<p>Plus d’information sont disponibles <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/headInjury.html">ICI</a>.</p>
 <p>On prendra comme variable d’interet ‘high.risk’, qui decrit la presence (1) ou l’absence (0) d’un risque eleve d’une chirurgie neurologique pour le patient.<br />
 On etudiera son association avec ‘age.65’, ‘amnesia.before’, ‘GCS.decrease’ et ‘vomiting’.</p>
 <pre class="r"><code>require(DAAG)</code></pre>
 <pre class="r"><code>data(&quot;headInjury&quot;)</code></pre>
 </div>
-<div id="specification-du-model" class="section level1">
-<h1>Specification du model</h1>
-<p>Les regressions logistiques font partie de la famille des models lineaires generalise.<br />
-On specifie juste un lien “binomial” pour preciser un model logistique.</p>
+<div id="specification-du-modele" class="section level1">
+<h1>Specification du modele</h1>
+<p>Les regressions logistiques font partie de la famille des modeles lineaires generalise.<br />
+On specifie juste un lien “binomial” pour preciser un modele logistique.</p>
 <pre class="r"><code>RL.1&lt;- glm( factor(headInjury$high.risk, c(0,1), c(&quot;Low Risk&quot;, &quot;High Risk&quot;)) ~ vomiting + age.65 + amnesia.before + GCS.decrease, family = &quot;binomial&quot;, data=headInjury)
 summary(RL.1)</code></pre>
 <pre><code>## 
@@ -419,11 +410,14 @@ summary(RL.1)</code></pre>
 ## AIC: 3417.1
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>exp(RL.1$coefficients) #affiche les coefficients de la regression, les affiche en terme d&#39;odds-ratio</code></pre>
+<pre><code>##    (Intercept)       vomiting         age.65 amnesia.before   GCS.decrease 
+##      0.2763634      2.1340021      1.3260726      1.0306283      2.1243153</code></pre>
 </div>
-<div id="comparaison-de-models" class="section level1">
-<h1>Comparaison de models</h1>
-<p>Pour la comparaison de models on pourra egalement utiliser la fonction dediee lrtest() du package “lmtest”.<br />
-Elle donne le meme resultat que la fonction anonva().</p>
+<div id="comparaison-de-modeles" class="section level1">
+<h1>Comparaison de modeles</h1>
+<p>Pour la comparaison de modeles on pourra egalement utiliser la fonction dediee lrtest() du package “lmtest”.<br />
+Elle donne le meme resultat que la fonction anova().</p>
 <pre class="r"><code>RL.2&lt;- glm( factor(headInjury$high.risk, c(0,1), c(&quot;Low Risk&quot;, &quot;High Risk&quot;)) ~ vomiting + age.65, family = &quot;binomial&quot;, data=headInjury)
 
 anova(RL.1, RL.2, test= &quot;Chisq&quot;)</code></pre>
@@ -444,8 +438,8 @@ anova(RL.1, RL.2, test= &quot;Chisq&quot;)</code></pre>
 </div>
 <div id="selection-des-variables" class="section level1">
 <h1>Selection des variables</h1>
-<pre class="r"><code>step(RL.1, #le model initial a tester
-     direction = &quot;both&quot;, #regarde dans les deux directions, c&#39;est a dire vers les models plus complets mais aussi vers ceux moins complet
+<pre class="r"><code>step(RL.1, #le modele initial a tester
+     direction = &quot;both&quot;, #regarde dans les deux directions, c&#39;est a dire vers les modeles plus complets mais aussi vers ceux moins complet
      criterion = &quot;BIC&quot;, #1er arugment sur le critere de selection
      k = log(nrow(headInjury)))</code></pre>
 <pre><code>## Start:  AIC=3447.38
@@ -495,9 +489,9 @@ anova(RL.1, RL.2, test= &quot;Chisq&quot;)</code></pre>
 </div>
 <div id="controle-de-la-colinearite" class="section level1">
 <h1>Controle de la colinearite</h1>
-<p>Une etape interessante est de controler la colinearite possible entre les variables du model.<br />
+<p>Une etape interessante est de controler la colinearite possible entre les variables du modele.<br />
 On utilise generalement le variance inflator factor (VIF).<br />
-Il mesure le changement de variance des variables lorsque l’on retire une variable du model.<br />
+Il mesure le changement de variance des variables lorsque l’on retire une variable du modele.<br />
 En presence de 2 variables colineaires, une part de la variance est partagee entre ces deux variables.<br />
 Si on retire une de ces variable, la variance de l’autre variable est fortement modifie.</p>
 <p>Il n’y a pas de consensus sur la (les) valeurs critique(s) du VIF. Les valeurs seuils retenues varie de 4 a 10.</p>
@@ -526,15 +520,15 @@ vif(RL.1)</code></pre>
 </tr>
 <tr class="even">
 <td>anova(m1, m2, test= “Chisq”)</td>
-<td>comparaison des models m1 et m2</td>
+<td>comparaison des modeles m1 et m2</td>
 </tr>
 <tr class="odd">
 <td>step(m1, direction= , scope(m.null , m.max))</td>
-<td>selection stepwise des variables du model m1</td>
+<td>selection stepwise des variables du modele m1</td>
 </tr>
 <tr class="even">
 <td>vif(m1)</td>
-<td>calcul les VIF des variables du model m1</td>
+<td>calcul les VIF des variables du modele m1</td>
 </tr>
 </tbody>
 </table>

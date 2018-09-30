@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -399,7 +392,7 @@ Z        #Z ne contient plus l&#39;element 118 mais 22.</code></pre>
 <h1>Vecteurs de donnees</h1>
 <p>Un des interets de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.<br />
 Une façon de le faire est de regrouper un ensemble de donnees a l’interieur d’un objet. On peut utiliser la fonction c() (abreviation de concatenate).</p>
-<p>Ces objets, appeles vecteurs, regroupent un ensemble de donnees de meme categorie.<br />
+<p>Ces objets, appeles vecteurs, regroupent un ensemble de donnees de même nature.<br />
 Ils constituent un element important dans la logique de calcul de R.</p>
 <pre class="r"><code>c(4,8)  #directement
 
@@ -434,7 +427,7 @@ a[a&gt;20] #selection, dans a, les elements pour lesquels a est superieur a 20</
 <pre class="r"><code>b&lt;- a[a&gt;20] #on peut creer un vecteur comprenant ce sous-ensemble
 b #b est le sous ensemble de a comprenant les elements de a superieurs a 20</code></pre>
 <pre><code>## [1] 45 46</code></pre>
-<pre class="r"><code>a #a est inchange est comprent toujours l&#39;ensemble de ces elements</code></pre>
+<pre class="r"><code>a #a est inchange est comprend toujours l&#39;ensemble des valeurs de depart</code></pre>
 <pre><code>## [1] 12 45 18 16 13 18 46</code></pre>
 </div>
 <div id="valeurs-manquantes" class="section level1">
@@ -451,7 +444,7 @@ a</code></pre>
 <div id="les-fonctions" class="section level1">
 <h1>Les fonctions</h1>
 <p><strong>1. Utilisation generale</strong></p>
-<p>R inclue des fonctions dites de base.<br />
+<p>R inclut des fonctions dites de base.<br />
 Elles permettent d’effectuer rapidement des ensembles de calculs pre-definis, en en controlant les conditions.</p>
 <pre class="r"><code>IMC_echantillon &lt;- rnorm(15,23,3) #tirer au sort 15 elements d&#39;une distribution normale,    de moyenne 23 et ecart type 3
 IMC_echantillon
@@ -463,16 +456,19 @@ Variance_IMC</code></pre>
 <p>Chaque fonction comprend un ou plusieurs arguments qui permettent de preciser les conditions de calculs.<br />
 Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.<br />
 D’autres ont une valeur par defaut, c’est celle qui sera utilisee si l’utilisateur ne la modifie pas.</p>
-<pre class="r"><code>Model_lineaire &lt;- lm(formula = ma_formule, #a renseigner obligatoirement
-                     data= bdd_IMC, #idem
+<pre class="r"><code>data(cars)
+Modele_lineaire &lt;- lm(formula = speed ~ dist, #a renseigner obligatoirement
+                     data= cars, #idem
                      method = &quot;qr&quot;) #la valeur &quot;qr&quot;&quot; est la valeur par defaut,
-                                    #l&#39;argument est facultatif</code></pre>
+                                    #l&#39;argument est facultatif
+summary(Modele_lineaire)</code></pre>
 <p>Pour connaitre les arguments d’une fonction on peut consulter la page d’aide.<br />
 Pour cela il suffit d’ajouter “?” devant la fonction et de la lancer dans la console.<br />
 L’aide concernant la fonction apparait dans la fenetre d’aide. Elle comprend une description de son utilisation, sa formulation complete, une liste des arguments avec leur detail d’utilisation et des exemples d’utilisation.</p>
 <p><strong>2. Importer des fonctions</strong></p>
 <p>Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calculs et d’actions. Cependant on peut acceder a des fonctions supplementaire a partir des packages. Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R. Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.</p>
-<p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>. Pour chaques package vous disposez du manuel d’utilisation qui compile l’ensemble des fonctions disponibles dans le package et parfois d’un tutoriel.</p>
+<p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>.<br />
+Pour chaques package vous disposez du manuel d’utilisation qui compile l’ensemble des fonctions disponibles dans le package, avec parfois un tutoriel.</p>
 <p>Pour instaler directement un package depuis RStudio, il faut:<br />
 1) Telecharger le package (- une seule fois)<br />
 puis<br />
@@ -484,7 +480,7 @@ install.packages(&quot;survival&quot;) #telecharge et installe le package
 library(survival) #active les fonctions pour la session en cours
 
 Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes</code></pre>
-<p>Comme tout nouveau langage que l’on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre. Certaines fonctions seront decrites ici mais l’ecrasante majoritee reste a decouvrir. Plus le vocabulaire s’enrichie plus on est capable de realiser des taches specifiques, precises ou combinees a d’autres.<br />
+<p>Comme tout nouveau langage que l’on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre. Certaines fonctions seront decrites ici mais l’ecrasante majorite reste a decouvrir. Plus le vocabulaire s’enrichit plus on est capable de realiser des taches specifiques, precises ou combinees a d’autres.<br />
 Pour decouvrir de nouvelles fonctions le plus simple est de tapper ‘l’action que l’on souhaite produire’ suivi de ‘in r’ dans le moteur de recherche.</p>
 <p>Par exemple:</p>
 <blockquote>

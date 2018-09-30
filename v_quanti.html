@@ -25,7 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -94,6 +96,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,7 +328,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons bivariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -333,18 +338,6 @@ div.tocify {
     </li>
     <li>
       <a href="m_surv.html">Modele de survie</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    5. Communiquer
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="RMark.html">RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -375,9 +368,11 @@ div.tocify {
 <p>Nous utiliserons le jeux de donnees ‘ais’, inclus dans le package “DAAG”.<br />
 (Pensez a telecharger le package une premiere fois via: install.package(“DAAG”)).</p>
 <p>Ce jeux de donnees contient des resultats d’analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html">ICI.</a></p>
-<p>A cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.</p>
-<pre class="r"><code>require(DAAG)
-data(ais)
+<p>Dans cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.</p>
+<pre class="r"><code>require(DAAG)</code></pre>
+<pre><code>## Loading required package: DAAG</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre class="r"><code>data(ais)
 
 ais_NA&lt;- ais #creation de ais_NA qui est une bdd identique a ais.
 
@@ -389,15 +384,15 @@ ais_NA$sport[sample(1:length(ais_NA$sport),10)]&lt;- NA</code></pre>
 <h1>1. Description numeriques</h1>
 <p>Pour se faire une idee du jeux de donnee, une description de la distribution de ses variables est importante.</p>
 <p><strong>- En univarie</strong></p>
-<p>On peut chercher a connaitre l’effectif, la tendance centrale (moyenne, medianne, mode) ainsi que la dispersion (ecart-type / variance, l’etendue des donnees, ses quantiles).</p>
+<p>On peut chercher a connaitre l’effectif, la tendance centrale (moyenne, mediane, mode) ainsi que la dispersion (ecart-type / variance, l’etendue des donnees, ses quantiles).</p>
 <p>La fonction summarise(), permet d’obtenir la majorite de ces indicateurs.<br />
-D’autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stop le calcul et renvoie une erreur presence de valeurs manquantes.</p>
-<p><strong>Dans le cas d’une variable qualitative, on remarquera et on gardera bien en tete que part defaut les donnees manquantes ne sont pas signalees.</strong></p>
+D’autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stoppe le calcul et renvoie une erreur presence de valeurs manquantes.</p>
+<p><strong>Dans le cas d’une variable qualitative, on remarquera et on gardera bien en tete que par defaut les donnees manquantes ne sont pas signalees.</strong></p>
 <pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
 
 summary(ais_NA$ferr) #la derniere colonne denombre les donnees manquantes pour cette variable.</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##    8.00   41.00   64.00   75.96   97.00  234.00      10</code></pre>
+##    8.00   41.75   65.50   76.77   97.50  234.00      10</code></pre>
 <pre class="r"><code>table(is.na(ais_NA$ferr)) #is.na() = la valeur est elle manquante ? / permet d&#39;obtenir les effectifs</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
@@ -410,12 +405,20 @@ range(ais_NA$ferr,na.rm=TRUE)
 quantile(ais_NA$ferr,na.rm=TRUE)</code></pre>
 <pre class="r"><code>#Dans le cas d&#39;une variable qualitative.
 
-table(ais_NA$sport, useNA = &quot;always&quot;) #useNA: doit on inclure les donnees manquantes &quot;always&quot; !</code></pre>
+#indique les effectifs
+table(ais_NA$sport, useNA = &quot;always&quot;) #useNA: permet d’avoir le nb de valeurs manquantes dans une colonne supplémentaire.</code></pre>
 <pre><code>## 
 ##  B_Ball   Field     Gym Netball     Row    Swim  T_400m T_Sprnt  Tennis 
-##      24      17       4      23      34      22      28      15      10 
+##      22      19       4      21      35      21      28      14      11 
 ##  W_Polo    &lt;NA&gt; 
-##      15      10</code></pre>
+##      17      10</code></pre>
+<pre class="r"><code>#indique les pourcentages
+prop.table(table(ais_NA$sport, useNA = &quot;always&quot;))</code></pre>
+<pre><code>## 
+##     B_Ball      Field        Gym    Netball        Row       Swim 
+## 0.10891089 0.09405941 0.01980198 0.10396040 0.17326733 0.10396040 
+##     T_400m    T_Sprnt     Tennis     W_Polo       &lt;NA&gt; 
+## 0.13861386 0.06930693 0.05445545 0.08415842 0.04950495</code></pre>
 <p><strong>- En bivarie</strong></p>
 <p>On peut egalement realiser une analyse bivariee, c-a-d decrire la distribution d’une variable selon differents groupes.</p>
 <pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
@@ -425,32 +428,32 @@ tapply(ais_NA$ferr, #la variable que l&#39;on souhaite decrire
        summary) #utiliser cette fonction de description</code></pre>
 <pre><code>## $f
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   12.00   36.00   50.00   56.77   71.00  182.00       3 
+##   12.00   36.25   50.50   57.41   72.50  182.00       6 
 ## 
 ## $m
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##    8.00   53.00   87.00   95.55  120.00  234.00       7</code></pre>
+##    8.00   53.50   88.00   95.33  123.50  234.00       4</code></pre>
 <pre class="r"><code>#Dans le cas d&#39;une variable qualitative
 
 table(ais_NA$sport, ais_NA$sex, useNA = &quot;always&quot;)</code></pre>
 <pre><code>##          
 ##            f  m &lt;NA&gt;
-##   B_Ball  12 12    0
-##   Field    6 11    0
+##   B_Ball  12 10    0
+##   Field    7 12    0
 ##   Gym      4  0    0
-##   Netball 23  0    0
-##   Row     19 15    0
-##   Swim     9 13    0
-##   T_400m  11 17    0
-##   T_Sprnt  4 11    0
-##   Tennis   7  3    0
-##   W_Polo   0 15    0
+##   Netball 21  0    0
+##   Row     21 14    0
+##   Swim     9 12    0
+##   T_400m  10 18    0
+##   T_Sprnt  4 10    0
+##   Tennis   7  4    0
+##   W_Polo   0 17    0
 ##   &lt;NA&gt;     5  5    0</code></pre>
 </div>
 <div id="representation-graphiques" class="section level1">
 <h1>2. Representation graphiques</h1>
 <p>R est un outil efficace pour visualiser ses donnees. Les fonctions de base permettent de realiser de nombreux graphiques. Neanmoins plusieurs packages populaires (<a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html">ggplot2</a>, <a href="http://www.sthda.com/english/wiki/lattice-graphs">lattice</a>), non vu ici, sont frequemment utilises pour etendre ces fonctionnalites.</p>
-<p>Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon l’arguments specifies.<br />
+<p>Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon les arguments specifies.<br />
 R determine la nature des donnees entrees en argument et produit un graphique en consequence.<br />
 Si on souhaite voir un type de graphique en particulier (histogramme, boxplot, stripchart) on peut utiliser la fonction dediee a ce type particulier de graphique.</p>
 <pre class="r"><code>#Graphiques simples
@@ -473,7 +476,7 @@ abline(v=mean(ais_NA$bmi, na.rm=T) , lty=&quot;dotted&quot;, col=&quot;blue&quot
 legend(&quot;topright&quot;, #ou souhaite t&#39;on faire apparaitre la legende
        legend=c(&quot;Femme&quot;, &quot;Homme&quot;), #quels sont les etiquettes a rattacher a la legende
        pch=16, #le symbole a afficher
-       col=unique(ais_NA$sex) #quels sont les couleurs definies
+       col=unique(ais_NA$sex) #quelles sont les couleurs definies
 )
 }</code></pre>
 <p><img src="v_quanti_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
