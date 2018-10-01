@@ -97,6 +97,13 @@ Parmi les fonctions de bases la fonction plot() permet de produire divers graphi
 R determine la nature des donnees entrees en argument et produit un graphique en consequence.    
 Si on souhaite voir un type de graphique en particulier (histogramme, boxplot, stripchart) on peut utiliser la fonction dediee a ce type particulier de graphique.
 
+De maniere general, on distingue:     
+- les fonctions graphiques de haut niveau, qui permettent d'obtenir l'essentiel des graphiques.   
+- les fonctions graphiques de bas niveau, qui permettent d'ajouter secondairement des elements a un graphique deja existant.   
+    
+Les fonctions disponibles sont nombreuses, les principales sont resumees [ICI](Synthese_Graphiques_R.pdf).
+Le plus simple est de les tester en faisant varier les parametres et en en deduisant leur utilisation.
+
 ```{r, eval=FALSE}
 #Graphiques simples
 
@@ -139,7 +146,7 @@ boxplot(ais_NA$ferr ~ ais_NA$sport, main="Boxplot: [ferritine] en fonction du sp
 
 ******************************
 
-Pour s'entrainer.
+[Synthese des graphiques](Synthese_Graphiques_R.pdf)
 
 **Synthese des fonctions**
 
