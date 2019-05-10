@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +98,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +192,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +349,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +384,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +391,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +437,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,142 +451,270 @@ div.tocify {
 </div>
 
 
-<div id="descriptions-des-variables" class="section level2">
-<h2>Descriptions des variables</h2>
-<p>On souhaite dans un premier temps decrire et observer nos donnees pour mieux les comprendre.</p>
-<p>Nous utiliserons le jeux de donnees ‘ais’, inclus dans le package “DAAG”.<br />
-(Pensez a telecharger le package une premiere fois via: install.package(“DAAG”)).</p>
-<p>Ce jeux de donnees contient des resultats d’analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html">ICI.</a></p>
-<p>Dans cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.</p>
-<pre class="r"><code>require(DAAG)</code></pre>
-<pre><code>## Loading required package: DAAG</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre class="r"><code>data(ais)
-
-ais_NA&lt;- ais #creation de ais_NA qui est une bdd identique a ais.
-
-#on ajoute des donnees manquantes aleatoirement pour la variable ferr et sport.
-ais_NA$ferr[sample(1:length(ais_NA$ferr),10)]&lt;- NA 
-ais_NA$sport[sample(1:length(ais_NA$sport),10)]&lt;- NA</code></pre>
-</div>
-<div id="description-numeriques" class="section level1">
-<h1>1. Description numeriques</h1>
-<p>Pour se faire une idee du jeux de donnee, une description de la distribution de ses variables est importante.</p>
-<p><strong>- En univarie</strong></p>
-<p>On peut chercher a connaitre l’effectif, la tendance centrale (moyenne, mediane, mode) ainsi que la dispersion (ecart-type / variance, l’etendue des donnees, ses quantiles).</p>
-<p>La fonction summarise(), permet d’obtenir la majorite de ces indicateurs.<br />
-D’autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stoppe le calcul et renvoie une erreur presence de valeurs manquantes.</p>
-<p><strong>Dans le cas d’une variable qualitative, on remarquera et on gardera bien en tete que par defaut les donnees manquantes ne sont pas signalees.</strong></p>
-<pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
-
-summary(ais_NA$ferr) #la derniere colonne denombre les donnees manquantes pour cette variable.</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##    8.00   41.00   65.50   77.47   99.50  234.00      10</code></pre>
-<pre class="r"><code>table(is.na(ais_NA$ferr)) #is.na() = la valeur est elle manquante ? / permet d&#39;obtenir les effectifs</code></pre>
-<pre><code>## 
-## FALSE  TRUE 
-##   192    10</code></pre>
-<pre class="r"><code>summary(ais_NA) #produit un resume de toutes les variables de la bdd
-
-mean(ais_NA$ferr,na.rm=TRUE) #na.rm = NA remove, l&#39;argument est parametre par defaut sur FALSE et stop le calcul.
-sd(ais_NA$ferr,na.rm=TRUE)
-range(ais_NA$ferr,na.rm=TRUE)
-quantile(ais_NA$ferr,na.rm=TRUE)</code></pre>
-<pre class="r"><code>#Dans le cas d&#39;une variable qualitative.
-
-#indique les effectifs
-table(ais_NA$sport, useNA = &quot;always&quot;) #useNA: permet d’avoir le nb de valeurs manquantes dans une colonne supplémentaire.</code></pre>
-<pre><code>## 
-##  B_Ball   Field     Gym Netball     Row    Swim  T_400m T_Sprnt  Tennis 
-##      24      18       3      22      36      21      28      15      10 
-##  W_Polo    &lt;NA&gt; 
-##      15      10</code></pre>
-<pre class="r"><code>#indique les pourcentages
-prop.table(table(ais_NA$sport, useNA = &quot;always&quot;))</code></pre>
-<pre><code>## 
-##     B_Ball      Field        Gym    Netball        Row       Swim 
-## 0.11881188 0.08910891 0.01485149 0.10891089 0.17821782 0.10396040 
-##     T_400m    T_Sprnt     Tennis     W_Polo       &lt;NA&gt; 
-## 0.13861386 0.07425743 0.04950495 0.07425743 0.04950495</code></pre>
-<p><strong>- En bivarie</strong></p>
-<p>On peut egalement realiser une analyse bivariee, c-a-d decrire la distribution d’une variable selon differents groupes.</p>
-<pre class="r"><code>#Dans le cas d&#39;une variable quantitative.
-
-tapply(ais_NA$ferr, #la variable que l&#39;on souhaite decrire
-       ais_NA$sex, #en fonction de cette categories
-       summary) #utiliser cette fonction de description</code></pre>
-<pre><code>## $f
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   12.00   36.00   50.00   56.72   71.00  182.00       5 
-## 
-## $m
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##     8.0    56.0    90.0    97.8   124.0   234.0       5</code></pre>
-<pre class="r"><code>#Dans le cas d&#39;une variable qualitative
-
-table(ais_NA$sport, ais_NA$sex, useNA = &quot;always&quot;)</code></pre>
-<pre><code>##          
-##            f  m &lt;NA&gt;
-##   B_Ball  13 11    0
-##   Field    6 12    0
-##   Gym      3  0    0
-##   Netball 22  0    0
-##   Row     21 15    0
-##   Swim     8 13    0
-##   T_400m  11 17    0
-##   T_Sprnt  4 11    0
-##   Tennis   7  3    0
-##   W_Polo   0 15    0
-##   &lt;NA&gt;     5  5    0</code></pre>
-</div>
-<div id="representation-graphiques" class="section level1">
-<h1>2. Representation graphiques</h1>
-<p>R est un outil efficace pour visualiser ses donnees. Les fonctions de base permettent de realiser de nombreux graphiques. Neanmoins plusieurs packages populaires (<a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html">ggplot2</a>, <a href="http://www.sthda.com/english/wiki/lattice-graphs">lattice</a>), non vu ici, sont frequemment utilises pour etendre ces fonctionnalites.</p>
-<p>Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon les arguments specifies.<br />
-R determine la nature des donnees entrees en argument et produit un graphique en consequence.<br />
-Si on souhaite voir un type de graphique en particulier (histogramme, boxplot, stripchart) on peut utiliser la fonction dediee a ce type particulier de graphique.</p>
-<p>De maniere general, on distingue:<br />
-- les fonctions graphiques de haut niveau, qui permettent d’obtenir l’essentiel des graphiques.<br />
-- les fonctions graphiques de bas niveau, qui permettent d’ajouter secondairement des elements a un graphique deja existant.</p>
-<p>Les fonctions disponibles sont nombreuses, les principales sont resumees <a href="Synthese_Graphiques_R.pdf">ICI</a>. Le plus simple est de les tester en faisant varier les parametres et en en deduisant leur utilisation.</p>
-<pre class="r"><code>#Graphiques simples
-
-plot(ais_NA$ferr) #univarie
-plot(ais_NA$bmi, ais_NA$ferr) #bivarie</code></pre>
-<pre class="r"><code>#En specifiant plusieurs arguments utiles
-
-{plot(ais_NA$bmi, ais_NA$ferr, #formule
-      col=ais_NA$sex, #couleurs des symboles en fonction d&#39;une autre variable
-      pch=16, #motif du symbole
-      cex=1.5, #taille des symboles
-      xlab=&quot;IMC&quot;, ylab=&quot;Concentration en ferritine&quot;, #nom des axes
-      main=&quot;Taux de concentration en ferritine en fonction de l&#39;IMC.&quot;) #titre principal
-  
-abline(h=mean(ais_NA$ferr, na.rm=T) , lty=&quot;dotted&quot;, col=&quot;blue&quot;) #rajouter une ligne horizontale representant la moyenne de la concentration en ferritine
-abline(v=mean(ais_NA$bmi, na.rm=T) , lty=&quot;dotted&quot;, col=&quot;blue&quot;) #rajouter une ligne verticale representant la moyenne de l&#39;IMC
-
-  
-legend(&quot;topright&quot;, #ou souhaite t&#39;on faire apparaitre la legende
-       legend=c(&quot;Femme&quot;, &quot;Homme&quot;), #quels sont les etiquettes a rattacher a la legende
-       pch=16, #le symbole a afficher
-       col=unique(ais_NA$sex) #quelles sont les couleurs definies
-)
-}</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<pre class="r"><code>{
-par(mfrow=c(1,2)) #permet d&#39;afficher plusieurs graphiques sur une meme page, 
-stripchart(ais_NA$ferr, method=&quot;jitter&quot;, main= &quot;Stripchart: [ferritine]&quot;,xlab = &quot;[ferritine]&quot;)
-hist(ais_NA$ferr, main=&quot;Histogram: [ferritine]&quot;, xlab = &quot;[ferritine]&quot;)}</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<pre class="r"><code>{
-par(mfrow=c(1,1))
-boxplot(ais_NA$ferr ~ ais_NA$sport, main=&quot;Boxplot: [ferritine] en fonction du sport&quot;)
-}</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h4>
+Synthèse
+</h4>
+<ul>
+<li>Plusieurs fonctions permettent de décrire les statistiques des vecteurs (en uni ou bivarié).<br />
+</li>
+<li>Tous les indicateurs statistiques ne sont pas adapté à tous les types de données.<br />
+</li>
+<li>Les différentes fonctions ne gérent pas les données manquantes de la même façon. Il est souvent plus prudent d’aller vérifer ce point dans l’aide.<br />
+</li>
+<li>Il existe de nombreuses fonctions graphiques. La plupart des arguments sont communs à toutes ces fonctions.</li>
+<li>Tous les graphiques ne sont pas adaptés pour tous les types de données.</li>
+</ul>
 <hr />
-<p><a href="Synthese_Graphiques_R.pdf">Synthese des graphiques</a></p>
-<p><strong>Synthese des fonctions</strong></p>
-<table>
+<h1>
+Statistiques des vecteurs
+</h1>
+<p>On veut produire des indicateurs numériques pour comprendre les données contenues dans nos vecteurs.<br />
+Ces indicateurs, les statistiques du vecteur, dépendent du type de données contenus.</p>
+<h2>
+Données quantitatives
+</h2>
+<p><strong>Les statistiques usuelles décrivent:</strong><br />
+- <em>la tendance centrale:</em> moyenne, médiane<br />
+- <em>la dispersion des données:</em> variance, écart-type, minimale, maximale, quantiles<br />
+- <em>le lien entre variables continues:</em> corrélation, covariance<br />
+- <em>les effectifs</em></p>
+<p>On sera prudent sur la présence possible de <strong>DONNEES MANQUANTES</strong> dans le vecteur. <br><br> Par défaut, en présence de données manquantes, le calcul renvoit une valeur manquante. Il faut renseigner l’argument na.rm (abbréviation de na remove) pour exclure ces données du calcul. <br><br> Cet argument n’est pas disponible dans la fonction length(). On pourra utiliser la fonction na.omit(), vu précédemment pour calculer la taille du vecteur en excluant els données manquantes.</p>
+<div class="figure">
+<img src="descri_quanti.png" />
+
+</div>
+<p><br><br></p>
+<hr />
+<pre class="r"><code>a &lt;- c(1:15, NA)
+b &lt;- 1:16 + rnorm(16)
+categories &lt;- c(rep(&quot;Cat.A&quot;, 8), rep(&quot;Cat.B&quot;, 8))
+
+# univarié
+mean(a)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>mean(a, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code>length(a)</code></pre>
+<pre><code>## [1] 16</code></pre>
+<pre class="r"><code>length(na.omit(a))</code></pre>
+<pre><code>## [1] 15</code></pre>
+<pre class="r"><code># bivarié
+cor(a, b, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.9839219</code></pre>
+<pre class="r"><code>cov(a, b, use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 20.60538</code></pre>
+<pre class="r"><code>tapply(X= a, INDEX= categories, mean, na.rm=TRUE)</code></pre>
+<pre><code>## Cat.A Cat.B 
+##   4.5  12.0</code></pre>
+<h2>
+Données qualitatives
+</h2>
+<p><strong>Les statistiques usuelles décrivent:</strong><br />
+- <em>les effectifs et pourcentages</em><br />
+- <em>la catégorie majoritaire</em></p>
+<p>Comme précédemment, la présence de <strong>DONNEES MANQUANTES</strong> est un combat de chaques instant. <br><br />
+Par défaut, R n’affiche pas les effectifs de données manquantes, ce qui peut être particulièrement préjudiciable.<br />
+On aura recours, dans la fonction table(), à l’argument <strong>use.Na = “always”</strong> pour afficher ces effectifs.</p>
+<div class="figure">
+<img src="descri_quali.png" />
+
+</div>
+<p><br><br></p>
+<hr />
+<pre class="r"><code>b &lt;- c(&quot;un peu&quot;, &quot;beaucoup&quot;, &quot;passionément&quot;, &quot;à la folie&quot;, NA, &quot;beaucoup&quot;)
+a &lt;- c(&quot;aime&quot;, &quot;aime&quot;, &quot;aime&quot;, &quot;aime pas&quot;, &quot;aime pas&quot;, &quot;aime pas&quot;)
+
+table(b)</code></pre>
+<pre><code>## b
+##   à la folie     beaucoup passionément       un peu 
+##            1            2            1            1</code></pre>
+<pre class="r"><code>table(b, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## b
+##   à la folie     beaucoup passionément       un peu         &lt;NA&gt; 
+##            1            2            1            1            1</code></pre>
+<pre class="r"><code>prop.table(table(b)) # on demande les % de la table</code></pre>
+<pre><code>## b
+##   à la folie     beaucoup passionément       un peu 
+##          0.2          0.4          0.2          0.2</code></pre>
+<pre class="r"><code>which.max(table(b)) # on demande la catégorie avec la valeur maximale d&#39;effectifs, dans la table</code></pre>
+<pre><code>## beaucoup 
+##        2</code></pre>
+<pre class="r"><code># le tableau de contingence
+table(a, b)</code></pre>
+<pre><code>##           b
+## a          à la folie beaucoup passionément un peu
+##   aime              0        1            1      1
+##   aime pas          1        1            0      0</code></pre>
+<pre class="r"><code>prop.table(table(a, b)) # n / N total</code></pre>
+<pre><code>##           b
+## a          à la folie beaucoup passionément un peu
+##   aime            0.0      0.2          0.2    0.2
+##   aime pas        0.2      0.2          0.0    0.0</code></pre>
+<pre class="r"><code>prop.table(table(a, b), 1) # % ligne</code></pre>
+<pre><code>##           b
+## a          à la folie  beaucoup passionément    un peu
+##   aime      0.0000000 0.3333333    0.3333333 0.3333333
+##   aime pas  0.5000000 0.5000000    0.0000000 0.0000000</code></pre>
+<pre class="r"><code>prop.table(table(a, b), 2) # % colonne</code></pre>
+<pre><code>##           b
+## a          à la folie beaucoup passionément un peu
+##   aime            0.0      0.5          1.0    1.0
+##   aime pas        1.0      0.5          0.0    0.0</code></pre>
+<h1>
+Graphiques
+</h1>
+<p>Les graphiques sont de puissants outils, ils permettent d’explorer les données, transmettre un message ou mettre en évidence un résultat.<br />
+Il existe un grand nombre de graphique, seul les principaux seront abordés. Il existe également beaucoup d’arguments paramétrables, nous verrons seulement les essentiels ainsi que ceux qui omniprésents.</p>
+<p>On peut consulter <a href="https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html">cette page pour plus d’exemples</a>.</p>
+<p><strong>Dans R on peut distinguer deux type de fonctions graphique:</strong><br />
+- celles de <em>haut niveau</em>, qui permettent de réaliser l’essentiel du graphique.<br />
+- celles de <em>bas niveau</em>, qui permettent d’ajouter un élément et du détail à graphique existant.</p>
+<h2>
+Fonctions de haut niveau
+</h2>
+<p><strong>Les graphiques dépendent bien entendu du type de données:</strong><br />
+- Pour <em>données quantitatives</em>: stripchart (traduction?), boîtes à moustahces, histogrammes, nuage de points.<br />
+- Pour <em>données qualitatives</em>: diagramme en batons, mosaicplot (traduction?).<br />
+<br><br> <img src="graph.png" /> <br><br> <strong>Les arguments utiles, communs, pour contrôler:</strong><br />
+- les points: cex = taille des points, <a href="http://www.statisticstoproveanything.com/2010/09/charts-of-different-pch-values-in-r.html">pch = motif des points</a>.<br />
+- les traits: lwd= largeur du trait, <a href="http://www.statisticstoproveanything.com/2010/10/chart-of-different-lty-values-in-r.html">lty = motif du trait</a>.<br />
+- les limites: ylim / xlim= c(valeur_basse, valeur_haute), xlim= idem.<br />
+- les légendes: ylab / xlab = texte des axes, main = titre principale.<br />
+- les couleurs: col = voir plus bas.</p>
+<p><strong>Les arguments utiles, spécifiques à un graphique:</strong><br />
+- stripchart(, method = “jitter”): permet de ne pas superposer les points.<br />
+- hist(, freq = TRUE): permet d’afficher soit les effectifs ou les %.<br />
+- plot(, type = “b”): relie les points entre eux.<br />
+- barplot(table(), horiz = TRUE): la table est utilisée comme source de données, l’argument horiz permet un affichage horizontale.<br />
+- mosaicplot(table(), shade = TRUE): la table est utilisée comme source de données, l’argument shade permet de colorer les cases en fonction des résidus de Pearson.</p>
+<hr />
+<pre class="r"><code>a &lt;- runif(30,0,15)
+b &lt;- 1:30
+plot(x = b, y = a, 
+     type = &quot;b&quot;, 
+     lwd= 2, lty = &quot;dotted&quot;, 
+     pch = 3, 
+     xlab= &quot;mes valeurs de x&quot;, ylab= &quot;mes valeurs de y&quot;, 
+     main = &quot;Un graphique de base&quot;)</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>par(mfrow = c(1,2)) # affiche 1 ligne 2 colonnes de graphiques, 
+#par(mfrow = c(1,1)) pour rétablir 1,1
+hist(a, main = &quot;%&quot;, freq= FALSE, col = &quot;red&quot;)
+hist(a, main = &quot;n&quot;, freq= TRUE, col = &quot;blue&quot;)</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><br></p>
+<h2>
+Fonctions de bas niveau
+</h2>
+<p>Ces fonctions s’exécutent après avoir définit un graphique. Elles permettent de rajouter des éléments ponctuels pour compléter le graphique.<br />
+On ne rentrera pas dans le détail de leur utilisation.</p>
+<p><strong>On retrouve des fonctions qui ajoutent:</strong><br />
+- du texte: legend(), text().<br />
+- des traits: abline(), lines(), segments().<br />
+- des points: points().<br />
+<br></p>
+<hr />
+<pre class="r"><code>a &lt;- runif(15,0,15)
+b &lt;- 1:15
+a1 &lt;- factor(x = round(runif(15,0,1)), c(0, 1), c(&quot;vert&quot;, &quot;rouge&quot;))
+
+plot(x = b, y = a, 
+     pch = 16, 
+     xlab= &quot;mes valeurs de x&quot;, ylab= &quot;mes valeurs de y&quot;, 
+     main = &quot;Les couleurs en fonction \n d&#39;une variable&quot;,
+     col = c(&quot;#0F9D58&quot;, &quot;tomato&quot;)[as.factor(a1)])
+
+# un guide des couleurs
+legend( &quot;bottomright&quot;, legend = levels(a1), fill = c(&quot;#0F9D58&quot;, &quot;tomato&quot;))
+
+# un texte inutile
+text(&quot;Je peux rajouter des lignes \n des points \n du texte&quot;, x = 8, y = 10)
+
+# droite et point
+abline(2, 1, lty = &quot;dotted&quot;)
+points(x = 3, y = 3, pch = 3, lwd= 3)</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<h2>
+Gestion des couleurs
+</h2>
+<p>En tappant colors() dans la console on affiche la liste des couleurs disponibles dans R.<br />
+Ce sont ces caractères qu’il faut écrire dans l’argument ‘col’ des différents graphiques. On peut également utiliser leur indice de position si on le connaît.</p>
+<p>On peut également utiliser directement les codes couleurs (<a href="https://rgbcolorcode.com/">rgb</a> ou <a href="https://www.color-hex.com/">hexadecimal</a>) pour définir soit même la couleur que l’on souhaite.</p>
+<p><strong>Pour attribuer des couleurs selon les niveaux d’une variable catégorielle:</strong><br />
+1. définir une liste de couleur dans un vecteur.<br />
+2. dans ce vecteur, on utilise le level de la variable catégorielle pour sélectionner la couleur.</p>
+<hr />
+<pre class="r"><code>a &lt;- runif(15,0,15)
+b &lt;- 1:15
+a1 &lt;- factor(x = round(runif(15,1,3)), c(1, 2, 3), c(&quot;petit&quot;, &quot;moyen&quot;, &quot;grand&quot;))
+str(a1)</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;petit&quot;,&quot;moyen&quot;,..: 1 2 2 1 1 2 1 3 1 3 ...</code></pre>
+<pre class="r"><code>liste_couleur &lt;- c(&quot;tomato&quot;, # couleur de base R
+                   rgb(0.5, 0.5, 0.4), # code rgb
+                   &quot;#1d69d2&quot;) # code hexadecimal
+
+plot(x = b, y = a, 
+     pch = 16, 
+     main = &quot;Les couleurs en fonction \n d&#39;une variable&quot;,
+     col = liste_couleur[a1]) # selection de la couleur, selon la catégorie</code></pre>
+<p><img src="v_quanti_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<h5>
+Les fonctions sur cette page
+</h5>
+<table style="width:100%;">
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Fonction</th>
@@ -506,57 +723,123 @@ boxplot(ais_NA$ferr ~ ais_NA$sport, main=&quot;Boxplot: [ferritine] en fonction 
 </thead>
 <tbody>
 <tr class="odd">
-<td>summary()</td>
-<td>fournit des statistiques descriptive sur l’objet</td>
+<td>min(x = , na.rm = )</td>
+<td>renvoi la valeur minimale du vecteur x</td>
 </tr>
 <tr class="even">
-<td>table(, useNA= “always”)</td>
-<td>tableau de contingence</td>
+<td>max(x = , na.rm = )</td>
+<td>renvoi la valeur maximale du vecteur x</td>
 </tr>
 <tr class="odd">
-<td>is.na()</td>
-<td>TRUE si l’element est NA, FALSE si non</td>
+<td>mean(x = , na.rm = )</td>
+<td>renvoi la moyenne …</td>
 </tr>
 <tr class="even">
-<td>mean(, na.rm=T)</td>
-<td>moyenne du vecteur</td>
+<td>median(x = , na.rm = )</td>
+<td>renvoi la médiane …</td>
 </tr>
 <tr class="odd">
-<td>sd( , na.rm=T)</td>
-<td>ecart-type du vecteur</td>
+<td>quantile(x = , na.rm = )</td>
+<td>renvoi les quartiles …</td>
 </tr>
 <tr class="even">
-<td>range( , na.rm=T)</td>
-<td>valeur minimale et maximale du vecteur</td>
+<td>var(x = , na.rm = )</td>
+<td>renvoi la variance …</td>
 </tr>
 <tr class="odd">
-<td>quantile( , na.rm=TRUE)</td>
-<td>quantile du vecteur</td>
+<td>sd(x = , na.rm = )</td>
+<td>renvoi l’écart-type …</td>
 </tr>
 <tr class="even">
-<td>plot()</td>
-<td>fonction generique pour produire un graphique</td>
+<td>length(x = )</td>
+<td>renvoi la longueur …</td>
 </tr>
 <tr class="odd">
-<td>abline()</td>
-<td>ajouter une droite a un graphique</td>
+<td>cor(x = , y=, use = )</td>
+<td>renvoi la corrélation entre le vecteur x et le vecteur y</td>
 </tr>
 <tr class="even">
-<td>stripchart()</td>
-<td>produire un stripchart</td>
+<td>covar(x = , y=, use = )</td>
+<td>renvoi la covariance entre le vecteur x et le vecteur y</td>
 </tr>
 <tr class="odd">
-<td>hist()</td>
-<td>produire un histogramme</td>
+<td>tapply(X=, INDEX= , function)</td>
+<td>renvoi la valeur calculée par function, du vecteur numérique x, en fonction des catégories définies par INDEX</td>
+</tr>
+<tr class="even">
+<td>table(x = ,y=, use.na = “always”)</td>
+<td>renvoi le tableau de contingence des vecteurs x et y</td>
+</tr>
+<tr class="odd">
+<td>prop.table(z,1/2)</td>
+<td>renvoi les % lignes ou colonnes du tableau de contingence z</td>
+</tr>
+<tr class="even">
+<td>which.max(x)</td>
+<td>renvoi l’indice de position et la valeur de l’élément x ayant la valeur maximale</td>
+</tr>
+<tr class="odd">
+<td>stripchart(, method = “jitter”)</td>
+<td>graphique</td>
 </tr>
 <tr class="even">
 <td>boxplot()</td>
-<td>produire une boite a moustaches</td>
+<td>graphique</td>
+</tr>
+<tr class="odd">
+<td>hist(, freq = TRUE)</td>
+<td>graphique</td>
+</tr>
+<tr class="even">
+<td>plot(, type =)</td>
+<td>graphique</td>
+</tr>
+<tr class="odd">
+<td>barplot(, horiz =)</td>
+<td>graphique</td>
+</tr>
+<tr class="even">
+<td>mosaicplot(, shade =)</td>
+<td>graphique</td>
+</tr>
+<tr class="odd">
+<td>legend(,legend=, fill=)</td>
+<td>rajoute une légende au graphique actif</td>
+</tr>
+<tr class="even">
+<td>text()</td>
+<td>rajoute du texte au graphique actif</td>
+</tr>
+<tr class="odd">
+<td>abline()</td>
+<td>rajoute une droit au graphique actif</td>
+</tr>
+<tr class="even">
+<td>points()</td>
+<td>rajoute un point au graphique actif</td>
 </tr>
 </tbody>
 </table>
-</div>
+<h3>
+Pour s’entraîner
+</h3>
+<p>A venir.</p>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>

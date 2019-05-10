@@ -4,97 +4,266 @@ output:
     toc: true
     toc_float: true
 ---
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-##Regression logistique
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-Dans cette section on s'interesse a la facon de specifier un modele logistique dans R.   
-Les fonctions sont tres similaires a celles utilisees dans le cadre de modelees lineaire.
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
 
-Un ensemble de vidéos expliquant simplement le concept des modeles logistiques peut etre trouve [ICI](https://www.youtube.com/watch?v=yIYKR4sgzI8). 
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+
+<h4>Synthèse</h4>
+- Une régression logistique permet de décrire la relation entre une variable expliquée qualitative, binaire, et une ou plusieurs variables explicatives.       
+- La fonction glm() permet de paramètrer le modèle que l'on aura réfléchi au préalable.   
+
+<h1>Principe du test</h1>
+
+Le principe générale est similaire à celui des modèles linéaires. 
+On souhaite comprendre la relation d'une variable, cette fois catégorielle, binaire, avec une ou plusieurs autres variables.  
+
+On cherche à expliquer une variable dichotomique dont les valeurs sont donc soient 0, soient 1.  
+Pour modéliser cela on utilise la fonction [sigmoïde](https://en.wikipedia.org/wiki/Sigmoid_function):  
+
+ $$S(x)=\frac{e^{\alpha + \beta * x}}{1+ e^{\alpha + \beta * x}}$$
+
+On cherche à déterminer les paramètres $\alpha$ et $\beta$ qui définissent le modèle en optimisant un critère statistique: [la vraisemblance](https://mistis.inrialpes.fr/software/SMEL/cours/ep/node11.html).  
+Elle représente la probabilité que les observations que l'on fait soient issues d'une distribution théorique donnée.  
+
+Pour chaque valeurs de paramètres du modèle on peut définir une vraisemblance. Parmi toutes les vraisemblances possibles, il existe une valeur maximale. Cette valeur maximale permet d'identifier les paramètres du modèle qui ont les plus grande probabilité d'expliquer nos données.  
+
+*Sur la figure suivante on représente les valeurs de X (continue) en fonction du groupe défini par Y (binaire). On trace différentes fonctions logistiques, correspondant à différentes valeurs de paramètres. Le modèle présentant la vraisemblance maximale (ici la plus proche de 0) est celui dont les paramètres sont jugés optimaux. La probabilité d'observer les données, si elles étaient issues de ce modèle, est plus élevée que pour des modèles présentant d'autres paramètres.*  
+
+![](Gif_rl.gif)
 
 
-***********************************
+*blabla *
 
-**Jeu de donnee utilisee**
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+set.seed(11)
+library(dplyr)
+n <- 100L
+x <- c(rnorm(n/2, 2.0, 0.5), rnorm(rnorm(n/2, 5, 0.5)))
+y <- rbinom(n, 1L, plogis(- 0.6 + 3.0 * x))
+fit <- glm(y ~x, family = "binomial")
+
+Mes_inter <- seq(fit$coefficients[[1]]-1.5, fit$coefficients[[1]]+1.5, by = 0.3)
+Mes_coef <- seq(fit$coefficients[[2]]-1.5, fit$coefficients[[2]]+1.5, by = 0.3)
+
+Mes_Y2 <- rep(y, length(Mes_coef))
+Mes_X2 <- rep(x, length(Mes_coef))
+
+Resu1 <- data.frame(Mes_inter = Mes_inter, Mes_Y = Mes_Y2, Mes_X = Mes_X2)
+Resu2 <- data.frame(Mes_coeff = Mes_coef, Mes_Y = Mes_Y2, Mes_X = Mes_X2)
+
+Resu <- left_join(Resu1, Resu2)
+
+logLikelihoodLogitStable = function(vAlph, vBeta, mX, vY) {
+  return(sum(
+    vY*((vAlph + mX %*% vBeta) - log(1+exp(vAlph + mX %*% vBeta)))
+    + (1-vY)*(-log(1 + exp(vAlph + mX %*% vBeta)))
+  ) 
+  ) 
+}
+
+for(i in 1:nrow(Resu)) Resu[i,5] <- logLikelihoodLogitStable(Resu[i,1],Resu[i,4],as.matrix(x), as.matrix(y))
+
+library(plotly)
+
+p <- plot_ly(Resu, x = ~Mes_coeff, y = ~Mes_inter, z = ~(V5),
+             marker = list(color = ~V5, 
+                           colorscale = 'Viridis', 
+                           showscale = TRUE)) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Coefficients'),
+                      yaxis = list(title = 'Intercepts'),
+                      zaxis = list(title = 'Log Vrais.')))
+p
+names(Resu)[c(1,4, 5)] <- c("Alpha: intercept", "Beta: coefficient", "LogVrai")
+
+```
+
+```{r}
+# La combinaison présentant la vraisemblance la plus grande
+Resu[which.max(Resu$LogVrai),c(1,4)]
+
+# Les paramètres identifiés par le modèle
+fit
+```
+
+<h1>Utilisation dans R</h1>
+
+La solution directe à partir des fonctions dédiées est la méthode que l'on utilisera en pratique.   
+La seconde méthode permet de voir et chercher à comprendre les calculs réalisés en arrière plan.  
+
+<h2>Solution directe</h2> 
+
+Les regressions logistiques font partie de la famille des models lineaires generalise.    
+On specifie juste un lien "binomial" pour preciser un model logistique.
 
 On utilisera la BDD 'headInjury', inclus dans le package "DAAG".   
-(Pensez a telecharger le package au moins une fois pour utiliser ces donnees: install.package("DAAG")).   
+(Pensez a telecharger le package au moins une fois pour utiliser ces donnees: install.package("DAAG")). 
 
-Plus d'information sont disponibles [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/headInjury.html).
+On souhaite expliquer la gravité d'un traumatisme cranien (high.risk) à partir de la présence de plusieurs signes (vomiting, age.65, amnesia.before, GCS.decrease)
 
-On prendra comme variable d'interet 'high.risk', qui decrit la presence (1) ou l'absence (0) d'un risque eleve d'une chirurgie neurologique pour le patient.   
-On etudiera son association avec 'age.65', 'amnesia.before', 'GCS.decrease' et 'vomiting'.
-
-```{r, message=FALSE, echo=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 require(DAAG)
-```
-```{r, eval=FALSE}
-require(DAAG)
-```
-```{r}
 data("headInjury")
+headInjury$high.risk <- factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk"))
 ```
 
-#Specification du modele
+```{r, echo = FALSE}
+RL.1<- glm( formula = high.risk ~ vomiting + age.65 + amnesia.before + GCS.decrease, 
+            family = "binomial", 
+            data = headInjury)
+```
 
-Les regressions logistiques font partie de la famille des modeles lineaires generalise.    
-On specifie juste un lien "binomial" pour preciser un modele logistique.
-
-```{r}
-RL.1<- glm( factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk")) ~ vomiting + age.65 + amnesia.before + GCS.decrease, family = "binomial", data=headInjury)
+```{r, eval= FALSE}
+RL.1<- glm( formula = high.risk ~ vomiting + age.65 + amnesia.before + GCS.decrease, 
+            family = "binomial", 
+            data = headInjury)
 summary(RL.1)
-
-exp(RL.1$coefficients) #affiche les coefficients de la regression, les affiche en terme d'odds-ratio
 ```
 
-#Comparaison de modeles
-
-Pour la comparaison de modeles on pourra egalement utiliser la fonction dediee lrtest() du package "lmtest".    
-Elle donne le meme resultat que la fonction anova().
+![](rlog_sortie.png)
 
 ```{r}
-RL.2<- glm( factor(headInjury$high.risk, c(0,1), c("Low Risk", "High Risk")) ~ vomiting + age.65, family = "binomial", data=headInjury)
+# Pour exprimer les coefficients en odds-ratio
+# On utilise la fonction exponentielle 'exp()'
+exp(RL.1$coefficients)
 
+# Il en est de même pour obtenir les intervals de confiance
+exp(confint(RL.1))
+```
+
+
+<h2>Step by step</h2>
+
+<details>
+<summary>Pour les curieux - cliquez ICI.</summary>
+
+```{r}
+set.seed(11)
+
+# Mes variables
+Y <- as.matrix(c(rep(1, 300), rep(0, 300)))
+X <- as.matrix(ifelse(Y == 1, 
+                  rnorm(300, 3, 1),
+                  rnorm(300,0,1)))
+
+
+
+# On ajoute un indice pour évaluer l'intercept du modèle
+X <- cbind(rep(1, nrow(X)), X)
+
+# On définit la fonction sigmoide
+sigmoid <- function(z)
+{
+  g <- 1/(1+exp(-z))
+  return(g)
+}
+
+# On définit la vraisemblance
+Vrais. <- function(theta)
+{
+  m <- nrow(X)
+  g <- sigmoid(X%*%theta)
+  J <- (1/m)*sum((-Y*log(g)) - ((1-Y)*log(1-g)))
+  return(J)
+}
+
+# On définit des valeurs initiale des paramètres
+# ici 0 pour l'intercept et 0 pour le coefficient
+Parametres_initiaux <- rep(0,ncol(X))
+
+# On cherche la valeur qui maximise la vraisemblance
+theta_optim <- optim(par= Parametres_initiaux, fn= Vrais.)
+
+# Les paramètres obtenus
+theta_optim$par
+
+# Ceux obtenus par la fonction de base
+glm(Y ~ X[,-1], family = 'binomial')
+```
+</details>
+
+
+<h1>Comparaison de modèles</h1> 
+
+On compare les modèle en comparant leur vraisemblance, en tenant compte du nombre de paramètres estimés.  
+Des modèles qui ont des vraisemblances identiques sont considérés similaires. 
+Lorsque les vraisemblances différent on conserve celui qui présente le plus d'information, le modèle le plus complet.
+
+On peut utiliser la fonction anova() qui compare la déviance (-2 log vraisemblance) ou le rapport de vraisemblance lrtest() du package "lmtest". Les résultats sont identiques.    
+
+**Pour être valide cette comparaison doit avoir lieu sur des échantillons identiques et dans des modèles emboîtés.**
+
+```{r, warning=FALSE}
+RL.2<- glm( high.risk ~ vomiting + age.65, family = "binomial", data=headInjury)
+
+# A partir d'une anova
 anova(RL.1, RL.2, test= "Chisq")
 
-#install.packages("lmtest")
-#library(lmtest)
-#lrtest(RL.1, RL.2)
+# A partir du rapport de vraisemblance
+library(lmtest)
+lrtest(RL.1, RL.2)
 ```
 
-#Selection des variables
 
-```{r}
-step(RL.1, #le modele initial a tester
-     direction = "both", #regarde dans les deux directions, c'est a dire vers les modeles plus complets mais aussi vers ceux moins complet
-     criterion = "BIC", #1er arugment sur le critere de selection
-     k = log(nrow(headInjury)))
-```
+<h5>Fonctions sur cette page</h5>
 
-#Controle de la colinearite
+| Fonction             | Description     |
+|----------------------|---------------------------------------------------|
+| glm(formula =, data = , family = "binomial") | renvoi les résultats de la régression logistique |
+|exp(model$coef) | renvoi les OR de model |
+|exp(confint(model)) | renvoi les intervals de confiance à 95% du modèle linéaire 'model' |
+|anova(model1, model2, test= 'Chisq') | renvoi la comparaison des modèles 1 et 2 |
+|lrtest(model1, model2) | renvoi la comparaison des modèles 1 et 2 |
 
-Une etape interessante est de controler la colinearite possible entre les variables du modele.   
-On utilise generalement le variance inflator factor (VIF).    
-Il mesure le changement de variance des variables lorsque l'on retire une variable du modele.    
-En presence de 2 variables colineaires, une part de la variance est partagee entre ces deux variables.    
-Si on retire une de ces variable, la variance de l'autre variable est fortement modifie.    
+<h3>Pour s'entraîner</h3>
 
-Il n'y a pas de consensus sur la (les) valeurs critique(s) du VIF. Les valeurs seuils retenues varie de 4 a 10.    
-
-```{r}
-require(DAAG)
-vif(RL.1)
-```
-
-*************************************
-
-Pour s'entrainer.
-
-**Synthese des fonctions**
-
-| Fonction                                                        | Description                                  |
-|-----------------------------------------------------------------|----------------------------------------------|
-| glm( outcome ~  variable1+ varible2, family= "binomial",data= ) | regression logistique                        |
-| anova(m1, m2, test= "Chisq")                                    | comparaison des modeles m1 et m2              |
-| step(m1, direction= , scope(m.null , m.max))                    | selection stepwise des variables du modele m1 |
-| vif(m1)                                                         | calcul les VIF des variables du modele m1     |
+A venir, un jours.

@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +98,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +192,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +349,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +384,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +391,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +437,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,14 +451,19 @@ div.tocify {
 </div>
 
 
-<div id="modele-a-duree-de-survie" class="section level2">
-<h2>modele a duree de survie</h2>
-<p>Dans cette section on s’interessera a comment specifier des modeles de survie simple (kaplan-meier et cox).</p>
-<p>On ne cherchera pas a definir s’il est judicieux d’utiliser ce genre de modele, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modelees a risques proportionels.</p>
+<div id="model-a-duree-de-survie" class="section level2">
+<h2>Model a duree de survie</h2>
+<p>Dans cette section on s’interessera a comment specifier des models de survie simple (kaplan-meier et cox).</p>
+<p>On ne cherchera pas a definir s’il est judicieux d’utiliser ce genre de model, ni les differences possibles entre ajustement/interaction/stratification dans le cadre de modeles a risques proportionels.</p>
 <hr />
 <p>On utilisera le jeu de donnees ‘lung’ du package survival. Cette BDD comprend le suivi de 228 personnes atteintes d’un cancer pulmonaire avance. Plus de details peuvent etre trouves <a href="https://vincentarelbundock.github.io/Rdatasets/doc/survival/lung.html">ici</a>.</p>
-<pre class="r"><code>library(survival)
-data(lung)
+<pre class="r"><code>library(survival)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survival&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:DAAG&#39;:
+## 
+##     lung</code></pre>
+<pre class="r"><code>data(lung)
 str(lung)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    228 obs. of  10 variables:
 ##  $ inst     : num  3 3 3 5 1 12 7 11 1 7 ...
@@ -383,16 +477,16 @@ str(lung)</code></pre>
 ##  $ meal.cal : num  1175 1225 NA 1150 NA ...
 ##  $ wt.loss  : num  NA 15 15 11 0 0 10 1 16 34 ...</code></pre>
 </div>
-<div id="specification-du-modele" class="section level1">
-<h1>Specification du modele</h1>
+<div id="specification-du-model" class="section level1">
+<h1>Specification du model</h1>
 <p><strong>1. Objet survie</strong></p>
-<p>Les modeles de suvie utilisent des donnees censurees. C’est a dire la combinaison entre une duree et un statut.<br />
-La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l’ensemble des modeles par la suite.</p>
+<p>Les models de suvie utilisent des donnees censurees. C’est a dire l’association entre une duree et un statut.<br />
+La premiere etape est donc de prendre en compte ce type de donnees, qui seront utilisees dans l’ensemble des models par la suite.</p>
 <pre class="r"><code>Obj.surv &lt;- Surv(lung$time, #duree de survie 
                  lung$status) #statut a cette date</code></pre>
 <p><strong>2. Kaplan Meier</strong></p>
-<p>Un premier modele possible est le Kaplan-meier.<br />
-Cest un modele non parametrique qui permet de comparer les durees de survie selon plusieurs strates.</p>
+<p>Un premier model possible est le Kaplan-meier.<br />
+Cest un model non parametrique qui permet de comparer les durees de survie selon plusieurs strates.</p>
 <pre class="r"><code>#KM sans aucune strate
 KM &lt;- survfit(Obj.surv ~ 1)
 KM</code></pre>
@@ -416,10 +510,10 @@ survdiff(Obj.surv ~ lung$sex)</code></pre>
 ## lung$sex=2  90       53     73.4      5.68      10.3
 ## 
 ##  Chisq= 10.3  on 1 degrees of freedom, p= 0.001</code></pre>
-<p><strong>3. modele de Cox</strong></p>
-<p>Le modele de Cox est un modele semi parametrique a risque proportionel.<br />
+<p><strong>3. Model de Cox</strong></p>
+<p>Le model de Cox est un model semi parametrique a risque proportionel.<br />
 Il contourne l’evaluation du risque de base en faisant l’hypothese que les risques sont proportionnels tout au long du suivi.</p>
-<pre class="r"><code>Cx.M1 &lt;- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) # l&#39;indicateur * permet de definir une interaction entre 2 variables
+<pre class="r"><code>Cx.M1 &lt;- coxph(Obj.surv ~ ph.ecog*sex + age, data=lung) 
 summary(Cx.M1)</code></pre>
 <pre><code>## Call:
 ## coxph(formula = Obj.surv ~ ph.ecog * sex + age, data = lung)
@@ -446,7 +540,7 @@ summary(Cx.M1)</code></pre>
 ## Likelihood ratio test= 30.66  on 4 df,   p=4e-06
 ## Wald test            = 29.21  on 4 df,   p=7e-06
 ## Score (logrank) test = 31.01  on 4 df,   p=3e-06</code></pre>
-<pre class="r"><code>#Comparaison de modeles
+<pre class="r"><code>#Comparaison de models
 Cx.M2&lt;- coxph(Obj.surv ~ ph.ecog + age, data=lung) 
 anova(Cx.M1, Cx.M2)</code></pre>
 <pre><code>## Analysis of Deviance Table
@@ -461,7 +555,7 @@ anova(Cx.M1, Cx.M2)</code></pre>
 </div>
 <div id="verification-des-residus" class="section level1">
 <h1>Verification des residus</h1>
-<p>Dans le cadre du modele de Cox plusieurs elements sont a verifier, dont l’hypothese des risques proportionnels.<br />
+<p>Dans le cadre du model de Cox plusieurs elements sont a verifier, dont l’hypothese des risques proportionnels.<br />
 Pour valider cette hypothese on espere que les coefficients soient invariant au cours du temps. Pour cela on peut analyser les residus, dont les residus de Schoenfeld.</p>
 <pre class="r"><code>Verif &lt;- cox.zph(Cx.M1)
 Verif</code></pre>
@@ -473,41 +567,23 @@ Verif</code></pre>
 ## GLOBAL           NA 5.444 0.245</code></pre>
 <pre class="r"><code>plot(Verif)</code></pre>
 <p><img src="m_surv_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="m_surv_files/figure-html/unnamed-chunk-5-2.png" width="672" /><img src="m_surv_files/figure-html/unnamed-chunk-5-3.png" width="672" /><img src="m_surv_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
-<hr />
-<p>Pour s’entrainer.</p>
-<p><strong>Synthese des fonctions</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th>Fonction</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Surv(time, event)</td>
-<td>creation de donnees censurees</td>
-</tr>
-<tr class="even">
-<td>survift()</td>
-<td>modele Kaplan Meier</td>
-</tr>
-<tr class="odd">
-<td>survdiff()</td>
-<td>log rank test</td>
-</tr>
-<tr class="even">
-<td>coxph()</td>
-<td>modele de cox</td>
-</tr>
-<tr class="odd">
-<td>cox.zph()</td>
-<td>test des residus de Schoenfeld</td>
-</tr>
-</tbody>
-</table>
 </div>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>

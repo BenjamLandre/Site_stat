@@ -4,163 +4,297 @@ output:
     toc: true
     toc_float: true
 ---
-##Descriptions des variables
 
-On souhaite dans un premier temps decrire et observer nos donnees pour mieux les comprendre.   
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-Nous utiliserons le jeux de donnees 'ais', inclus dans le package "DAAG".  
-(Pensez a telecharger le package une premiere fois via: install.package("DAAG")).
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-Ce jeux de donnees contient des resultats d'analyses sanguines et des caracteristiques anthropometriques pour plus de 200 athletes australiens. Plus de details [ICI.](https://vincentarelbundock.github.io/Rdatasets/doc/DAAG/ais.html)
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
 
-Dans cette bdd on remplacera certaines donnees par des valeurs manquantes pour apprendre a les reperer et les gerer efficacemment.
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+
+<h4>Synthèse</h4>
+
+- Plusieurs fonctions permettent de décrire les statistiques des vecteurs (en uni ou bivarié).  
+- Tous les indicateurs statistiques ne sont pas adapté à tous les types de données.  
+- Les différentes fonctions ne gérent pas les données manquantes de la même façon. Il est souvent plus prudent d'aller vérifer ce point dans l'aide.  
+- Il existe de nombreuses fonctions graphiques. La plupart des arguments sont communs à toutes ces fonctions. 
+- Tous les graphiques ne sont pas adaptés pour tous les types de données.
+
+****
+<h1>Statistiques des vecteurs</h1>
+
+On veut produire des indicateurs numériques pour comprendre les données contenues dans nos vecteurs.  
+Ces indicateurs, les statistiques du vecteur, dépendent du type de données contenus.  
+
+<h2>Données quantitatives</h2>  
+
+**Les statistiques usuelles décrivent:**    
+- *la tendance centrale:* moyenne, médiane    
+- *la dispersion des données:* variance, écart-type, minimale, maximale, quantiles   
+- *le lien entre variables continues:* corrélation, covariance    
+- *les effectifs*   
+
+On sera prudent sur la présence possible de **DONNEES MANQUANTES** dans le vecteur.   <br><br>
+Par défaut, en présence de données manquantes, le calcul renvoit une valeur manquante. Il faut renseigner l'argument na.rm (abbréviation de na remove) pour exclure ces données du calcul.   <br><br>
+Cet argument n'est pas disponible dans la fonction length(). On pourra utiliser la fonction na.omit(), vu précédemment pour calculer la taille du vecteur en excluant els données manquantes.
+
+![](descri_quanti.png)
+
+<br><br>    
+
+************  
 
 ```{r}
-require(DAAG)
-data(ais)
+a <- c(1:15, NA)
+b <- 1:16 + rnorm(16)
+categories <- c(rep("Cat.A", 8), rep("Cat.B", 8))
 
-ais_NA<- ais #creation de ais_NA qui est une bdd identique a ais.
+# univarié
+mean(a)
+mean(a, na.rm = TRUE)
 
-#on ajoute des donnees manquantes aleatoirement pour la variable ferr et sport.
-ais_NA$ferr[sample(1:length(ais_NA$ferr),10)]<- NA 
-ais_NA$sport[sample(1:length(ais_NA$sport),10)]<- NA
+length(a)
+length(na.omit(a))
 
+# bivarié
+cor(a, b, use = "complete.obs")
+cov(a, b, use = "complete.obs")
+
+tapply(X= a, INDEX= categories, mean, na.rm=TRUE)
 ```
 
-#1. Description numeriques
+<h2>Données qualitatives</h2> 
 
-Pour se faire une idee du jeux de donnee, une description de la distribution de ses variables est importante.   
+**Les statistiques usuelles décrivent:**    
+- *les effectifs et pourcentages*     
+- *la catégorie majoritaire*    
 
-**- En univarie**    
+Comme précédemment, la présence de **DONNEES MANQUANTES** est un combat de chaques instant. <br>  
+Par défaut, R n'affiche pas les effectifs de données manquantes, ce qui peut être particulièrement préjudiciable.   
+On aura recours, dans la fonction table(), à l'argument **use.Na = "always"** pour afficher ces effectifs.  
 
-On peut chercher a connaitre l'effectif, la tendance centrale (moyenne, mediane, mode) ainsi que la dispersion (ecart-type / variance, l'etendue des donnees, ses quantiles).
+![](descri_quali.png)
 
-La fonction summarise(), permet d'obtenir la majorite de ces indicateurs.    
-D'autres fonctions permettent de les obtenir plus selectivement, un a un. Dans ce cas la, il faudra preciser la facon de gerer les donnees manquantes. Par defaut R stoppe le calcul et renvoie une erreur presence de valeurs manquantes.
+<br><br>    
 
-**Dans le cas d'une variable qualitative, on remarquera et on gardera bien en tete que par defaut les donnees manquantes ne sont pas signalees.**
-
+************  
 
 ```{r}
-#Dans le cas d'une variable quantitative.
+b <- c("un peu", "beaucoup", "passionément", "à la folie", NA, "beaucoup")
+a <- c("aime", "aime", "aime", "aime pas", "aime pas", "aime pas")
 
-summary(ais_NA$ferr) #la derniere colonne denombre les donnees manquantes pour cette variable.
+table(b)
+table(b, useNA = "always")
 
-table(is.na(ais_NA$ferr)) #is.na() = la valeur est elle manquante ? / permet d'obtenir les effectifs
+prop.table(table(b)) # on demande les % de la table
+
+which.max(table(b)) # on demande la catégorie avec la valeur maximale d'effectifs, dans la table
+
+# le tableau de contingence
+table(a, b)
+
+prop.table(table(a, b)) # n / N total
+prop.table(table(a, b), 1) # % ligne
+prop.table(table(a, b), 2) # % colonne
 ```
 
-```{r, eval=FALSE}
-summary(ais_NA) #produit un resume de toutes les variables de la bdd
+<h1>Graphiques</h1>    
 
-mean(ais_NA$ferr,na.rm=TRUE) #na.rm = NA remove, l'argument est parametre par defaut sur FALSE et stop le calcul.
-sd(ais_NA$ferr,na.rm=TRUE)
-range(ais_NA$ferr,na.rm=TRUE)
-quantile(ais_NA$ferr,na.rm=TRUE)
-```
+Les graphiques sont de puissants outils, ils permettent d'explorer les données, transmettre un message ou mettre en évidence un résultat.   
+Il existe un grand nombre de graphique, seul les principaux seront abordés. 
+Il existe également beaucoup d'arguments paramétrables, nous verrons seulement les essentiels ainsi que ceux qui omniprésents. 
+
+On peut consulter [cette page pour plus d'exemples](https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html).
+
+**Dans R on peut distinguer deux type de fonctions graphique:**   
+- celles de *haut niveau*, qui permettent de réaliser l'essentiel du graphique.   
+- celles de *bas niveau*, qui permettent d'ajouter un élément et du détail à graphique existant.    
+
+<h2>Fonctions de haut niveau</h2>
+
+**Les graphiques dépendent bien entendu du type de données:**      
+- Pour *données quantitatives*: stripchart (traduction?), boîtes à moustahces, histogrammes, nuage de points.     
+- Pour *données qualitatives*: diagramme en batons, mosaicplot (traduction?).    
+<br><br>
+![](graph.png)
+<br><br>
+**Les arguments utiles, communs, pour contrôler:**    
+- les points: cex = taille des points, [pch = motif des points](http://www.statisticstoproveanything.com/2010/09/charts-of-different-pch-values-in-r.html).  
+- les traits: lwd= largeur du trait, [lty = motif du trait](http://www.statisticstoproveanything.com/2010/10/chart-of-different-lty-values-in-r.html).  
+- les limites: ylim / xlim= c(valeur_basse, valeur_haute), xlim= idem.   
+- les légendes: ylab / xlab = texte des axes, main = titre principale.  
+- les couleurs: col = voir plus bas.
+
+**Les arguments utiles, spécifiques à un graphique:**   
+- stripchart(, method = "jitter"): permet de ne pas superposer les points.   
+- hist(, freq = TRUE): permet d'afficher soit les effectifs ou les %.  
+- plot(, type = "b"): relie les points entre eux.   
+- barplot(table(), horiz = TRUE): la table est utilisée comme source de données, l'argument horiz permet un affichage horizontale.   
+- mosaicplot(table(), shade = TRUE): la table est utilisée comme source de données, l'argument shade permet de colorer les cases en fonction des résidus de Pearson.   
+
+  
+*************** 
 
 ```{r}
-#Dans le cas d'une variable qualitative.
+a <- runif(30,0,15)
+b <- 1:30
+plot(x = b, y = a, 
+     type = "b", 
+     lwd= 2, lty = "dotted", 
+     pch = 3, 
+     xlab= "mes valeurs de x", ylab= "mes valeurs de y", 
+     main = "Un graphique de base")
 
-#indique les effectifs
-table(ais_NA$sport, useNA = "always") #useNA: permet d’avoir le nb de valeurs manquantes dans une colonne supplémentaire.
-
-#indique les pourcentages
-prop.table(table(ais_NA$sport, useNA = "always"))
+par(mfrow = c(1,2)) # affiche 1 ligne 2 colonnes de graphiques, 
+#par(mfrow = c(1,1)) pour rétablir 1,1
+hist(a, main = "%", freq= FALSE, col = "red")
+hist(a, main = "n", freq= TRUE, col = "blue")
 ```
 
-**- En bivarie**
+<br>  
 
-On peut egalement realiser une analyse bivariee, c-a-d decrire la distribution d'une variable selon differents groupes.
+<h2>Fonctions de bas niveau</h2>
 
-```{r}
-#Dans le cas d'une variable quantitative.
+Ces fonctions s'exécutent après avoir définit un graphique. 
+Elles permettent de rajouter des éléments ponctuels pour compléter le graphique.  
+On ne rentrera pas dans le détail de leur utilisation.  
 
-tapply(ais_NA$ferr, #la variable que l'on souhaite decrire
-       ais_NA$sex, #en fonction de cette categories
-       summary) #utiliser cette fonction de description
-```
-
-```{r}
-#Dans le cas d'une variable qualitative
-
-table(ais_NA$sport, ais_NA$sex, useNA = "always")
-
-```
-
-#2. Representation graphiques
-
-R est un outil efficace pour visualiser ses donnees.
-Les fonctions de base permettent de realiser de nombreux graphiques.
-Neanmoins plusieurs packages populaires ([ggplot2](http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html), [lattice](http://www.sthda.com/english/wiki/lattice-graphs)), non vu ici, sont frequemment utilises pour etendre ces fonctionnalites. 
-
-Parmi les fonctions de bases la fonction plot() permet de produire divers graphiques selon les arguments specifies.   
-R determine la nature des donnees entrees en argument et produit un graphique en consequence.    
-Si on souhaite voir un type de graphique en particulier (histogramme, boxplot, stripchart) on peut utiliser la fonction dediee a ce type particulier de graphique.
-
-De maniere general, on distingue:     
-- les fonctions graphiques de haut niveau, qui permettent d'obtenir l'essentiel des graphiques.   
-- les fonctions graphiques de bas niveau, qui permettent d'ajouter secondairement des elements a un graphique deja existant.   
+**On retrouve des fonctions qui ajoutent:**   
+- du texte: legend(), text().   
+- des traits: abline(), lines(), segments().    
+- des points: points().   
+<br>    
     
-Les fonctions disponibles sont nombreuses, les principales sont resumees [ICI](Synthese_Graphiques_R.pdf).
-Le plus simple est de les tester en faisant varier les parametres et en en deduisant leur utilisation.
+********
+```{r}
+a <- runif(15,0,15)
+b <- 1:15
+a1 <- factor(x = round(runif(15,0,1)), c(0, 1), c("vert", "rouge"))
 
-```{r, eval=FALSE}
-#Graphiques simples
+plot(x = b, y = a, 
+     pch = 16, 
+     xlab= "mes valeurs de x", ylab= "mes valeurs de y", 
+     main = "Les couleurs en fonction \n d'une variable",
+     col = c("#0F9D58", "tomato")[as.factor(a1)])
 
-plot(ais_NA$ferr) #univarie
-plot(ais_NA$bmi, ais_NA$ferr) #bivarie
+# un guide des couleurs
+legend( "bottomright", legend = levels(a1), fill = c("#0F9D58", "tomato"))
+
+# un texte inutile
+text("Je peux rajouter des lignes \n des points \n du texte", x = 8, y = 10)
+
+# droite et point
+abline(2, 1, lty = "dotted")
+points(x = 3, y = 3, pch = 3, lwd= 3)
 ```
+
+<h2>Gestion des couleurs</h2>   
+
+En tappant colors() dans la console on affiche la liste des couleurs disponibles dans R.  
+Ce sont ces caractères qu'il faut écrire dans l'argument 'col' des différents graphiques. 
+On peut également utiliser leur indice de position si on le connaît.  
+
+On peut également utiliser directement les codes couleurs ([rgb](https://rgbcolorcode.com/) ou [hexadecimal](https://www.color-hex.com/)) pour définir soit même la couleur que l'on souhaite.
+  
+**Pour attribuer des couleurs selon les niveaux d'une variable catégorielle:**    
+1. définir une liste de couleur dans un vecteur.   
+2. dans ce vecteur, on utilise le level de la variable catégorielle pour sélectionner la couleur.    
+
+*************
 
 ```{r}
-#En specifiant plusieurs arguments utiles
+a <- runif(15,0,15)
+b <- 1:15
+a1 <- factor(x = round(runif(15,1,3)), c(1, 2, 3), c("petit", "moyen", "grand"))
+str(a1)
 
-{plot(ais_NA$bmi, ais_NA$ferr, #formule
-      col=ais_NA$sex, #couleurs des symboles en fonction d'une autre variable
-      pch=16, #motif du symbole
-      cex=1.5, #taille des symboles
-      xlab="IMC", ylab="Concentration en ferritine", #nom des axes
-      main="Taux de concentration en ferritine en fonction de l'IMC.") #titre principal
-  
-abline(h=mean(ais_NA$ferr, na.rm=T) , lty="dotted", col="blue") #rajouter une ligne horizontale representant la moyenne de la concentration en ferritine
-abline(v=mean(ais_NA$bmi, na.rm=T) , lty="dotted", col="blue") #rajouter une ligne verticale representant la moyenne de l'IMC
+liste_couleur <- c("tomato", # couleur de base R
+                   rgb(0.5, 0.5, 0.4), # code rgb
+                   "#1d69d2") # code hexadecimal
 
-  
-legend("topright", #ou souhaite t'on faire apparaitre la legende
-       legend=c("Femme", "Homme"), #quels sont les etiquettes a rattacher a la legende
-       pch=16, #le symbole a afficher
-       col=unique(ais_NA$sex) #quelles sont les couleurs definies
-)
-}
+plot(x = b, y = a, 
+     pch = 16, 
+     main = "Les couleurs en fonction \n d'une variable",
+     col = liste_couleur[a1]) # selection de la couleur, selon la catégorie
 ```
 
-```{r}
-{
-par(mfrow=c(1,2)) #permet d'afficher plusieurs graphiques sur une meme page, 
-stripchart(ais_NA$ferr, method="jitter", main= "Stripchart: [ferritine]",xlab = "[ferritine]")
-hist(ais_NA$ferr, main="Histogram: [ferritine]", xlab = "[ferritine]")}
-{
-par(mfrow=c(1,1))
-boxplot(ais_NA$ferr ~ ais_NA$sport, main="Boxplot: [ferritine] en fonction du sport")
-}
-```
 
-******************************
+<h5>Les fonctions sur cette page</h5>
 
-[Synthese des graphiques](Synthese_Graphiques_R.pdf)
+| Fonction             | Description     |
+|----------------------|---------------------------------------------------|
+| min(x = , na.rm = ) | renvoi la valeur minimale du vecteur x |
+| max(x = , na.rm = ) | renvoi la valeur maximale du vecteur x |
+| mean(x = , na.rm = ) | renvoi la moyenne ... |
+| median(x = , na.rm = ) | renvoi la médiane ... |
+| quantile(x = , na.rm = ) | renvoi les quartiles ... |
+| var(x = , na.rm = ) | renvoi la variance ... |
+| sd(x = , na.rm = ) | renvoi l'écart-type ... |
+| length(x = ) | renvoi la longueur ... |
+| cor(x = , y=, use = ) | renvoi la corrélation entre le vecteur x et le vecteur y |
+| covar(x = , y=, use = ) | renvoi la covariance entre le vecteur x et le vecteur y |
+| tapply(X=, INDEX= , function) | renvoi la valeur calculée par function, du vecteur numérique x, en fonction des catégories définies par INDEX |
+| table(x = ,y=, use.na = "always") | renvoi le tableau de contingence des vecteurs x et y |
+| prop.table(z,1/2) | renvoi les % lignes ou colonnes du tableau de contingence z |
+| which.max(x) | renvoi l'indice de position et la valeur de l'élément x ayant la valeur maximale |
+| stripchart(, method = “jitter”) | graphique |
+| boxplot() | graphique |
+| hist(, freq = TRUE) | graphique |
+| plot(, type =) | graphique |
+| barplot(, horiz =) | graphique |
+| mosaicplot(, shade =) | graphique |
+| legend(,legend=, fill=) | rajoute une légende au graphique actif |
+| text() | rajoute du texte au graphique actif |
+| abline() | rajoute une droit au graphique actif |
+| points() | rajoute un point au graphique actif |
 
-**Synthese des fonctions**
 
-| Fonction                 | Description                                      |
-|--------------------------|--------------------------------------------------|
-| summary()                | fournit des statistiques descriptive sur l'objet |
-| table(, useNA= "always") | tableau de contingence                           |
-| is.na()                  | TRUE si l'element est NA, FALSE si non           |
-| mean(, na.rm=T)          | moyenne du vecteur                               |
-| sd( , na.rm=T)           | ecart-type du vecteur                            |
-| range( , na.rm=T)        | valeur minimale et maximale du vecteur           |
-| quantile( , na.rm=TRUE)  | quantile du vecteur                              |
-| plot()                   | fonction generique pour produire un graphique    |
-| abline()                 | ajouter une droite a un graphique                |
-| stripchart()             | produire un stripchart                           |
-| hist()                   | produire un histogramme                          |
-| boxplot()                | produire une boite a moustaches                  |
+<h3>Pour s'entraîner</h3>
+
+A venir.

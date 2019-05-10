@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,13 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<script src="site_libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +80,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +105,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +199,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +356,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +391,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +398,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +444,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,209 +458,351 @@ div.tocify {
 </div>
 
 
-<div id="modele-lineaire" class="section level2">
-<h2>modele lineaire</h2>
-<p>Dans cette section on s’interesse a la facon de specifier un modele lineaire dans R.</p>
-<p>Un ensemble de vidéos expliquant simplement le concept des modeles lineaires peut etre trouve <a href="https://www.youtube.com/watch?v=PaFPbb66DxQ&amp;list=PLblh5JKOoLUIzaEkCLIUxQFjPIlapw8nU">ICI</a>.</p>
-<p>On ne verra pas les etapes suivantes de validations et d’optimisation du modele. Des packages et fonctions interessantes pour cela peuvent etre trouvees <a href="https://www.statmethods.net/stats/regression.html">ICI</a>.</p>
-<hr />
-<p><strong>Creation d’une BDD</strong></p>
-<p>Pour voir les etapes necessaires a la creation d’un modele on va construire un jeu de donnee basique.<br />
-On pourra ainsi maitriser les parametres et definir les associations a trouver.</p>
-<p>On definit BDD, une data frame de 450 observations de 6 variables continues normales.<br />
-La variable d’interet est “var.1”&quot; que l’on cherche a expliquer par les 5 autres variables.</p>
-<p>Par construction on connait la relation de var.1 avec les autres variables.</p>
-<pre class="r"><code>#Variables
+<style>
+hide {
+  background-color: #d6d6d6;
+  color: #d6d6d6;
+}
+hide:hover {
+  background-color: white;
+  color: black;
+}
+</style>
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h4>
+Synthèse
+</h4>
+<ul>
+<li>Un modèle linéaire permet de décrire la relation entre une variable expliquée quantitative et une ou plusieurs variables explicatives.<br />
+</li>
+<li>La fonction lm() permet de paramètrer le modèle que l’on aura réfléchis au préalable.</li>
+</ul>
+<h1>
+Principe du test
+</h1>
+<p>On cherche à expliquer les valeurs d’une variable (notée <strong>Y</strong>) en fonction d’une combinaison d’une (ou plusieurs) autre(s) variable(s) (notée <strong>X</strong>).</p>
+<p>Quand on cherche à <em>comprendre</em> la relation entre variables on réfléchis généralement à partir d’une relation linéaire. Car elle est plus simple à interpréter. (“Pour l’augmentation d’une unité de X, de combien d’unité augmente X?”).</p>
+<p>Cela revient à déterminer les paramètres de la droite qui passent au plus près de l’ensemble de points de coordonnées (X, Y). C’est la méthode des moindres carrés.</p>
+<p><strong>Pour cela, il faut:</strong><br />
+- déterminer l’ordonné à l’origine (noté <span class="math inline">\(\alpha\)</span>) et le coefficient de la pente de la droite (noté <span class="math inline">\(\beta\)</span>).<br />
+- définir un critère pour évaluer la distance entre les points et la droite. C’est la somme des distances au carré (si elles n’étaient pas mise au carré les valeurs positives et négatives s’annuleraient).</p>
+<p><em>Sur le graphique suivant, on teste différentes droites. On cherche la droite des “moindre carrée”, celle qui minimise les écarts entre la droite et les points (les distances en bleu). On cherche les paramètres (ordonné = triangle vert et pente = droite noire) qui font que la somme des distances en bleu soit la plus petite possible.</em></p>
+<p><img src="Gif_ml.gif" /> <br><br></p>
+<p>Parmi toutes les combinaisons possibles de <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span>, une seule permet d’obtenir la valeur la plus basse des moindres carrés, à partir de notre jeu de données.<br />
+Sur la figure suivante, si on repère la valeur la plus basse de moindre carrés, on identifie le couple <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> qui permettent de déteminer la droite optimale<a name="abcde"> </a>.</p>
+<div id="htmlwidget-fb4c1d29f1cbf95980cf" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fb4c1d29f1cbf95980cf">{"x":{"visdat":{"12802a896d2b":["function () ","plotlyVisDat"]},"cur_data":"12802a896d2b","attrs":{"12802a896d2b":{"x":{},"y":{},"z":{},"marker":{"color":{},"colorscale":"Viridis","showscale":true},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Coefficients"},"yaxis":{"title":"Intercepts"},"zaxis":{"title":"Sum of square"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.2,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.4,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.6,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.7,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,2.9,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.1,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.2,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.3,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.4,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.6,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.7,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.8,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,3.9,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],"y":[49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51,49,49.1,49.2,49.3,49.4,49.5,49.6,49.7,49.8,49.9,50,50.1,50.2,50.3,50.4,50.5,50.6,50.7,50.8,50.9,51],"z":[44.8185040909,42.136659957,39.6548158229,37.372971689,35.2911275552,33.4092834213,31.7274392874,30.2455951533,28.9637510194,27.8819068856,27.0000627517,26.3182186178,25.8363744837,25.5545303498,25.472686216,25.5908420821,25.9089979482,26.4271538141,27.1453096802,28.0634655464,29.1816214125,42.1578730334,39.5182592287,37.0786454238,34.8390316189,32.799417814,30.9598040092,29.3201902045,27.8805763996,26.6409625947,25.6013487898,24.761734985,24.1221211803,23.6825073754,23.4428935705,23.4032797656,23.5636659608,23.9240521561,24.4844383512,25.2448245463,26.2052107414,27.3655969366,39.6807950969,37.0834116212,34.6860281453,32.4886446695,30.4912611936,28.6938777178,27.0964942421,25.6991107662,24.5017272904,23.5043438145,22.7069603387,22.109576863,21.7121933871,21.5148099113,21.5174264354,21.7200429596,22.1226594839,22.725276008,23.5278925322,24.5305090563,25.7331255805,37.3872702817,34.8321171348,32.4769639883,30.3218108412,28.3666576946,26.6115045478,25.0563514009,23.7011982544,22.5460451073,21.5908919607,20.8357388139,20.280585667,19.9254325205,19.7702793734,19.8151262268,20.05997308,20.5048199331,21.1496667866,21.9945136395,23.0393604929,24.2842073461,35.2772985879,32.7643757701,30.4514529523,28.3385301346,26.4256073169,24.7126844993,23.1997616815,21.8868388637,20.773916046,19.8609932283,19.1480704107,18.6351475929,18.3222247751,18.2093019574,18.2963791397,18.5834563221,19.0705335043,19.7576106865,20.6446878688,21.7317650511,23.0188422335,33.3508800142,30.8801875255,28.6094950367,26.5388025481,24.6681100594,22.9974175708,21.5267250821,20.2560325933,19.1853401047,18.314647616,17.6439551274,17.1732626387,16.9025701499,16.8318776613,16.9611851726,17.290492684,17.8198001953,18.5491077065,19.4784152179,20.6077227292,21.9370302406,31.6080145608,29.1795524014,26.9510902416,24.9226280823,23.0941659223,21.4657037628,20.0372416034,18.8087794436,17.7803172843,16.9518551243,16.3233929648,15.8949308054,15.6664686456,15.6380064863,15.8095443263,16.1810821668,16.7526200074,17.5241578476,18.4956956883,19.6672335283,21.0387713688,30.0487022291,27.6624703985,25.4762385677,23.4900067372,21.7037749069,20.1175430762,18.7313112456,17.5450794148,16.5588475843,15.772615754,15.1863839233,14.8001520927,14.6139202619,14.6276884314,14.8414566011,15.2552247704,15.8689929398,16.682761109,17.6965292785,18.9102974482,20.3240656175,28.6729430184,26.3289415168,24.1849400155,22.2409385136,20.4969370124,18.9529355107,17.6089340091,16.4649325078,15.5209310059,14.7769295047,14.232928003,13.8889265014,13.7449250001,13.8009234982,14.056921997,14.5129204953,15.1689189937,16.0249174924,17.0809159905,18.3369144893,19.7929129876,27.4807369278,25.1789657554,23.077194583,21.1754234105,19.4736522382,17.9718810656,16.6701098932,15.5683387208,14.6665675483,13.964796376,13.4630252034,13.161254031,13.0594828586,13.1577116861,13.4559405138,13.9541693412,14.6523981688,15.5506269964,16.6488558239,17.9470846516,19.445313479,26.4720839583,24.212543115,22.1530022715,20.2934614283,18.6339205848,17.1743797412,15.9148388979,14.8552980544,13.9957572112,13.3362163677,12.8766755241,12.6171346808,12.5575938373,12.6980529941,13.0385121506,13.578971307,14.3194304637,15.2598896202,16.400348777,17.7408079335,19.2812670899,25.6469841108,23.4296735964,21.4123630819,19.5950525676,17.9777420531,16.5604315387,15.3431210243,14.3258105098,13.5084999955,12.891189481,12.4738789666,12.2565684522,12.2392579377,12.4219474234,12.8046369089,13.3873263945,14.1700158801,15.1527053656,16.3353948513,17.7180843368,19.3007738224,25.0054373825,22.8303571972,20.855277012,19.0801968267,17.5051166411,16.1300364559,14.9549562706,13.9798760854,13.2047959001,12.6297157145,12.2546355293,12.079555344,12.1044751588,12.3293949735,12.7543147879,13.3792346027,14.2041544174,15.2290742322,16.4539940469,17.8789138613,19.5038336761,24.547443776,22.4145939199,20.4817440636,18.7488942075,17.2160443511,15.8831944946,14.7503446385,13.8174947822,13.0846449261,12.5517950697,12.2189452132,12.0860953571,12.1532455008,12.4203956447,12.8875457883,13.5546959318,14.4218460757,15.4889962194,16.7561463633,18.2232965069,19.8904466504,24.2730032901,22.1823837629,20.2917642356,18.6011447085,17.1105251814,15.8199056541,14.7292861269,13.8386665996,13.1480470725,12.6574275454,12.3668080181,12.2761884909,12.3855689636,12.6949494365,13.2043299094,13.9137103821,14.8230908549,15.9324713276,17.2418518005,18.7512322734,20.4606127461,24.1821159253,22.1337267269,20.2853375289,18.6369483309,17.1885591324,15.9401699344,14.891780736,14.043391538,13.39500234,12.9466131415,12.6982239435,12.6498347451,12.8014455471,13.1530563491,13.7046671506,14.4562779526,15.4078887542,16.5594995562,17.9111103582,19.4627211597,21.2143319617,24.274781681,22.2686228118,20.4624639428,18.8563050737,17.4501462043,16.2439873353,15.2378284661,14.4316695971,13.825510728,13.4193518586,13.2131929896,13.2070341204,13.4008752514,13.7947163823,14.3885575129,15.1823986439,16.1762397747,17.3700809057,18.7639220366,20.3577631672,22.1516042982,24.5510005576,22.5870720176,20.8231434775,19.2592149375,17.8952863973,16.7313578573,15.7674293173,15.0035007772,14.4395722372,14.075643697,13.911715157,13.947786617,14.1838580769,14.6199295369,15.2560009967,16.0920724567,17.1281439167,18.3642153766,19.8002868366,21.4363582964,23.2724297564,25.0107725552,23.089074344,21.367376133,19.8456779221,18.523979711,17.4022815002,16.480583289,15.758885078,15.2371868671,14.915488656,14.7937904452,14.872092234,15.150394023,15.6286958121,16.306997601,17.1852993902,18.263601179,19.541902968,21.0202047571,22.698506546,24.5768083352,25.6540976743,23.7746297923,22.0951619102,20.6156940283,19.3362261462,18.2567582643,17.3772903823,16.6978225002,16.2183546183,15.9388867362,15.8594188543,15.9799509723,16.3004830902,16.8210152083,17.5415473262,18.4620794443,19.5826115623,20.9031436802,22.4236757983,24.1442079162,26.0647400343,26.4809759137,24.6437383607,23.0065008079,21.569263255,20.3320257019,19.294788149,18.457550596,17.8203130432,17.3830754903,17.1458379372,17.1086003843,17.2713628313,17.6341252785,18.1968877256,18.9596501725,19.9224126196,21.0851750666,22.4479375138,24.0106999609,25.7734624078,27.7362248549],"marker":{"color":[44.8185040909,42.136659957,39.6548158229,37.372971689,35.2911275552,33.4092834213,31.7274392874,30.2455951533,28.9637510194,27.8819068856,27.0000627517,26.3182186178,25.8363744837,25.5545303498,25.472686216,25.5908420821,25.9089979482,26.4271538141,27.1453096802,28.0634655464,29.1816214125,42.1578730334,39.5182592287,37.0786454238,34.8390316189,32.799417814,30.9598040092,29.3201902045,27.8805763996,26.6409625947,25.6013487898,24.761734985,24.1221211803,23.6825073754,23.4428935705,23.4032797656,23.5636659608,23.9240521561,24.4844383512,25.2448245463,26.2052107414,27.3655969366,39.6807950969,37.0834116212,34.6860281453,32.4886446695,30.4912611936,28.6938777178,27.0964942421,25.6991107662,24.5017272904,23.5043438145,22.7069603387,22.109576863,21.7121933871,21.5148099113,21.5174264354,21.7200429596,22.1226594839,22.725276008,23.5278925322,24.5305090563,25.7331255805,37.3872702817,34.8321171348,32.4769639883,30.3218108412,28.3666576946,26.6115045478,25.0563514009,23.7011982544,22.5460451073,21.5908919607,20.8357388139,20.280585667,19.9254325205,19.7702793734,19.8151262268,20.05997308,20.5048199331,21.1496667866,21.9945136395,23.0393604929,24.2842073461,35.2772985879,32.7643757701,30.4514529523,28.3385301346,26.4256073169,24.7126844993,23.1997616815,21.8868388637,20.773916046,19.8609932283,19.1480704107,18.6351475929,18.3222247751,18.2093019574,18.2963791397,18.5834563221,19.0705335043,19.7576106865,20.6446878688,21.7317650511,23.0188422335,33.3508800142,30.8801875255,28.6094950367,26.5388025481,24.6681100594,22.9974175708,21.5267250821,20.2560325933,19.1853401047,18.314647616,17.6439551274,17.1732626387,16.9025701499,16.8318776613,16.9611851726,17.290492684,17.8198001953,18.5491077065,19.4784152179,20.6077227292,21.9370302406,31.6080145608,29.1795524014,26.9510902416,24.9226280823,23.0941659223,21.4657037628,20.0372416034,18.8087794436,17.7803172843,16.9518551243,16.3233929648,15.8949308054,15.6664686456,15.6380064863,15.8095443263,16.1810821668,16.7526200074,17.5241578476,18.4956956883,19.6672335283,21.0387713688,30.0487022291,27.6624703985,25.4762385677,23.4900067372,21.7037749069,20.1175430762,18.7313112456,17.5450794148,16.5588475843,15.772615754,15.1863839233,14.8001520927,14.6139202619,14.6276884314,14.8414566011,15.2552247704,15.8689929398,16.682761109,17.6965292785,18.9102974482,20.3240656175,28.6729430184,26.3289415168,24.1849400155,22.2409385136,20.4969370124,18.9529355107,17.6089340091,16.4649325078,15.5209310059,14.7769295047,14.232928003,13.8889265014,13.7449250001,13.8009234982,14.056921997,14.5129204953,15.1689189937,16.0249174924,17.0809159905,18.3369144893,19.7929129876,27.4807369278,25.1789657554,23.077194583,21.1754234105,19.4736522382,17.9718810656,16.6701098932,15.5683387208,14.6665675483,13.964796376,13.4630252034,13.161254031,13.0594828586,13.1577116861,13.4559405138,13.9541693412,14.6523981688,15.5506269964,16.6488558239,17.9470846516,19.445313479,26.4720839583,24.212543115,22.1530022715,20.2934614283,18.6339205848,17.1743797412,15.9148388979,14.8552980544,13.9957572112,13.3362163677,12.8766755241,12.6171346808,12.5575938373,12.6980529941,13.0385121506,13.578971307,14.3194304637,15.2598896202,16.400348777,17.7408079335,19.2812670899,25.6469841108,23.4296735964,21.4123630819,19.5950525676,17.9777420531,16.5604315387,15.3431210243,14.3258105098,13.5084999955,12.891189481,12.4738789666,12.2565684522,12.2392579377,12.4219474234,12.8046369089,13.3873263945,14.1700158801,15.1527053656,16.3353948513,17.7180843368,19.3007738224,25.0054373825,22.8303571972,20.855277012,19.0801968267,17.5051166411,16.1300364559,14.9549562706,13.9798760854,13.2047959001,12.6297157145,12.2546355293,12.079555344,12.1044751588,12.3293949735,12.7543147879,13.3792346027,14.2041544174,15.2290742322,16.4539940469,17.8789138613,19.5038336761,24.547443776,22.4145939199,20.4817440636,18.7488942075,17.2160443511,15.8831944946,14.7503446385,13.8174947822,13.0846449261,12.5517950697,12.2189452132,12.0860953571,12.1532455008,12.4203956447,12.8875457883,13.5546959318,14.4218460757,15.4889962194,16.7561463633,18.2232965069,19.8904466504,24.2730032901,22.1823837629,20.2917642356,18.6011447085,17.1105251814,15.8199056541,14.7292861269,13.8386665996,13.1480470725,12.6574275454,12.3668080181,12.2761884909,12.3855689636,12.6949494365,13.2043299094,13.9137103821,14.8230908549,15.9324713276,17.2418518005,18.7512322734,20.4606127461,24.1821159253,22.1337267269,20.2853375289,18.6369483309,17.1885591324,15.9401699344,14.891780736,14.043391538,13.39500234,12.9466131415,12.6982239435,12.6498347451,12.8014455471,13.1530563491,13.7046671506,14.4562779526,15.4078887542,16.5594995562,17.9111103582,19.4627211597,21.2143319617,24.274781681,22.2686228118,20.4624639428,18.8563050737,17.4501462043,16.2439873353,15.2378284661,14.4316695971,13.825510728,13.4193518586,13.2131929896,13.2070341204,13.4008752514,13.7947163823,14.3885575129,15.1823986439,16.1762397747,17.3700809057,18.7639220366,20.3577631672,22.1516042982,24.5510005576,22.5870720176,20.8231434775,19.2592149375,17.8952863973,16.7313578573,15.7674293173,15.0035007772,14.4395722372,14.075643697,13.911715157,13.947786617,14.1838580769,14.6199295369,15.2560009967,16.0920724567,17.1281439167,18.3642153766,19.8002868366,21.4363582964,23.2724297564,25.0107725552,23.089074344,21.367376133,19.8456779221,18.523979711,17.4022815002,16.480583289,15.758885078,15.2371868671,14.915488656,14.7937904452,14.872092234,15.150394023,15.6286958121,16.306997601,17.1852993902,18.263601179,19.541902968,21.0202047571,22.698506546,24.5768083352,25.6540976743,23.7746297923,22.0951619102,20.6156940283,19.3362261462,18.2567582643,17.3772903823,16.6978225002,16.2183546183,15.9388867362,15.8594188543,15.9799509723,16.3004830902,16.8210152083,17.5415473262,18.4620794443,19.5826115623,20.9031436802,22.4236757983,24.1442079162,26.0647400343,26.4809759137,24.6437383607,23.0065008079,21.569263255,20.3320257019,19.294788149,18.457550596,17.8203130432,17.3830754903,17.1458379372,17.1086003843,17.2713628313,17.6341252785,18.1968877256,18.9596501725,19.9224126196,21.0851750666,22.4479375138,24.0106999609,25.7734624078,27.7362248549],"colorscale":"Viridis","showscale":true,"line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","mode":"markers","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<h1>
+Utilisation dans R
+</h1>
+<p>La solution directe à partir des fonctions dédiées est la méthode que l’on utilisera en pratique.<br />
+La seconde méthode permet de voir et chercher à comprendre les calculs réalisés en arrière plan.</p>
+<h2>
+Solution directe
+</h2>
+<p>On définit une base de données et surtout une variable (var.1), continue, à partir des autres variables (de 2 à 6).<br />
+On souhaite retrouver l’intercept et les coefficients qui unissent la variable var.1 aux autre variables.<br />
+On utilise un modèle linéaire (fonction lm()).</p>
+<pre class="r"><code>## ##
+# Définition de la base
+## ##
 
+#Variables
 var.2&lt;- rnorm(450, 0, 12)
 var.3&lt;- rnorm(450, 20, 24)
 var.4&lt;- rnorm(450, 40, 36)
 var.5&lt;- rnorm(450, 60, 48)
 var.6&lt;- rnorm(450, 80, 60)
 
-#Coefficients
+# Intercept
+Inter &lt;- 48
 
+# Coefficients
 A &lt;- 3
 B &lt;- 1
 C &lt;- 0.5
 D &lt;- 0.2
 E &lt;- 0
 
-#On construit la variable d&#39;interet &quot;var.1&quot;, qui est la combinaison des variables precedemment crees, selon des coefficients determines, et un bruit blanc
+# On construit &quot;var.1&quot;, qui est la combinaison des variables précedente selon des coefficients déterminés
+# l&#39;équation de la droite est la suivante:
+var.1 &lt;- Inter + A*var.2 + B*var.3 + C*var.4 + D*var.5 + E*var.6 + rnorm(450, 0 , 17)  
 
-var.1 &lt;- 48 + A*var.2 + B*var.3 + C*var.4 + D*var.5 + E*var.6 + rnorm(450, 0 , 17)  
+# On crée la base
+Base &lt;- data.frame(var.1,var.2, var.3, var.4, var.5, var.6)</code></pre>
+<pre class="r"><code>## ##
+# Définition du modèle
+## ##
 
-#On structure la BDD
+M.Lineaire.1 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= Base)
+summary(M.Lineaire.1) # synthèse des résultats
+confint(M.Lineaire.1) # retourne les intervals de confiance</code></pre>
+<p>Les résultats de la colonne ‘Estimate’ correspondent à l’estimation de l’intercept et coefficients de régression. On constate qu’ils sont proches de ceux utilisés pour la construction du jeu de données.</p>
+<p>Les valeurs de p-values indiquent la probabilité d’observer cette estimation de coefficient si en réalité les observations étaient extraites d’une population où ce coefficient est nul (hypothèse nulle = le coefficient est nul).<br />
+Comme précédemment, plus cette probabilité est faible, plus il est difficile de croire que l’hypothèse nulle soit valide.</p>
+<p>La partie ‘Residuals’ indique les statistiques des résidus. Les résidus représentent, pour chaque individu, l’écart entre la valeur observée de Y et celle que l’on prédit par le modèle.<br />
+Plusieurs éléments de validités du modèle sont à déterminer à partir des résidus <a href="#habibi">(voir ici)</a>.</p>
+<div class="figure">
+<img src="sortielm.png" />
 
-BDD &lt;- data.frame(var.1,var.2, var.3, var.4, var.5, var.6)
-str(BDD)</code></pre>
-<pre><code>## &#39;data.frame&#39;:    450 obs. of  6 variables:
-##  $ var.1: num  163.6 100.6 62 140.2 15.2 ...
-##  $ var.2: num  15.59 -14.661 0.138 -14.152 -10.047 ...
-##  $ var.3: num  36.18 25.23 11.49 53.98 8.72 ...
-##  $ var.4: num  23.8 59.3 24.3 43.5 -15.3 ...
-##  $ var.5: num  144.93 79.93 7.82 127.91 44.34 ...
-##  $ var.6: num  76.5 51.8 116.5 53.2 19.3 ...</code></pre>
-<p><strong>Visualisation des associations brutes</strong></p>
-<p>On peut visualiser dans un premiers temps la relation de notre variable d’interet avec les autres variables.<br />
-On constate comme attendu que les relations semblent lineaires, et proches des coefficients specifies plus haut.</p>
-<p><img src="m_lineaire_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="specification-dun-modele" class="section level1">
-<h1>Specification d’un modele</h1>
-<p>On specifie un 1er modele “M.Lineaire.1”, qui est le modele complet.<br />
-Il modeleise la relation entre ‘var.1’ et l’ensemble des autres variables.<br />
-La fonction summary() permet d’afficher les details de ce modele.</p>
-<p>La sortie comporte plusieurs compartiments:</p>
-<p><strong>Call:</strong> rappel de la formule utilisee.</p>
-<p><strong>Residuals:</strong> propose une description de la distribution des residus, on s’y interessera plus tard pour examiner la concordance du modele avec les hypotheses du modele.</p>
-<p><strong>Coefficients:</strong> affiche le coefficient, l’ecart type, la valeur t et la p-value pour l’intercept et chaques coefficients testes dans le modelee.</p>
-<p>Le dernier compartiment indique plusieurs indicateurs notamment le R² et le R² ajuste.</p>
-<pre class="r"><code>M.Lineaire.1 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
-summary(M.Lineaire.1)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data = BDD)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -49.139 -10.706  -0.549  11.159  62.236 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 48.973066   1.949150   25.12   &lt;2e-16 ***
-## var.2        3.014095   0.068420   44.05   &lt;2e-16 ***
-## var.3        1.036454   0.035528   29.17   &lt;2e-16 ***
-## var.4        0.503681   0.022952   21.95   &lt;2e-16 ***
-## var.5        0.190081   0.016869   11.27   &lt;2e-16 ***
-## var.6       -0.004485   0.013188   -0.34    0.734    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 16.89 on 444 degrees of freedom
-## Multiple R-squared:  0.8987, Adjusted R-squared:  0.8976 
-## F-statistic:   788 on 5 and 444 DF,  p-value: &lt; 2.2e-16</code></pre>
+<h2>
+Step by step
+</h2>
+<pre class="r"><code># On sépare les X du Y
+Mon_Y &lt;- as.matrix(Base[ , 1])
+Mes_x &lt;- as.matrix(Base[ , 2:6])
+
+# On ajoute une colonne permettant le calcul de l&#39;ordonné à l&#39;origine de la droite
+Mes_x_et_intercept = cbind(Mes_x,1)
+
+# On calcul les coefficients
+Mes_coefficients &lt;- solve(t(Mes_x_et_intercept) %*% Mes_x_et_intercept) %*% t(Mes_x_et_intercept) %*% Mon_Y
+Mes_coefficients</code></pre>
+<pre><code>##              [,1]
+## var.2  2.94809240
+## var.3  1.03311790
+## var.4  0.49942885
+## var.5  0.22030355
+## var.6 -0.00940575
+##       48.77328523</code></pre>
+<p><details> <summary>Clique ICI pour le détail du calcul</summary></p>
+<p>On détail le cacul à partir d’un jeu de données plus petit pour simplifier le calcul numérique.</p>
+<p>Ce calcul comporte plusieurs étapes qui font intervenir des calculs entre matrices.<br />
+On pourra trouver des rappels (ou non) de ces calculs <a href="https://www.mathsisfun.com/algebra/matrix-introduction.html">ICI</a> et en particulier concernant <a href="https://www.mathsisfun.com/algebra/matrix-inverse.html">l’inversion d’une matrice</a>.</p>
+<p>On a généré des données à partir du code suivant:<br />
+<br> <strong>X &lt;- rnorm(5)<br />
+Y &lt;- 10 + 3 * X + rnorm(5, 0, 0.2)</strong><br />
+<br></p>
+<p>On obtient 5 valeurs de X (0.75, -0.53; -1.26, -0.73 et 2.05).<br />
+Elles permettent de déterminer 5 valeurs de Y (12.1, 8.38, 6.11, 7.74, 16.33) à partir d’un intercept <span class="math inline">\(\alpha\)</span> (10), d’un coefficient <span class="math inline">\(\beta\)</span> (3). On observe une erreur d’estimation aléatoire, u, de distribution normale.</p>
+<p>On peut représenter cette équation sous la forme suivante:</p>
+<p><img src="equation1.png" /> <br><br> Généralement on dispose de X et de Y et on aimerait déterminer <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> qui sont inconnus.<br />
+On peut réécrire l’équation comme suit:</p>
+<p><img src="equation2.png" /> <br> <strong>Détermination des coefficients:</strong><br />
+On peut obtenir une estimation d’<span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> à partir de l’équation suivante:<br />
+<img src="La_0.png" alt="Les différentes étapes" /></p>
+<p><strong>Etape 1</strong></p>
+<p>Cette première étape multiple la <a href="https://www.mathsisfun.com/algebra/matrix-introduction.html">transposé</a> de X, avec X.<br />
+On obtient une matrice carrée de 2 lignes 2 colonnes.</p>
+<p><img src="La_1.png" /> <br> <strong>Etape 2</strong></p>
+<p>Au cours de la seconde étape on <a href="https://www.mathsisfun.com/algebra/matrix-inverse.html">inverse</a> la matrice obtenue précédemment.<br />
+On obtient de nouveau une matrice carré à 2 lignes et 2 colonnes.</p>
+<p><img src="La_2.png" /> <br> <strong>Etape 3</strong></p>
+<p>L’étape 3 s’intéresse au membre de droite de l’équation générale. On multiplie la transposée de X avec la matrice Y.<br />
+On obtient une matrice de 1 colonne et 2 lignes.</p>
+<p><img src="La_3.png" /> <br> <strong>Etape 4</strong></p>
+<p>Cette dernière étape est le résultat générale de l’équation.<br />
+On multiplie les matrices obtenues à l’étape <strong>(2)</strong> et à l’étape <strong>(3)</strong>.<br />
+On obtient une matrice de 1 colonne et 2 lignes.</p>
+<p>La premère ligne donne l’estimation du coefficient <span class="math inline">\(\beta\)</span>, la seconde ligne l’estimation de l’intercept <span class="math inline">\(\alpha\)</span>.</p>
+<p><img src="La_4.png" /> <br> <strong>Synthèse</strong></p>
+<p>A partir de 5 observations et de plusieurs étapes de calculs matriciels, on a déterminé des estimations de <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span>. Ces estimations sont proches des valeurs utilisées pour générer les données (10 et 3, respectivement).</p>
+<p></details></p>
+<h1>
+Conditions de validité
+</h1>
+<p><a name="habibi"> </a> <strong>En réalisant ce type de modèle on suppose que:</strong><br />
+<strong>(1)</strong> il existe une relation linéaire entre les variables.<br />
+<strong>(2)</strong> l’erreure aléatoire entre estimation et la valeur réelle de Y suit une loi normale de moyenne 0.<br />
+<strong>(3)</strong> l’erreure aléatoire entre […] est similaire quelque soient les valeurs des <strong>Y</strong>(s).</p>
+<p>Le point <strong>(1)</strong> se vérifie au préalable du modèle, en explorant les distribution entre Y et les variables <strong>X</strong>(s) que l’on souhaite utiliser dans le modèle.<br />
+Les points <strong>(2)</strong> &amp; <strong>(3)</strong> sont à vérifier après avoir calculer le modèle et <strong>avant</strong> de se lancer dans l’interprétation des coefficients.</p>
+<p>Une solution courante est de vérifier graphiquement la distribution des <strong>résidus</strong> (la différence entre valeurs prédites et valeurs observées).</p>
+<pre class="r"><code>M.Lineaire.1 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= Base)
+plot(M.Lineaire.1)</code></pre>
+<p>On obtient 4 graphiques de synthèse du modèle, on interprétera les 2 premiers pour analyser les résidus.</p>
+<p>Le premier graphique représente la valeur des résidus selon la valeur des Y prédits.<br />
+Il informe sur <strong>(2)</strong> la moyenne des erreures et <strong>(3) l’homoscédasticité</strong> (= les erreurs que l’on commet sont régulière selon les valeurs de Y).</p>
+<p><img src="lm_1.png" /> <br><br> <strong>On souhaite que:</strong><br />
+- la droite rouge soit constamment proche de 0. <strong>(2)</strong><br />
+- le nuage de point est quelconque, il n’a surtout pas une forme de cône. <strong>(3)</strong></p>
+<hr />
+<p>Le second graphique compare la distribution <em>observée</em> des résidus avec la distribution <em>théorique</em> des résidus <strong>SI</strong> ils suivaient une loi normale.</p>
+<p><img src="lm_2.png" /> <br><br> <strong>On souhaite que:</strong><br />
+- les points soient le plus possible alignés le long de la diagonale. (on est moins sévère sur les extrémités)<br />
+- on ne veut pas déviation trop prononcée et systèmatique de cette droite.</p>
+<hr />
+<p>Le dernier graphique de la synthèse du modèle permet d’observer les <em>valeurs influentes</em> du modèle.<br />
+Ce graphique permet d’identifier les individus dont les valeurs prennent beaucoup d’importance dans la détermination des coefficients du modèle.</p>
+<p>Parmi ces individus, il y a potentiellement des individus dont les valeurs sont abherrantes / fausses ou qui ont des caractéristiques qui sont réellement trop différentes du reste des individus.<br />
+Cela peut grandement fausser les estimations du modèle car décrit alors une droite qui passe à mi chemin entre un groupe de point homogène et un point très “lointain”. Les coefficients ne décrivent alors ni le nuage de point ni le point éloigné.</p>
+<p>Sur le graphique les numéros de ligne des individus influants sont affichés, cela peut être utile pour analyser en détail leurs caractéristiques.</p>
+<div class="figure">
+<img src="lm_3.png" />
+
 </div>
-<div id="comparaison-de-modeles" class="section level1">
-<h1>Comparaison de modeles</h1>
-<p>On peut comparer deux modeles a partir de la fonction anova(), a la condition qu’ils soient emboites.</p>
-<p>On a cree le modele ‘M.lineaire.2’ qui comporte les meme variables que le modele precedent a l’exception de ‘var.2’, la variable la plus fortement associee a notre outcome.</p>
-<p>La sortie affiche les modeles ainsi que la p-value associee a cette comparaison. On constatera qu’ils sont significativement differents.<br />
-On conserve le modele 1 qui comporte le plus d’information.</p>
-<pre class="r"><code>M.Lineaire.2 &lt;- lm(formula = var.1 ~ var.3 + var.4 + var.5 + var.6, data= BDD)
+<h1>
+Relation entre variables
+</h1>
+<p>Quand on fait une analyse multivariée, on considère que Y peut être expliqué par au moins deux variables. Il faut alors réfléchir et définir le type de relation que l’on souhaite exprimer.</p>
+<p>On se concentre sur l’association entre var.1 et var.2 en fonction des valeurs prisent par var.3.<br />
+On compare les différentes façon de prendre en compte cette variable.</p>
+<p>On illustrera 3 situations (ajustement, interaction et stratification) à partir des données définies dans le code suivant.</p>
+<pre class="r"><code>## ##
+# La base utilisée
+## ##
+
+# 3 Variables explicatives : nos X
+# var.2 et var.4 sont continues
+# var.3 est une variable catégorielle
+var.2 &lt;- rnorm(450, 0, 12)
+var.3 &lt;- c(rep(&quot;A&quot;, 450/2), rep(&quot;B&quot;, 450/2))
+
+# Intercept
+Inter1 &lt;- 48 # Intercept bas
+Inter2 &lt;- 60 # Intercept élevé
+
+# Coefficients
+Coef1 &lt;- 1 # coefficient +
+Coef2 &lt;- -1 # coefficient -</code></pre>
+<h2>
+L’ajustement
+</h2>
+<p>On imagine que la relation entre var.1 et var.2 est identique dans les deux catégories de var.3 par contre les niveaux moyens de Y dépendent des catégories de var.3.</p>
+<p>On modèlise cela par des droites parallèles (<span class="math inline">\(\beta\)</span> identiques entre les groupes), dont les ordonnés à l’origine différent (<span class="math inline">\(\alpha\)</span> différents entre les groupes).</p>
+<pre class="r"><code># Ceux de la catégorie A on un intercept bas: Inter1
+# Ceux de la catégorie B on un intercept élevé: Inter2
+var.1 &lt;- ifelse(var.3 == &quot;A&quot;, Inter1 + Coef1*var.2 + rnorm(450/2, 0, 18), 
+                              Inter2 + Coef1*var.2 + rnorm(450/2, 0, 18))
+
+
+# Si on n&#39;ajuste pas
+# on définit un seul intercept et une seule pente
+# quelque soit la valeur de var.3 on a une seule valeur d&#39;intercept et de pente pour expliquer le lien entre Y et var.2
+Resu &lt;- lm(var.1 ~ var.2)
+Resu$coefficients</code></pre>
+<pre><code>## (Intercept)       var.2 
+##   53.926190    1.141118</code></pre>
+<p><img src="m_lineaire_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code># Si on ajuste
+# on définit une seule pente &#39;var.2&#39; mais 2 intercepts
+# 1 = l&#39;intercept pour le groupe A de reference &#39;(Intercept)&#39;
+# 2 = une valeur pour ceux du groupe B &#39;var.3B&#39;, 
+# c&#39;est la différence entre l&#39;intercept du groupe A et celle du groupe B
+# On calcul l&#39;intercept du groupe B en ajoutant &#39;(Intercept)&#39; et &#39;var.3B&#39;
+Resu &lt;- lm(var.1 ~ var.2+var.3)
+Resu$coefficients</code></pre>
+<pre><code>## (Intercept)       var.2      var.3B 
+##   47.130522    1.124777   13.607470</code></pre>
+<p><img src="m_lineaire_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<h2>
+L’intéraction
+</h2>
+<p>On imagine que la relation entre var.1 et var.2 dépend des catégories de var.3 aussi bien pour la pente que pour l’intercept.</p>
+<p>Pentes et intercepts sont différents entre les droites.</p>
+<pre class="r"><code># Ceux du groupe A on un coefficient positif Coef1
+# Ceux du groupe B on un coefficient negatif Coef2
+var.1 &lt;- ifelse(var.3 == &quot;A&quot;, Inter1 + Coef1*var.2 + rnorm(450/2, 0, 18), 
+                              Inter1 + Coef2*var.2+ rnorm(450/2, 0, 18))
+
+# / ! \ dans l&#39;exemple les intercepts sont identiques, ils pourraient être différents
+
+
+# Si on ne prend pas en compte l&#39;intéraction
+# on pense que la pente est proche de 0, ce qui est faux pour les deux groupes.
+Resu &lt;- lm(var.1 ~ var.2)
+Resu$coefficients</code></pre>
+<pre><code>##  (Intercept)        var.2 
+## 47.395728183 -0.009960518</code></pre>
+<p><img src="m_lineaire_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code># Si on prend en compte l&#39;intéraction
+# on définit un coefficient pour le groupe A &#39;var.2&#39;
+# on définit une valeur pour le groupe B &#39;var.2:var.3B&#39;, que l&#39;on ajoute au coefficient du groupe A:
+# c&#39;est la différence entre les pente du groupe A et du groupe B.
+Resu &lt;- lm(var.1 ~ var.2*var.3)
+Resu$coefficients</code></pre>
+<pre><code>##  (Intercept)        var.2       var.3B var.2:var.3B 
+##    48.861006     0.906780    -2.336443    -1.798820</code></pre>
+<p><img src="m_lineaire_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<h2>
+La stratification
+</h2>
+<p>Si on se rend compte les relations entre Y et plusieurs variables explicative sont différentes selon le groupe d’appartenance (var.3), on peut considérer que ces deux groupes ne peuvent pas être expliquée par un seul modèle.<br />
+On conduit alors des analyses séparemment dans chacun des groupes, c’est une <strong>stratification</strong>.</p>
+<h1>
+Comparaison de modèles
+</h1>
+<p>La définition des modèles reposent sur des choix de variable.<br />
+Ces choix sont en partie guidé par la littérature sur le sujet et le contexte de l’étude.<br />
+Ils peuvent également être appuyés par une analyse statistique.</p>
+<p>On a vu <a href="#abcde">plus haut</a> qu’il existe une combinaison optimale de coefficient qui permettent d’obtenir <strong>LA</strong> droite qui correspond aux moindre carrés.<br />
+Cependant, toutes les variables ne participents pas également à la modèlisation de <strong>Y</strong>.<br />
+Quand une variable participe très faiblement, on peut se demander si le moindre carré obtenus à partir d’un modèle sans cette variable est éloigné du moindre carré obtenu dans le modèle avec la variable.</p>
+<p>On calcul la distance entre les deux valeurs de moindre carré obtenus dans chacun des modèle.<br />
+On les compare à partir d’un test statistique, en prenant en compte la différence du nombre de variable entre modèles.<br />
+La p-value obtenue indique la probabilité d’observer cette différence si en réalité ces deux modèles sont équivalents. Plus cette probabilité est faible plus on a du mal à croire que ces modèles soient similaires.<br />
+Dans ce cas on conserve toujours le modèle présentant le plus grand nombre de variable car il présente <strong>obligatoirement</strong> plus d’information que le modèle plus pauvre.</p>
+<p><strong>Pour être valide cette comparaison doit avoir lieu sur des échantillons identiques et dans des modèles emboîtés.</strong></p>
+<p><em>Dans R:</em></p>
+<pre class="r"><code>M.Lineaire.1 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= Base)
+M.Lineaire.2 &lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4, data= Base)
 
 anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6
-## Model 2: var.1 ~ var.3 + var.4 + var.5 + var.6
+## Model 2: var.1 ~ var.2 + var.3 + var.4
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    444 126666                                  
-## 2    445 680293 -1   -553627 1940.6 &lt; 2.2e-16 ***
+## 1    444 131826                                  
+## 2    446 182720 -2    -50893 85.706 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-<div id="selection-des-variables" class="section level1">
-<h1>Selection des variables</h1>
-<p>Pour automatiser le processus precedent on peut s’aider de la fonction step(). Elle permet d’effectuer une selection purement statistique des variables a partir de la comparaison automatisee des modeles emboites.</p>
-<p>La fonction part d’un modele initial a tester, ajoute/retire des variables et compare les modeles ainsi cree selon un critere que l’on definit. C’est un processus iteratif qui continue jusqu’a otpimiser notre critere de selection.</p>
-<p>On doit specifier plusieurs choses:<br />
-(1) le modele de depart<br />
-(2) dans quelle direction la fonction doit elle chercher (forward: ajoute des variables ; backward: retire des variables ; both)<br />
-(3) le domaine de recherche : c-a-d définir les modèles qui encadrent (le plus riche, le plus pauvre en information) l’ensemble des modèles que l’on souhaite explorer<br />
-(4) le critere de selection (generalement AIC ou BIC).</p>
-<p>On va specifier le modele null et le modele full qui sont respectivement le modele le plus pauvre en information que l’on souhaite tester et le modele le plus riche en information que l’on souhaite tester.<br />
-Par defaut R ira du modele vide jusqu’au modele complet.<br />
-Plusieurs options sont disponibles concernant la direction, on consultera la page d’aide pour plus de details.</p>
-<p>La sortie de la fonction step est interessante a analyser.<br />
-Les deux premiers lignes indique la valeur du critere ainsi que la formule pour le modele initial.</p>
-<p>Le premier tableau indique les tests effectues.<br />
-Le critere (ici le BIC malgre ce qu’affiche le tableau) est evalue dans plusieurs cas de figure:<br />
-- en ajoutant var.2<br />
-- en ajoutant var.3<br />
-- en retirant var.6<br />
-- en conservant le modele tel quel<br />
-- en retirant var.5<br />
--en retirant var.4</p>
-<p>Il en conclut que ce qui minimise le BIC est d’ajouter var.2.</p>
-<p>Il ajoute var.2 a notre modele initial, et recommence la procedure.</p>
-<p>Il continue ainsi jusqu’a obtenir un modele pour lequel ajouter/retirer une variable penalise notre critere.<br />
-Il conserve ce modele en dernieres lignes et nous affiche ses coefficients.</p>
-<pre class="r"><code>M.Lineaire.0 &lt;- lm(formula = var.1 ~ var.4 + var.5 + var.6, data= BDD)
-null &lt;-lm(formula = var.1 ~ 1, data= BDD)
-full&lt;- lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6, data= BDD)
-
-step(M.Lineaire.0, #le modele initial a tester
-     direction = &quot;both&quot;, #regarde dans les deux directions, c&#39;est a dire vers les modeles plus complets mais aussi plus parcimonieux
-     scope = list(lower=null,upper=full), #les modeles le plus pauvre/riche autorise
-     criterion = &quot;BIC&quot;, #1er arugment sur le critere de selection
-     k = log(nrow(BDD))) #2nd argument ; pour comparer en fonction de l&#39;AIC on retirera ces deux derniers arguments</code></pre>
-<pre><code>## Start:  AIC=3523.13
-## var.1 ~ var.4 + var.5 + var.6
-## 
-##         Df Sum of Sq     RSS    AIC
-## + var.2  1    701563  369464 3050.3
-## + var.3  1    390734  680293 3325.0
-## - var.6  1      1134 1072161 3517.5
-## &lt;none&gt;               1071027 3523.1
-## - var.5  1     26918 1097945 3528.2
-## - var.4  1    152226 1223254 3576.8
-## 
-## Step:  AIC=3050.3
-## var.1 ~ var.4 + var.5 + var.6 + var.2
-## 
-##         Df Sum of Sq     RSS    AIC
-## + var.3  1    242798  126666 2574.7
-## - var.6  1        68  369532 3044.3
-## &lt;none&gt;                369464 3050.3
-## - var.5  1     36275  405739 3086.3
-## - var.4  1    160554  530018 3206.6
-## - var.2  1    701563 1071027 3523.1
-## 
-## Step:  AIC=2574.68
-## var.1 ~ var.4 + var.5 + var.6 + var.2 + var.3
-## 
-##         Df Sum of Sq    RSS    AIC
-## - var.6  1        33 126699 2568.7
-## &lt;none&gt;               126666 2574.7
-## - var.5  1     36221 162887 2681.7
-## - var.4  1    137382 264048 2899.1
-## - var.3  1    242798 369464 3050.3
-## - var.2  1    553627 680293 3325.0
-## 
-## Step:  AIC=2568.69
-## var.1 ~ var.4 + var.5 + var.2 + var.3
-## 
-##         Df Sum of Sq    RSS    AIC
-## &lt;none&gt;               126699 2568.7
-## + var.6  1        33 126666 2574.7
-## - var.5  1     36223 162922 2675.7
-## - var.4  1    137367 264066 2893.1
-## - var.3  1    242833 369532 3044.3
-## - var.2  1    554344 681043 3319.4</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = var.1 ~ var.4 + var.5 + var.2 + var.3, data = BDD)
-## 
-## Coefficients:
-## (Intercept)        var.4        var.5        var.2        var.3  
-##     48.6206       0.5035       0.1901       3.0148       1.0365</code></pre>
-</div>
-<div id="verification-des-hypotheses" class="section level1">
-<h1>Verification des hypotheses</h1>
-<p>Une premiere etape succinte pour verifier les conditions d’application du modele est de verifier graphiquement la distribution des residus.<br />
-On espere entre autre qu’ils suivent une loi normale de moyenne 0, qu’ils ne presentent pas de signe d’heteroscedascite, ou de points abherrants.</p>
-<p>Notre jeu de donnees ayant ete construit de toute piece, on s’est premuni de ces situations.</p>
-<pre class="r"><code>par(mfrow=c(2,2))
-plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))</code></pre>
-<p><img src="m_lineaire_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<hr />
-<p>Pour s’entrainer.</p>
-<p><strong>Synthese des fonctions</strong></p>
-<table>
+<h5>
+Fonctions sur cette page
+</h5>
+<table style="width:100%;">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="30%" />
+<col width="69%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -574,21 +812,39 @@ plot(lm(formula = var.1 ~ var.2 + var.3 + var.4 + var.5, data= BDD))</code></pre
 </thead>
 <tbody>
 <tr class="odd">
-<td>lm( outcome ~ variable1+ varible2, data= )</td>
-<td>modele linaire</td>
+<td>lm(formula =, data = )</td>
+<td>renvoi les résultats d’un modèle linéaire</td>
 </tr>
 <tr class="even">
-<td>anova(m1, m2)</td>
-<td>comparaison des modeles m1 et m2</td>
+<td>confint(model)</td>
+<td>renvoi les intervals de confiance à 95% du modèle linéaire ‘model’</td>
 </tr>
 <tr class="odd">
-<td>step(m1, direction= , scope(m.null , m.max))</td>
-<td>selection stepwise des variables du modele m1</td>
+<td>anova(model1, model2)</td>
+<td>renvoi la comparaison des moindres carrés des models 1 &amp; 2</td>
 </tr>
 </tbody>
 </table>
-</div>
+<h3>
+Pour s’entraîner
+</h3>
+<p>A venir, un jours.</p>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>
