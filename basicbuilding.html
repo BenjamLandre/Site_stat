@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +98,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +192,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +349,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +384,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +391,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +437,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,117 +451,283 @@ div.tocify {
 </div>
 
 
-<div id="fonctionnement-de-base" class="section level1">
-<h1>Fonctionnement de base</h1>
-<p><strong>1. Calcul direct</strong></p>
-<p>On peut utiliser R comme une calculatrice, pour effectuer directement ses calculs.<br />
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h4>
+Synthèse
+</h4>
+<ul>
+<li>Assigner un nom à des objets, avec l’opérateur ‘&lt;-’, permet de les conserver en mémoire et de les utiliser dans des calculs.<br />
+</li>
+<li>Un vecteur est un objet qui contient plusieurs éléments, il existe plusieurs type de vecteurs.<br />
+</li>
+<li>On peut sélectioner les éléments d’un vecteur en indiquant leur position entre crochets, après le nom du vecteur.<br />
+</li>
+<li>Une opération entre vecteur s’effectue entre chaques éléments du vecteur, un à un, si les vecteurs sont de même taille, si non le plus petit des vecteurs est recyclé: on ré-utilise ses valeurs à partir du 1er élément.<br />
+</li>
+<li>Les fonctions permettent de réaliser des actions pré-définies. Pour cela il faut remplir les paramètres obligatoires, et ne pas oublier que d’autres paramètres utilisent des valeurs par défaut non affichées.<br />
+</li>
+<li>Consulter l’aide des fonctions, et relire le code à la recherche d’éventuelles fautes de frappes, permet de résoudre la majorité des problèmes.</li>
+</ul>
+<hr />
+<h1>
+Fonctionnement de base
+</h1>
+<h2>
+Calcul direct
+</h2>
+<p>On peut utiliser R pour effectuer directement des calculs comme une calculatrice.<br />
 Soit dans la zone de script (ctrl+enter pour valider) soit directement dans la console (enter).</p>
 <pre class="r"><code>1+15</code></pre>
 <pre><code>## [1] 16</code></pre>
 <pre class="r"><code>15/4 + 12</code></pre>
 <pre><code>## [1] 15.75</code></pre>
-<p><strong>2. Assignement</strong></p>
-<p>La specificite de R est de pouvoir assigner a un objet, des elements (une valeur, un calcul, un ensemble d’operations, …).</p>
-<pre class="r"><code>X &lt;- 2 #On assigne a l&#39;objet X, l&#39;element 2.
-X      #l&#39;objet X contient l&#39;element 2.
-X + X  #qui peut etre utilise dans autre calcul par la suite.
+<p>Mais un des intérêt de R est de pouvoir réaliser des calculs sur de grands ensembles d’éléments ou de réaliser des ensembles de calculs complexes. Pour cela on manipule directement les objets qui contiennent les données en donnant les directives dans le script.</p>
+<h2>
+Assignement
+</h2>
+<p>R peut retenir en mémoire différents objets qui regroupent les données qu’on lui désigne (une valeur, le résultat d’un calcul, un ensemble d’opérations, …).</p>
+<p><strong>Pour cela:</strong><br />
+- on définit un identifiant (le nom qu’on utilisera pour rappeler l’objet)<br />
+- on lui assigne l’objet souhaité à partir des symboles ‘&lt;-’</p>
+<pre class="r"><code>X &lt;- 2 #  On assigne à l&#39;objet X, l&#39;élément 2
+X      #  l&#39;objet X contient l&#39;élément 2
 
-Y &lt;- X + X #ou assigne a un autre element.
+X + X  #  on peut manipuler l&#39;objet X pour effectuer des calculs directement
+
+Y &lt;- X + X #...ou assigner ce calcul à un autre objet (Y)
 Y
 
 Y + 15</code></pre>
-<p>Plusieurs elements a remarquer:</p>
-<pre class="r"><code>Z &lt;- 118 #un objet assigne n&#39;est pas directement exprime dans la console.
-Z        #pour l&#39;exprimer il faut l&#39;appeler, c-a-d tapper le nom de l&#39;objet (dans la console ou le script).
+<p>Plusieurs éléments à remarquer:</p>
+<pre class="r"><code>Z &lt;- 118 #  un objet assigné n&#39;est pas directement exprime dans la console
+Z        #  pour l&#39;exprimer il faut l&#39;appeler, c-a-d tapper le nom de l&#39;objet (dans la console ou le script).
 
-Z&lt;- 22   #si on assigne un nouvel element a un objet deja utilise, on ecrase la valeur precedente.
-Z        #Z ne contient plus l&#39;element 118 mais 22.</code></pre>
-</div>
-<div id="vecteurs-de-donnees" class="section level1">
-<h1>Vecteurs de donnees</h1>
-<p>Un des interets de R est de pouvoir realiser des calculs sur de grand ensembles de donnees.<br />
-Une façon de le faire est de regrouper un ensemble de donnees a l’interieur d’un objet. On peut utiliser la fonction c() (abreviation de concatenate).</p>
-<p>Ces objets, appeles vecteurs, regroupent un ensemble de donnees de même nature.<br />
-Ils constituent un element important dans la logique de calcul de R.</p>
+Z &lt;- 22   #  si on assigne un nouvel élément à un objet déjà utilisé, on écrase la valeur precedente
+Z        #  Z ne contient plus l&#39;element 118 mais 22</code></pre>
+<h1>
+Vecteurs de données
+</h1>
+<h2>
+Créer un vecteur
+</h2>
+<p>Un des interet de R est de pouvoir réaliser des calculs sur de grand ensembles de données.<br />
+Une façon de le faire est de les regrouper à l’interieur d’un objet.</p>
+<p>Pour cela:<br />
+- on utilise la fonction ‘concatenate’ c()<br />
+- on tappe les données que l’on souhaite regrouper, en les séparant par des virgules</p>
 <pre class="r"><code>c(4,8)  #directement
 
-X&lt;- c(4, 8)  #par assignement
+X &lt;- c(4, 8)  #par assignement
 X</code></pre>
-<p>On peut effectuer des calculs directement a partir des vecteurs.<br />
-Ils font intervenir des regles particulieres de calculs.</p>
-<p>Il existe plusieurs categories de vecteur. Cela depend des donnees qu’il contient.<br />
-Ils peuvent etre numerique et contenir des chiffres.<br />
-Ils peuvent egalement contenir du texte (tout element mis entre guillemets) ou des resultats d’operateurs logiques (TRUE / FALSE).</p>
-<pre class="r"><code>X&lt;- c(&quot;IMC normal&quot;, &quot;IMC surpoids&quot;, &quot;IMC surpoids&quot;) 
+<p>Ces objets sont appelés des vecteurs. Les vecteurs constituent un element important dans la logique de calcul de R. Il existe plusieurs type de vecteur selon la nature des données qu’il contient. Un vecteur ne contient toujours qu’un seul type de données.</p>
+<p>Ils peuvent, par exemple, être numerique et ne contenir que des chiffres.<br />
+Ils peuvent également contenir du texte ou des résultats d’opérateur logiques (TRUE / FALSE).</p>
+<pre class="r"><code>X &lt;- c(&quot;IMC normal&quot;, &quot;IMC surpoids&quot;, &quot;IMC surpoids&quot;) 
 X
 
-Y&lt;- c(TRUE, FALSE, FALSE) 
+Y &lt;- c(TRUE, FALSE, FALSE) 
 Y</code></pre>
-<p>Les premiers pourront etre utilises, par exemple, pour creer des variables categorielles.<br />
-Les seconds sont des resultats d’operations logiques.<br />
-Ils pourront etre utilises pour selectionner des sous-groupes dans notre base de donnees.</p>
-</div>
-<div id="selection-dun-sous-ensemble" class="section level1">
-<h1>Selection d’un sous-ensemble</h1>
-<p>Les vecteurs sont des ensembles d’elements. On peut vouloir en selectionner un sous-ensemble particulier. Pour ce faire on utilisera “[]” juste apres le nom de notre vecteur.</p>
-<pre class="r"><code>a&lt;- c(12,45,18,16,13,18,46)
-a[5] #selectionne le 5eme element du vecteur a</code></pre>
+<p>Les premiers pourront être utilisés, par exemple, pour créer des variables catégorielles.<br />
+Les seconds sont des résultats d’opérations logiques.<br />
+Ils pourront être utilisés pour définir si une condition est remplie pour l’execution calcul.</p>
+<h2>
+Manipuler un vecteur
+</h2>
+<p>Les vecteurs contiennent un ensemble de données. On peut sélectionner à l’intérieur de ce vecteur une ou plusieurs données particulières en indiquant la position de l’élément.</p>
+<p><strong>Pour cela:</strong> - on utilisera “[]” juste apres le nom de notre vecteur - on indique l’emplacement de l’élément inclus dans le vecteur</p>
+<pre class="r"><code>a &lt;- c(12,45,18,16,13,18,46)
+
+a[5] # sélectione le 5eme élément du vecteur a</code></pre>
 <pre><code>## [1] 13</code></pre>
-<pre class="r"><code>a[c(1,4)] #selectionne les elements 1 et 4 du vecteur a</code></pre>
+<pre class="r"><code>a[-5] # sélectionne tous les éléments SAUF le 5ème</code></pre>
+<pre><code>## [1] 12 45 18 16 18 46</code></pre>
+<pre class="r"><code>a[c(1,4)] # sélectionne les éléments 1 et 4 du vecteur a</code></pre>
 <pre><code>## [1] 12 16</code></pre>
-<p>On peut egalement preciser une condition logique pour selectionner un sous-ensemble.</p>
-<pre class="r"><code>a&lt;- c(12,45,18,16,13,18,46)
-a[a&gt;20] #selection, dans a, les elements pour lesquels a est superieur a 20</code></pre>
+<p>On peut également sélectionner des éléments du vecteur qui répondent à une condition logique.</p>
+<p><strong>Pour cela:</strong><br />
+- on utilisera “[]” juste apres le nom de notre vecteur<br />
+- on indique la condition que l’on veut remplir</p>
+<pre class="r"><code>a &lt;- c(12,45,18,16,13,18,46)
+
+a[a&gt;20] # sélection, dans a, les éléments pour lesquels a est supérieur a 20</code></pre>
 <pre><code>## [1] 45 46</code></pre>
-<pre class="r"><code>b&lt;- a[a&gt;20] #on peut creer un vecteur comprenant ce sous-ensemble
-b #b est le sous ensemble de a comprenant les elements de a superieurs a 20</code></pre>
+<pre class="r"><code>b &lt;- a[a&gt;20] # on peut créer un vecteur comprenant ce sous-ensemble
+b # b est le sous-ensemble de a comprenant les éléments de a supérieurs à 20</code></pre>
 <pre><code>## [1] 45 46</code></pre>
-<pre class="r"><code>a #a est inchange est comprend toujours l&#39;ensemble des valeurs de depart</code></pre>
+<pre class="r"><code>a # a est inchangé et comprend toujours l&#39;ensemble de ses éléments</code></pre>
 <pre><code>## [1] 12 45 18 16 13 18 46</code></pre>
+<h2>
+Calculer à partir d’un vecteur
+</h2>
+<p>Rapidement on effectue donc des calculs sur un vecteur ou entre vecteur de données.</p>
+<p>Pour comprendre les opérations à partir des vecteurs il faut comprendre la répartition des calculs. De manière générale, R recherche à ajouter les éléments en fonction de leur position.</p>
+<p>L’addition est utilisée dans les exemple ci-après, les autres opérations fonctionnes également sur les mêmes régles.</p>
+<p>Si on fait une addition entre un chiffre unique et un vecteur, ce chiffre s’ajoute à chaque élément sur chaque position du vecteur. On obtient donc un vecteur de la même taille que le vecteur initial, mais dont les valeurs ont été modifiées.</p>
+<pre class="r"><code>a &lt;- c(12, 45, 18, 1)
+a + 10</code></pre>
+<pre><code>## [1] 22 55 28 11</code></pre>
+<p><img src="recy1.png" width="250" /> <br></p>
+<p>On peut ajouter deux vecteurs de taille égale. On obtient un vecteur de la même taille que le vecteur initiale. Les éléments de même position dans les vecteurs se sont ajoutés. (La case 1 du vecteur 1 c’est ajoutée à la case 1 du vecteur 2, la case 2 … à la case 2, etc…)</p>
+<pre class="r"><code>a &lt;- c(12, 45, 18, 1)
+a + a</code></pre>
+<pre><code>## [1] 24 90 36  2</code></pre>
+<p><img src="recy2.png" width="250" /> <br></p>
+<p>On peut également ajouter deux vecteurs de tailles inégales. On obtient un vecteur de même taille que le vecteur initiale <em>le plus grand</em>.<br />
+Les éléments s’ajoute un à un, selon leur position, jusqu’au moment où un des deux vecteurs n’a plus d’élément à proposer pour le calcul.<br />
+Le vecteur le plus petit est alors <em>recyclé</em>, R réutilise les premières valeurs pour continuer l’opération, jusqu’à ce que le plus grand vecteur ait réalisé l’addition sur chacun de ses éléments.</p>
+<pre class="r"><code>a &lt;- c(12, 45, 18, 1)
+b &lt;- c(1, 2, 3)
+a + b</code></pre>
+<pre><code>## Warning in a + b: la taille d&#39;un objet plus long n&#39;est pas multiple de la
+## taille d&#39;un objet plus court</code></pre>
+<pre><code>## [1] 13 47 21  2</code></pre>
+<div class="figure">
+<img src="recy3.png" width="320" />
+
 </div>
-<div id="valeurs-manquantes" class="section level1">
-<h1>Valeurs manquantes</h1>
-<p>Si l’on souhaite representer une donnee manquante. On utilisera l’indicateur “NA”.</p>
-<pre class="r"><code>a&lt;- c(1,2,3, NA, 4)
+<p>On notera que R affiche un message d’alerte si les vecteurs sont de tailles inégales <strong>et</strong> que leur taille ne sont pas des multiples.</p>
+<pre class="r"><code>v1 &lt;- c(12, 45, 18, 1)
+v2 &lt;- c(1, 2, 3)
+v3 &lt;- c(1, 2)
+
+v1 + v2</code></pre>
+<pre><code>## Warning in v1 + v2: la taille d&#39;un objet plus long n&#39;est pas multiple de la
+## taille d&#39;un objet plus court</code></pre>
+<pre><code>## [1] 13 47 21  2</code></pre>
+<pre class="r"><code>v1 + v3</code></pre>
+<pre><code>## [1] 13 47 19  3</code></pre>
+<pre class="r"><code># v1 + v2 + v3 - pouvez-vous prédire le vecteur de sortie sans lancer le calcul?</code></pre>
+<p><br></p>
+<h2>
+Valeurs manquantes
+</h2>
+<p>On peut représenter une valeur manquante dans un vecteur. On utilisera alors l’indicateur “NA”. Une valeur manquante n’est pas considéré comme un 0, c’est une valeur non connue (Not Available), ce qu’il faut prendre en compte lors de la réalisation de calculs.</p>
+<pre class="r"><code>a &lt;- c(1,2,3, NA, 4)
 a</code></pre>
 <pre><code>## [1]  1  2  3 NA  4</code></pre>
-<pre class="r"><code>a + 2 #la valeur NA n&#39;est pas consideree comme 0, c&#39;est une valeur non connue (Not Available)</code></pre>
+<pre class="r"><code>a + 2</code></pre>
 <pre><code>## [1]  3  4  5 NA  6</code></pre>
-<pre class="r"><code>a[a&gt;2] #dans l&#39;objet a quelles sont les valeurs superieure a 2 ? ne peut etre evalue pour une valeur NA</code></pre>
+<pre class="r"><code>a[a&gt;2]</code></pre>
 <pre><code>## [1]  3 NA  4</code></pre>
-</div>
-<div id="les-fonctions" class="section level1">
-<h1>Les fonctions</h1>
-<p><strong>1. Utilisation generale</strong></p>
-<p>R inclut des fonctions dites de base.<br />
-Elles permettent d’effectuer rapidement des ensembles de calculs pre-definis, en en controlant les conditions.</p>
-<pre class="r"><code>IMC_echantillon &lt;- rnorm(15,23,3) #tirer au sort 15 elements d&#39;une distribution normale,    de moyenne 23 et ecart type 3
-IMC_echantillon
+<h1>
+Les fonctions
+</h1>
+<h2>
+Utilisation générale
+</h2>
+<p>R inclue des fonctions dites de base.<br />
+Elles permettent d’effectuer rapidement des ensembles de calculs ou d’actions pré-définis, en en contrôlant les paramètres</p>
+<div class="figure">
+<img src="function.png" />
 
-Moyenne_IMC&lt;- mean(IMC_echantillon) #moyenne de la distribution
-Moyenne_IMC
-Variance_IMC&lt;- var(IMC_echantillon) #variance de la distribution
-Variance_IMC</code></pre>
-<p>Chaque fonction comprend un ou plusieurs arguments qui permettent de preciser les conditions de calculs.<br />
-Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.<br />
-D’autres ont une valeur par defaut, c’est celle qui sera utilisee si l’utilisateur ne la modifie pas.</p>
-<pre class="r"><code>data(cars)
-Modele_lineaire &lt;- lm(formula = speed ~ dist, #a renseigner obligatoirement
-                     data= cars, #idem
-                     method = &quot;qr&quot;) #la valeur &quot;qr&quot;&quot; est la valeur par defaut,
-                                    #l&#39;argument est facultatif
-summary(Modele_lineaire)</code></pre>
-<p>Pour connaitre les arguments d’une fonction on peut consulter la page d’aide.<br />
-Pour cela il suffit d’ajouter “?” devant la fonction et de la lancer dans la console.<br />
-L’aide concernant la fonction apparait dans la fenetre d’aide. Elle comprend une description de son utilisation, sa formulation complete, une liste des arguments avec leur detail d’utilisation et des exemples d’utilisation.</p>
-<p><strong>2. Importer des fonctions</strong></p>
-<p>Les fonctions de bases sont nombreuses et permettent deja de realiser un grand nombre de calculs et d’actions. Cependant on peut acceder a des fonctions supplementaire a partir des packages. Les packages sont des ensembles de fonctions developpees et mises a disposition en acces libre par les participants de la communaute R. Chaque package repond generalement a une thematique/problematique particuliere et contient des outils specialises pour y repondre.</p>
-<p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>.<br />
-Pour chaques package vous disposez du manuel d’utilisation qui compile l’ensemble des fonctions disponibles dans le package, avec parfois un tutoriel.</p>
-<p>Pour instaler directement un package depuis RStudio, il faut:<br />
-1) Telecharger le package (- une seule fois)<br />
-puis<br />
-2) activer les fonctions du package (- a renouveller a chaque session).</p>
+</div>
+<p><br> Chaque fonction comprend un ou plusieurs arguments, séparés par des virgules. Ce sont eux qui définissent les paramètres utilisés.<br />
+<br> Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.<br />
+D’autres ont une valeur par defaut, c’est celle qui sera utilisée si l’utilisateur ne la modifie pas. Attention ces dernières ne s’affichent pas! Consultez la page d’aide concernant la fonction pour voir l’ensemble de ses arguments.<br />
+<br></p>
+<h2>
+Syntaxe et lecture du code
+</h2>
+<p>On notera que, dans la syntaxe d’une fonction, les arguments sont rangés dans un certain ordre. Si on se souvient de cet ordre cela permet de ne pas avoir à écrire le nom des argument dans la fonction.<br />
+Si on renseigne le nom des arguments on n’est pas contraint de suivre l’ordre des arguments.</p>
+<pre class="r"><code>round(x = 15.23, digits = 1) # = arrondis le nombre &#39;argument x&#39; à &#39;argument digits&#39; nombre après la virgule
+round(15.23, 1)
+
+round(digits = 1, x = 15.23) # l&#39;ordre peut être changé si on nomme les arguments
+round(1, 15.23) # arguments non nommés, R considère qu&#39;ils sont renseignés dans l&#39;ordre</code></pre>
+<p>Les fonctions peuvent être utilisées à l’intérieur d’autres fonctions. Cela permet d’enchaîner différentes actions successivement et de ne pas surcharger inutilement la mémoire.</p>
+<p>Quand plusieurs fonctions sont imbriquées, la lecture des actions se fait de l’intérieur vers l’extérieur. <br></p>
+<p><img src="function2.png" /> <br><br> <strong>Ce code peut se lire:</strong><br />
+1. Définis un vecteur de 3 éléments: fonction c() (oui c’est une fonction)<br />
+2. Retire les données manquantes: fonction na.omit()<br />
+3. Fais la somme des éléments du vecteur: fonction sum()<br />
+4. Arrondis le résultat: fonction round() (l’argument par défaut est utilisé pour le nombre de chiffres après la virgule)</p>
+<p>On devinera que rapidement il est facile de se perdre dans la syntaxe. C’est également le cas lorsque les fonctions présentent de nombreux arguments.</p>
+<p><strong>Pour s’aider:</strong><br />
+- Retour à la ligne pour mettre en évidence la structure du code et aérer le code. (Reformat Code:‘ctrl+shift+A’ ou Reindent Lines:‘ctrl+i’ sont vos amis).<br />
+- Il y doit avoir autant de ‘(’ ouvrantes que de ‘)’ fermantes.<br />
+- Les virgules sont généralement encadrées par des éléments ou sépare des arguments, sinon c’est probablement une faute de frappe.</p>
+<pre class="r"><code># codes identiques
+# le premier isole les arguments
+Model_lineaire &lt;- lm( formula = ma_formule,
+                      data = ma_base,
+                      subset = condition_de_selection,
+                      method = &quot;qr&quot;,
+                      singular.ok = TRUE,
+                      contrasts = NULL )
+# le second 
+Model_lineaire &lt;- lm( formula = ma_formule, data = ma_base, subset = condition_de_selection, method = &quot;qr&quot;, singular.ok = TRUE, contrasts = NULL )</code></pre>
+<p><strong>Concernant l’enfer des parenthèses:</strong><br />
+- Sur RStudio, quand on clique devant une parenthèse, la seconde parenthèse qui lui est associée est mise en surbrillance.<br />
+- S’il manque une parenthèse dans un code lancé, un indicateur ‘+’ apparait dans la console pour signaler qu’une action supplémentaire est requise. On peut utiliser la touche ‘Echap’ pour stopper le code et le corriger.</p>
+<img src="function3.png" />
+<h2>
+Consulter la page d’aide
+</h2>
+<p>Pour consulter l’aide d’une fonction, tappez le nom de la fonction précédé d’un “?” <br><br></p>
+<p><strong>On retrouve systématiquement plusieurs paragraphe:</strong><br />
+- <strong>‘Usage’</strong> qui décrit la syntaxe de la fonction, l’ordre des arguments et les valeurs prisent par défaut le cas échéant.<br />
+- <strong>‘Arguments’</strong> qui décrit les arguments, les données attendues pour les renseigner et le format que doivent avoir ces informations.<br />
+- <strong>‘Value’</strong> qui décrit la réponse que renvoi la fonction, les éléments qui composent la réponse et les différents formats de données.<br />
+- <strong>‘Exemples’</strong> donne un/des exemple(s) de l’utilisation de la fonction, souvent sur un cas courant.<br />
+<br></p>
+<p><strong>Résultat après avoir tappé ‘?lm’ dans la console</strong> <img src="aide.png" /> <br><br></p>
+<h2>
+Importer des fonctions
+</h2>
+<p>Les fonctions de bases sont nombreuses et permettent de réaliser un grand nombre d’actions. Cependant on peu accéder à d’autres fonctions à partir des <strong>packages</strong>. Les packages sont des ensembles de fonctions développées et mises à disposition en accès libre par les participants de la communauté R. Chaque package répond généralement à une thématique/problématique particulière et contient des outils spécialisés pour y répondre.</p>
+<p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>. Pour chaques package vous disposez du manuel d’utilisation qui recense l’ensemble des fonctions disponibles dans le package et parfois d’un tutoriel.</p>
+<p><strong>Pour instaler directement un package depuis RStudio, il faut:</strong><br />
+1. Télécharger le package (- une seule fois)<br />
+2. Charger les fonctions du package (- a renouveller a chaque session).</p>
 <pre class="r"><code>Surv() #la fonction n&#39;est pas disponible de base sur R
 
 install.packages(&quot;survival&quot;) #telecharge et installe le package
@@ -480,17 +735,92 @@ install.packages(&quot;survival&quot;) #telecharge et installe le package
 library(survival) #active les fonctions pour la session en cours
 
 Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes</code></pre>
-<p>Comme tout nouveau langage que l’on apprend, on debute generalement avec un vocabulaire (ici les fonctions) relativement pauvre. Certaines fonctions seront decrites ici mais l’ecrasante majorite reste a decouvrir. Plus le vocabulaire s’enrichit plus on est capable de realiser des taches specifiques, precises ou combinees a d’autres.<br />
-Pour decouvrir de nouvelles fonctions le plus simple est de tapper ‘l’action que l’on souhaite produire’ suivi de ‘in r’ dans le moteur de recherche.</p>
-<p>Par exemple:</p>
-<blockquote>
-<p><em>Calculate cook’s distance in r</em></p>
-</blockquote>
-<p>Ou en consultant les <a href="https://stats.stackexchange.com/">forums d’aide</a>.</p>
-<hr />
-<p><a href="entrainement_1.pdf">Pour s’entrainer</a></p>
-<p><strong>Synthese des fonctions</strong></p>
-<table>
+<h1>
+A l’aide!
+</h1>
+<p>Mon code ne fonctionne pas!</p>
+<p><strong>Des sources communes d’erreur:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Erreur de syntaxe</strong><br />
+Vous avez fait une faute de frappe (~90% de vos futures erreurs).<br />
+Vérifiez: le nom des vecteurs/fonctions, oublis majuscule/minuscule, oublis/rajouts de virgules, oublis/rajouts de parenthèses.<br />
+Simplifiez votre code, particulièrement s’il est long: on écrit des phrases courtes et simples, on passe par des étapes intermédiaires.<br />
+Allez prendre l’air 5 minutes / demandez à un collègue de relire rapidement votre code. Il est particulièrement difficile de repérer ce type d’erreur quand on est fatigué. Inversement, il est relativement simple de voir les fautes de frappes que font les autres.</p></li>
+<li><p><strong>Mauvaise utilisation des fonctions</strong><br />
+<em>La fonction fait elle vraiment ce que vous voulez?</em><br />
+Regardez sa description dans l’aide.<br />
+<br> <em>Vous avez bien renseigné ses paramètres?</em><br />
+Regardez dans l’aide les arguments que vous devez <strong>obligatoirement</strong> renseigner, regardez le format que doivent avoir ces paramètres (texte, nombre unique, vecteur, matrice?) que vous entrez en tant qu’arguments, vérifiez que le(s) résultat(s) des fonctions ont le format que vous pensez si vous les utilisez comme arguments dans d’autres fonctions. Regarder l’exemple disponible dans l’aide, dans des tutoriels, sur les <a href="https://stats.stackexchange.com/">forums</a> permet de voir l’utilisation de la fonction et souvent de la transposer dans son propre code avec un peu d’adaptation.<br />
+<br> <em>Que vous dis le message d’erreur dans la console?</em><br />
+Il désigne souvent l’élément fautif. Copier/coller ce message d’erreur sur google vous permet souvent de tomber sur le message desespéré de quelqu’un qui a également rencontré ce problème. Généralement, quelqu’un y a apporté une réponse.<br />
+<br> <em>Comment la fonction gère t’elle les données manquantes?</em><br />
+Toutes les fonctions n’ont pas la même politique face aux données manquantes. Vérifiez s’il y a des données manquantes dans vos vecteurs, vérifiez dans l’aide comment la fonction les gère.</p></li>
+<li><p><strong>En réalité vous êtes perdu</strong><br />
+Faîtes un plan générale de votre code.<br />
+<br> <em>Vous savez d’où vous partez et où vous voulez aller?</em><br />
+<strong>Non?</strong><br />
+Prenez le temps d’y réfléchir avant de chercher à coder quelque chose.<br />
+<strong>Oui?</strong><br />
+Définissez clairement, sur un papier, d’où vous partez (quel type de données, quel format, quelle taille), le résultat que vous voulez atteindre (idem).<br />
+Ecrivez synthétiquement, en français, les étapes que vous imaginez entre ces deux points.<br />
+Traduisez les verbes d’actions en fonction R. Si vous ne connaissez pas encore de fonction qui réalise cette action, demandez à google. En traduisant progressivement les instructions en français en code R vous réglerez la plupart des situations les plus simples.<br />
+Si votre problème persiste, postez votre plan et votre code sur un <a href="https://stats.stackexchange.com/">forum d’aide</a>.</p></li>
+</ol>
+<p>Un exemple:</p>
+<pre class="r"><code># j&#39;ai le poids de plusieurs personnes
+# je veux calculer le poids moyen
+
+# Point de départ:
+# c&#39;est un vecteur, de plusieurs éléments, je me doute qu&#39;il contient des données manquantes
+
+poids &lt;- c(61, 62, 63, 64, 65, NA, 67)
+
+# Point d&#39;arrivé:
+# je veux le poids moyen, c&#39;est un vecteur qui contiendra un seul élément
+
+## les étapes:
+
+# Je dois calculer la somme des poids
+# Google: &#39;summing elements of a vector in r&#39;
+# 1ère réponse: fonction sum()
+# je consulte l&#39;aide: ?sum()
+
+# Je dois prévoir la présence de données manquantes
+# Google: &#39;remove na in r&#39;
+# 1ère réponse: fonction na.omit()
+
+poids_sans_NA &lt;- na.omit(poids)
+
+la_somme &lt;- sum( poids_sans_NA)
+
+# Je dois calculer le nombre d&#39;éléments dans le vecteur
+# Google: &#39;length of vector r&#39;
+# 1ère réponse: fonction length()
+# je consulte l&#39;aide: ?length()
+
+taille &lt;- length( poids_sans_NA)
+
+# J&#39;arrive à mon étape finale
+
+Poids_moyen &lt;- la_somme / taille
+Poids_moyen</code></pre>
+<pre><code>## [1] 63.66667</code></pre>
+<pre class="r"><code># Mais mon plan comporte des étapes inutiles,
+# j&#39;aurai pu le résumer par: calculer la moyenne d&#39;un vecteur avec des données manquantes
+# Google: &#39;calculate mean with na in r&#39;
+# 1ère réponse: fonction mean() avec argument na.rm= TRUE
+
+Poids_moyen2 &lt;- mean(poids, na.rm = TRUE)
+Poids_moyen2</code></pre>
+<pre><code>## [1] 63.66667</code></pre>
+<h5>
+Fonctions sur cette page
+</h5>
+<table style="width:100%;">
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Fonction</th>
@@ -499,21 +829,55 @@ Pour decouvrir de nouvelles fonctions le plus simple est de tapper ‘l’action
 </thead>
 <tbody>
 <tr class="odd">
-<td>install.package()</td>
-<td>telecharger les packages du CRAN</td>
+<td>c()</td>
+<td>crée un vecteur contenant les éléments renseignés comme arguments</td>
 </tr>
 <tr class="even">
-<td>library()</td>
-<td>charger dans la session active un package</td>
+<td>round(x = , digits = )</td>
+<td>arrondis l’objet ‘x’ à ‘digits’ valeurs après la virgule</td>
 </tr>
 <tr class="odd">
-<td>c()</td>
-<td>regrouper une suite d’elements a l’interieur d’un vecteur</td>
+<td>lm(data = , formula = )</td>
+<td>définis le modèle linéaire de formule ‘formula’, sur les données ’data</td>
+</tr>
+<tr class="even">
+<td>na.omit()</td>
+<td>retire les données NA de l’objet en argument</td>
+</tr>
+<tr class="odd">
+<td>sum()</td>
+<td>calcul la somme des éléments du vecteur en argument</td>
+</tr>
+<tr class="even">
+<td>length()</td>
+<td>calcul le nombre d’lééments contenu dans le vecteur en argument</td>
+</tr>
+<tr class="odd">
+<td>mean(x = , na.rm = )</td>
+<td>calcul la moyenne du vecteur ‘x’, en prenant en compte la présence de NA</td>
 </tr>
 </tbody>
 </table>
-</div>
+<h3>
+Pour s’entraîner
+</h3>
+<p>Des exercices sont proposés ICI.</p>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>

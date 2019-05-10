@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +98,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +192,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +349,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +384,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +391,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +437,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,117 +451,260 @@ div.tocify {
 </div>
 
 
-<div id="modification-de-variables" class="section level2">
-<h2>Modification de variables</h2>
-<p>Avant d’analyser ses donnees il est parfois necessaire de modifier, ou creer ses propres variables.</p>
-<p>Nous utiliserons le jeu de donnees ‘cats’, inclus dans le package ‘MASS’.<br />
-(Pensez a telecharger une 1ere fois le package: install.package(“MASS”)).</p>
-<p>Ce jeu de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.<br />
-Plus de details <a href="https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html">ICI</a>.</p>
-<pre class="r"><code>require(MASS)</code></pre>
-<pre class="r"><code>data(cats)</code></pre>
-</div>
-<div id="structure-de-la-base-de-donnees" class="section level1">
-<h1>1. Structure de la base de donnees</h1>
-<p>Une premiere etape est de comprendre la structure et la composition de l’ensemble des donnees.<br />
-La fonction str() (‘structure’) permet une premiers description de la base de donnees (BDD).<br />
-La fonction View() permet d’observer directement le tableau.<br />
-Cependant, en cas de BDD massive, il est impossible d’afficher l’entierete de l’objet.</p>
-<pre class="r"><code>str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)</code></pre>
-<pre><code>## &#39;data.frame&#39;:    144 obs. of  3 variables:
-##  $ Sex: Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ Bwt: num  2 2 2 2.1 2.1 2.1 2.1 2.1 2.1 2.1 ...
-##  $ Hwt: num  7 7.4 9.5 7.2 7.3 7.6 8.1 8.2 8.3 8.5 ...</code></pre>
-<pre class="r"><code>          # les 3 colonnes sont &#39;Sex&#39;, &#39;Bwt&#39; et &#39;Hwt&#39;</code></pre>
-</div>
-<div id="types-de-vecteur" class="section level1">
-<h1>2. Types de vecteur</h1>
-<p>Il existe plusieurs types de vecteur.<br />
-On peut utiliser la fonction str() directement sur une variable de la BDD pour comprendre de quel type de vecteur il s’agit.</p>
-<pre class="r"><code>str(cats$Sex)</code></pre>
-<pre><code>##  Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
-<p>Cette variable est enregistree de facon interne comme un ensemble de chiffres (1 et 2).<br />
-Cependant R associe et affiche le caractere ‘M’ a tous les 2 et ‘F’ a tous les 1.<br />
-C’est une variable categorielle.</p>
-<p>On peut en changer le type si on le souhaite.</p>
-<pre class="r"><code>{
-cats$Sex &lt;- as.numeric(cats$Sex)
-str(cats$Sex) #la variable Sex devient un vecteur numerique
-mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (meme si ca n&#39;as pas de sens dans notre cas)
-}</code></pre>
-<pre><code>##  num [1:144] 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
-<pre><code>## [1] 1.673611</code></pre>
-<p>Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu’elles representent.</p>
-<pre class="r"><code>{
-#Retablir la variable categorielle
-cats$Sex &lt;- factor(cats$Sex, #la variable a transformer
-                   c(1,2), #les valeurs numeriques du vecteur initial
-                   c(&#39;F&#39;, &#39;M&#39;)) #les caracteres que l&#39;on souhaite associer a chaques valeurs numeriqes
-                                # ici 1 = &#39;F&#39; et 2 = &#39;M&#39;
-}</code></pre>
-</div>
-<div id="creer-une-variable" class="section level1">
-<h1>3. Creer une variable</h1>
-<p>On peut creer des variables de differents types et de differentes facons.</p>
-<p>Dans tous les cas, il faut commencer par indiquer le nom de la colonne que l’on souhaite ajouter, en commençant par le nom de la BDD, suivi du signe $ et du nom de variable.</p>
-<p>Ensuite on precise les conditions pour determiner cette nouvelle variable.<br />
-Soit a partir de donnees deja existantes dans la BDD, soit a partir d’un vecteur independant de celle-ci.<br />
-Dans ce dernier cas, la seule condition est que la longueur du vecteur corresponde au nombre de lignes de la BDD.</p>
-<pre class="r"><code>#Variable numerique continue &quot;rapport&quot;,
-#qui est le rapport entre les variables Hwt et Bwt de la BDD
-
-cats$rapport &lt;- cats$Hwt / cats$Bwt
-str(cats$rapport)</code></pre>
-<pre><code>##  num [1:144] 3.5 3.7 4.75 3.43 3.48 ...</code></pre>
-<pre class="r"><code>#Variable categorielle &quot;rapport_2C&quot;,
-#qui separe la variable continue &quot;rapport&quot;,
-#entre valeurs basses (low): inferieure a la medianne (3.86)
-#et celles superieure (high) a celle ci
-
-cats$rapport_2C &lt;- cut(cats$rapport, #le vecteur numerique a categoriser
-                       c(0,3.86,100), #les cut-offs qui definissent les categories
-                       c(&quot;Low&quot;, &quot;High&quot;), #les noms a attribuer aux categories
-                       include.lowest = TRUE, #la borne basse est elle incluse dans l&#39;interval ?
-                       right = FALSE) #la borne haute est elle incluse dans l&#39;interval ?</code></pre>
-<pre class="r"><code>#Variable &#39;random&#39;,
-#chiffre aleatoire tire d&#39;une distribution uniforme
-
-cats$random &lt;- runif(144, #doit correspondre au nombre d&#39;observation (de lignes) dans la BDD
-                     min = 0, max= 10) #parametres de la distribution
-str(cats$random)</code></pre>
-<pre><code>##  num [1:144] 0.877 7.606 3.693 7.095 5.304 ...</code></pre>
-</div>
-<div id="modifier-une-variable" class="section level1">
-<h1>4. Modifier une variable</h1>
-<p>On peut modifier une variable existante, de façon homogène pour l’ensemble des individus ou de façon conditionnelle a la valeur prise par une autre covariable.<br />
-Dans ce dernier cas nous utiliserons la fonction ifelse() qui précise la condition et les modifications à apporter selon que la condition est présente ou non.</p>
-<p>Attention, mieux vaut créer un duplicata de la variable avant de la modifier, au risque de perdre l’originale.<br />
-En cas d’erreur et que l’on souhaite recuperer l’ancienne variable, il faudra recharger la base de donnee.<br />
-Il est donc souvent plus prudent de cree une nouvelle variable plutot que d’ecraser une ancienne.</p>
-<pre class="r"><code>summary(cats$Bwt)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   2.000   2.300   2.700   2.724   3.025   3.900</code></pre>
-<pre class="r"><code>#modification simple
-
-cats$Bwt &lt;- cats$Bwt * 1.3
-summary(cats$Bwt)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   2.600   2.990   3.510   3.541   3.933   5.070</code></pre>
-<pre class="r"><code>#modification conditionnelle
-
-cats$Bwt &lt;- ifelse(cats$Sex == &quot;M&quot;, #condition logique: &quot;Si la variable Sex prend la valeur &quot;M&quot;&quot;
-                   cats$Bwt * 1.5, #alors la valeur de la variable prend cette valeur
-                   cats$Bwt * 0.8) #sinon elle prend cette valeur
-summary(cats$Bwt)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   2.080   2.678   4.973   4.610   5.899   7.605</code></pre>
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h4>
+Synthèse
+</h4>
+<ul>
+<li>On peut modifier les éléments d’un vecteur en fonction de différentes conditions:
+<ul>
+<li>selon les indices de leurs positions</li>
+<li>une condition sur leur valeur</li>
+<li>une condition sur les valeurs prisent par un autre vecteur</li>
+</ul></li>
+<li>On peut modifier une base en ajoutant/retirant des colonnes/lignes de manière direct ou en les reliants selon un indicateur commun.<br />
+</li>
+<li>On peut également filter son contenu en ne conservant que les lignes pour lesquels une colonne remplit une condition particulière.</li>
+</ul>
 <hr />
-<p>Pour s’entrainer</p>
-<p><strong>Synthese des fonctions</strong></p>
-<table>
+<h1>
+Les variables
+</h1>
+<h2>
+Définir son type de données
+</h2>
+<p>On a décrit comment définir le type des données <a href="importer2.html">ICI</a></p>
+<p><strong>Pour rappel, quelques fonctions utiles:</strong></p>
+<pre class="r"><code>Base &lt;- data.frame(Num = c(1.1, 2.2, 3.3), Char = c(&quot;lundi&quot;,&quot;mardi&quot;,&quot;mercredi&quot;))
+Base
+
+Base$Num &lt;- as.double(Base$Num)
+str(Base$Num)
+Base$Num &lt;- as.integer(Base$Num)
+str(Base$Num)
+Base$Num &lt;- factor(x = Base$Num, 
+                   levels = c(1, 2, 3), 
+                   labels = Base$Char)
+str(Base$Num)
+Base$Num &lt;- as.character(Base$Num)
+str(Base$Num)</code></pre>
+<p><strong>Et quelques autres bonnes à connaître:</strong></p>
+<pre class="r"><code>Base &lt;- data.frame(Num = c(0.8, 1.8, 2.8), 
+                   Char = c(&quot;un peu&quot;, &quot;beaucoup&quot;, &quot;pas du tout&quot;))
+
+# convertir en integer (nombre entier) n&#39;arrondis pas à la valeur proche
+as.integer(Base$Num)</code></pre>
+<pre><code>## [1] 0 1 2</code></pre>
+<pre class="r"><code>round(Base$Num)</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<pre class="r"><code># passer de valeurs continues à des catégories
+cut(x = Base$Num,
+    breaks = c(0,2,5),
+    labels = c(&quot;En dessous de 2&quot;, &quot;Au dessus de 2&quot;),
+    include.lowest = TRUE,
+    right = FALSE)</code></pre>
+<pre><code>## [1] En dessous de 2 En dessous de 2 Au dessus de 2 
+## Levels: En dessous de 2 Au dessus de 2</code></pre>
+<pre class="r"><code># ré-ordonner une variable catégorielle
+# pour modifier la catégorie de référence (le 1er level)
+Base$Char</code></pre>
+<pre><code>## [1] un peu      beaucoup    pas du tout
+## Levels: beaucoup pas du tout un peu</code></pre>
+<pre class="r"><code>factor(Base$Char, 
+       levels = c(&quot;pas du tout&quot;, &quot;un peu&quot;, &quot;beaucoup&quot;))</code></pre>
+<pre><code>## [1] un peu      beaucoup    pas du tout
+## Levels: pas du tout un peu beaucoup</code></pre>
+<pre class="r"><code># pour convertir de caractère à numérique il faut passer par une étape intermédiaire en facteur pour définir les niveaux
+as.numeric(as.factor(Base$Char))</code></pre>
+<pre><code>## [1] 3 1 2</code></pre>
+<h2>
+Modifications conditionnelles
+</h2>
+<p>On a vu comment manipuler les vecteurs <a href="basicbuilding.html">ICI</a>.</p>
+<p>On peut modifier les valeurs d’une variable en indiquant la position des éléments que l’on veut changer, ou en indiquant des conditions.</p>
+<pre class="r"><code>library(dplyr)
+Base &lt;- data.frame(Num = c(0.8, 1.8, 2.8, 9, 1, 12), 
+                   Char = c(&quot;un peu&quot;, &quot;beaucoup&quot;, &quot;pas du tout&quot;, &quot;un peu&quot;, &quot;beaucoup&quot;, &quot;pas du tout&quot;))
+
+# Modification par indice de position
+Base$Num[2] &lt;- 999
+Base$Num</code></pre>
+<pre><code>## [1]   0.8 999.0   2.8   9.0   1.0  12.0</code></pre>
+<pre class="r"><code># Modification par condition
+## Simple
+Base$Num[Base$Num &lt; 2] &lt;- 999
+Base$Num</code></pre>
+<pre><code>## [1] 999.0 999.0   2.8   9.0 999.0  12.0</code></pre>
+<pre class="r"><code>## Simple 
+Base$Num &lt;- ifelse(test = Base$Num &lt; 100 &amp; Base$Char == &quot;pas du tout&quot;, # ma condition
+                   yes = -1 , # si oui 
+                   no = 2) # si non
+Base$Num</code></pre>
+<pre><code>## [1]  2  2 -1  2  2 -1</code></pre>
+<pre class="r"><code>## Multiple : case_when() du package dplyr
+Base$Num &lt;- case_when(Base$Char == &quot;un peu&quot; ~ 5, # condition 1 ~ valeur si oui
+                      Base$Char == &quot;beaucoup&quot; ~ 10, # si non, condition 2 ~ valeur si oui
+                      Base$Char == &quot;pas du tout&quot; ~ 15) # si non, condition 3 ~ valeur si oui -- valeur == NA si aucune condition remplie
+Base$Num</code></pre>
+<pre><code>## [1]  5 10 15  5 10 15</code></pre>
+<br>
+<h1>
+La structure de la base
+</h1>
+<h2>
+Ajouter une variable
+</h2>
+<p>On jettera un rapide coup d’oeil <a href="importer2.html">ICI</a> pour se souvenir que l’on peut changer les noms des variables notre base.</p>
+<p>On a déjà vu comment créer un vecteur de données (<a href="basicbuilding.html">ICI</a>).<br />
+Maintenant, on aimerait créer un vecteur et l’intégrer à notre base de données, en tant que nouvelle variable.</p>
+<p><strong>Pour cela:</strong><br />
+- on assigne le vecteur à une nouvelle colonne, soit en définissant la nouvelle colonne par son indice de position, soit en lui définissant un nom.<br />
+- <strong>la seule condition:</strong> le vecteur doit avoir la même taille que les autres colonnes du tableau.</p>
+<p>De façon similaire, pour intégrer une nouvelle ligne on utilisera son indice de position.</p>
+<p>Pour supprimer une ligne/colonne, on indique la position ou le nom des vecteurs que l’on souhaite supprimer, en les faisant précéder du signe “-”.</p>
+<pre class="r"><code>Base &lt;- data.frame(Num = c(0.8, 1.8, 2.8, 9, 1, 12), 
+                   Char = c(&quot;un peu&quot;, &quot;beaucoup&quot;, &quot;pas du tout&quot;, &quot;un peu&quot;, &quot;beaucoup&quot;, &quot;pas du tout&quot;))
+
+# Pour intégrer une nouvelle colonne
+Base$Nouvelle_variable &lt;- c(1, 2, 3, 4, 5, 6)
+Base[,4] &lt;- c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;)
+str(Base)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    6 obs. of  4 variables:
+##  $ Num              : num  0.8 1.8 2.8 9 1 12
+##  $ Char             : Factor w/ 3 levels &quot;beaucoup&quot;,&quot;pas du tout&quot;,..: 3 1 2 3 1 2
+##  $ Nouvelle_variable: num  1 2 3 4 5 6
+##  $ V4               : chr  &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...</code></pre>
+<pre class="r"><code># La ligne suivante renvoit un message d&#39;erreur: le vecteur est plus petit que les autres colonnes du tableau, il ne peut être intégré
+# Base$Vecteur_trop_petit &lt;- c(1, 2, 3, 4, 5)
+
+# Pour intégrer une nouvelle ligne
+Base[7, ] &lt;- c(1, &quot;un peu&quot;, 1, &quot;a&quot;)
+str(Base)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    7 obs. of  4 variables:
+##  $ Num              : chr  &quot;0.8&quot; &quot;1.8&quot; &quot;2.8&quot; &quot;9&quot; ...
+##  $ Char             : Factor w/ 3 levels &quot;beaucoup&quot;,&quot;pas du tout&quot;,..: 3 1 2 3 1 2 3
+##  $ Nouvelle_variable: chr  &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ V4               : chr  &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...</code></pre>
+<pre class="r"><code># Pour supprimer une colonne ou des lignes
+# On a assigné le résultat pour le conserver
+Base_modifie &lt;- Base[-7, - c(3, 4)]
+Base_modifie</code></pre>
+<pre><code>##   Num        Char
+## 1 0.8      un peu
+## 2 1.8    beaucoup
+## 3 2.8 pas du tout
+## 4   9      un peu
+## 5   1    beaucoup
+## 6  12 pas du tout</code></pre>
+<h2>
+Joindre des bases
+</h2>
+<p>Il y a plusieurs situations où l’on souhaite mettre en commun des bases.</p>
+<p><strong>La situation la plus simple:</strong> on veut ajouter toutes les colonnes/lignes d’une base à une autre base.<br />
+Pour cela il faut que les tableaux aient au moins une dimension commune (si on ajoute des lignes = il faut le même nombre de colonnes / si on ajoute des colonnes = il faut le même nombre lignes). Dans cette situation l’ordre des différents éléments ne bouge pas, les bases sont jointes telles quelles.<br />
+On utilisera les fonctions rbind() pour joindre des bases par leurs lignes, et la fonction cbind() pour joindre des bases par leurs colonnes.</p>
+<p><strong>Une situation plus complexe:</strong> on veut joindre deux bases selon une colonne qu’elles ont en commun.<br />
+Pour cela il faut que les tableaux aient une variable commune qui sert à identifiées les éléments que l’on doit joindre. On fera attention à ce que le type de variable soit bien définis comme identique dans les deux tableaux. Plusieurs jointures sont possibles dans cette situation. On présentera le cas le plus simple, en utilisant la fonction left_join() du package dplyr.</p>
+<pre class="r"><code>library(dplyr)
+Base1 &lt;- data.frame(ID = c(&quot;Bob&quot;, &quot;Pierre&quot;, &quot;Justine&quot;), Poids = c(60, 61, 62))
+Base2 &lt;- data.frame(Taille = c(170, 171, 172), Age = c(24, 25, 26))
+Base3 &lt;- data.frame(ID = c(&quot;Eric&quot;, &quot;Vanessa&quot;, &quot;Monique&quot;), Poids = c(63, 64, 65))
+
+# Situation simple
+# On ajoute des variables = même nombre de ligne, on va augmenter le nombre de colonne
+Base_12 &lt;- cbind(Base1, Base2)
+str(Base_12)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  4 variables:
+##  $ ID    : Factor w/ 3 levels &quot;Bob&quot;,&quot;Justine&quot;,..: 1 3 2
+##  $ Poids : num  60 61 62
+##  $ Taille: num  170 171 172
+##  $ Age   : num  24 25 26</code></pre>
+<pre class="r"><code># On ajoute des lignes = même nombre de colonne, on va augmenter le nombre de lignes
+Base_13 &lt;- rbind(Base1, Base3)
+str(Base_13)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    6 obs. of  2 variables:
+##  $ ID   : Factor w/ 6 levels &quot;Bob&quot;,&quot;Justine&quot;,..: 1 3 2 4 6 5
+##  $ Poids: num  60 61 62 63 64 65</code></pre>
+<pre class="r"><code># Situation plus complexe
+# On veut récupérer dans la Base4, les informations concernant les personnes de la Base1
+Base4 &lt;- data.frame(ID = c(&quot;Bob&quot;, &quot;Valérie&quot;, &quot;Raymond&quot;,&quot;Pierre&quot;, &quot;Eric&quot;, &quot;Justine&quot;, &quot;Vanessa&quot;, &quot;Marie&quot;), Traitement = c(1, 0, 1, 0, 1, 0, 1, 0))
+Base_14 &lt;- left_join(Base1, Base4)
+str(Base_14)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  3 variables:
+##  $ ID        : chr  &quot;Bob&quot; &quot;Pierre&quot; &quot;Justine&quot;
+##  $ Poids     : num  60 61 62
+##  $ Traitement: num  1 0 0</code></pre>
+<h2>
+Filtrer une base
+</h2>
+<p>On dispose d’une base de données, on souhaite retirer certaines observations pour conserver uniquement celles qui nous intéresse.<br />
+Il y a plusieurs façon d’y parvenir: à partir de la fonction subset() ou en manipulant la base à partir des “[ , ]”.<br />
+Dans tous les cas le principe est de définir une condition de sélection.</p>
+<pre class="r"><code>Base &lt;- data.frame(ID = c(&quot;Bob&quot;, &quot;Pierre&quot;, &quot;Justine&quot;), Poids = c(60, 61, 62))
+
+subset(Base, Poids &lt; 61.5)</code></pre>
+<pre><code>##       ID Poids
+## 1    Bob    60
+## 2 Pierre    61</code></pre>
+<pre class="r"><code>Base[Base$Poids &lt; 61.5,]</code></pre>
+<pre><code>##       ID Poids
+## 1    Bob    60
+## 2 Pierre    61</code></pre>
+<h5>
+Les fonctions sur cette page
+</h5>
+<table style="width:100%;">
 <colgroup>
-<col width="38%" />
-<col width="61%" />
+<col width="30%" />
+<col width="69%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -482,45 +714,55 @@ summary(cats$Bwt)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>data()</td>
-<td>charge un jeu de donnees present dans une library</td>
+<td>cut(x=,breaks=, labels=, include.lowest=T, right=F)</td>
+<td>renvoi un vecteur factoriel à partir du vecteur numérique continue x, que l’on a coupé en catégories (labels), de valeurs seuils (breaks), borne inférieur (include.lowest) inclus et supérieur (right) exclus</td>
 </tr>
 <tr class="even">
-<td>str()</td>
-<td>description de la structure des donnees</td>
+<td>ifelse(test=, yes=, no=)</td>
+<td>renvoit l’élément définis dans yes si le test est réussis, autrement renvoit l’élément définis dans no</td>
 </tr>
 <tr class="odd">
-<td>as.numeric()</td>
-<td>convertit un element en element numerique (si possible)</td>
+<td>case_when(cond1 ~ v1, cond2 ~ v2, cond3 ~ v3, …)</td>
+<td>renvoit l’élément définis dans v1 si le test cond1 est réussis, autrement renvoit l’élément v2 si le test cond2 est réussis, autrement renvoit l’élément v3 si le test cond3 est réussis, …</td>
 </tr>
 <tr class="even">
-<td>as.character()</td>
-<td>convertit une element en element de type character</td>
+<td>cbind(x, y)</td>
+<td>renvoi la base obtenue en ajoutant les colonnes de la base x à celles de la base y</td>
 </tr>
 <tr class="odd">
-<td>as.factor()</td>
-<td>convertit un element en element de type factor</td>
+<td>rbind(x, y)</td>
+<td>renvoi la base obtenue en ajoutant les lignes de la base x à celles de la base y</td>
 </tr>
 <tr class="even">
-<td>factor( , , )</td>
-<td>cree un vecteur de type factor</td>
+<td>left_join(x, y)</td>
+<td>renvoi la base obtenue en ajoutant à x, les données contenus dans y, pour les lignes que l’on retrouve à la fois dans x et dans y</td>
 </tr>
 <tr class="odd">
-<td>cut( , , include.lowest= , right= )</td>
-<td>categorise un vecteur numerique</td>
-</tr>
-<tr class="even">
-<td>summary()</td>
-<td>produit des statistiques descriptive du vecteur renseigne</td>
-</tr>
-<tr class="odd">
-<td>ifelse(condition, v1, v2)</td>
-<td>attribue v1 si la condition est respectee sinon attribue v2</td>
+<td>subset(x, cond1)</td>
+<td>renvoi les éléments de la base x qui remplissent la condition cond1</td>
 </tr>
 </tbody>
 </table>
-</div>
+<h3>
+Pour s’entraîner
+</h3>
+<p>A venir.</p>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>

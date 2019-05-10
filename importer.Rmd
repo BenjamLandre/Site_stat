@@ -4,100 +4,113 @@ output:
     toc: true
     toc_float: true
 ---
-#Matrices et data frames
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-Il existe plusieurs formats de bases de donnees dans R.   
-Les plus souvent rencontrees sont les matrices et les data frames.
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-- **Matrices**   
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
 
-Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d'un seul type.  
-C'est a dire uniquement des chiffres, du texte ou des resultats logiques (= Vrai ou Faux).
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
 
-Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.  
-Ce sont donc des vecteurs a plusieurs dimensions.
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
 
-```{r}
-a<- c(2,4,6,8)
-b<- c(10,12,14,16)
+<h4>Synthèse</h4>
 
-M1<- matrix(c(a,b), ncol=2)
-M1 #M1 est une matrice, elle contient les vecteurs a et b qui forment les deux colonnes.
+- R crée systématiquement une copie des éléments importés, aucune modification n'est effectuée sur le fichier initial sauf si l'utilisateur exporte ses résultats. 
+- On peut charger des données sous différents formats directement depuis le panel 'Environment'.  
+- Différentes commandes pour sauver les différents éléments que l'on crée au cours d'une session R. On peut les regrouper automatiquement au sein d'un projet pour faciliter les futures recherches.
 
+****
 
-M2<- matrix(c(a,b), nrow=2, byrow=TRUE)
-M2 #M2 est une matrice construite a partir des memes vecteurs mais repartis en lignes.
+<h1>Gestion des données dans R</h1>
 
-M3<- matrix(c(2,4,6,8,10,12,14,16), ncol=2)
-M3 #M3 est une matrice construite a partir d'un unique vecteur, qu'on a repartis en deux dimensions.
-```
+Lorsque vous démarrer R, une session se crée. Elle est initialement vide et ne contient aucun élément en mémoire.     
+<br>
+Vous allez charger une base, située sur votre ordinateur, en important **une copie** dans la session R.   
+Toutes les modifications effectuées prennent effet sur cette **copie**.   
+Votre script est une zone de texte dans la session active. Si vous ne le sauvez pas (ctrl+s), il disparer lorsque la session est fermée.   
+Il en est de même pour les modifications effectuées sur la base importée ou les autres objets crées.  Il vous faut sauver ces objets sous un autre format pour les exporter sur votre ordinateur.   Une autre solution est de sauver une copie de la session active. En l'ouvrant dans R vous retrouvez tous les objets que contenait la session sauvée.   
 
-Les matrices sont des vecteurs a plusieurs dimensions.    
-On peut acceder aux valeurs comprises dans la matrice de la meme facon que l'on selectionne un sous-ensemble d'un vecteur.  
-On utilise l'indicateur "[]" juste apres le nom de la matrice, en precisant cette fois 2 parametres qui correspondent aux lignes et aux colonnes.
+La session R active peut contenir de nombreux objets et des copies de bases parfois volumineuses. On fera attention à ne pas surcharger inutilement la mémoire.  Dans la fenêtre 'Environment' (en haut à droite), vous avez la liste des objets présent dans la session et leur taille. Vous pouvez directement supprimer les objets inutiles à partir de cette fenêtre.
+![](sauvegarde.png)
 
-```{r}
-M1
-M1[3,2] #on souhaite afficher l'element a la 3eme ligne de la 2eme colonne.
-M1[3,] #tous les elements de la troisieme ligne
-M1[,2] #tous les elements de la seconde colonne
-```
+<h1>Importer des données</h1>
 
-- **Data frames**    
+Le plus simple est d'utiliser l'onglet 'Import Dataset' dans la fenêtre *Environment*.  
+Plusieurs formats d'imports sont proposés.
+Différents packages vous permettent d'étendre les possibilités, dans ce cas on utilisera une ligne de code pour charge les données.   
 
-Les datas frames sont egalement des tableaux mais ils peuvent regrouper des elements de differents types.  
-C’est a dire que des colonnes peuvent presenter des chiffres alors que d’autres contiennent du texte.
+**Si on doit tapper le chemin d'un fichier, on retiendra que R utilise des "``\``" plutôt que des "/". Pensez à les changer!**
 
-```{r}
-a<- c("Pierre", "Paul", "Jack", "Bob") #vecteur de texte
-b<- c(2,4,6,8) #vecteur numerique
+![](import.png)
 
-D1<- data.frame(Colonne1= a, Colonne2= b)
-D1 #une data frame qui associe des vecteurs de differents types.
+Pour des objets R enregistrés sous un format rda, on utilisera la fonction load(file = "nom_du_fichier.rda"). Les objets chargés conserveront les noms que vous leur aviez donné en les sauvant.   
+Pour un objet R enregistré sous un format rds, on utilisera la fonction readRDS(file = "nom_du_fichier.rds"). Vous pouvez attribuer un nouveau nom à l'objet chargé.
 
-```
+<h1>Sauver des données</h1>
 
-Un objet qui regroupe des vecteurs de differents types est appele une liste. 
-Les data frames sont donc considerees par R comme des listes a 2 dimensions.
+**Une dataframe:** on peut utiliser le format .csv.     
+*write.csv(le_fichier_dans_r, "le_nom_sur_mon_ordi.csv", row.names = FALSE)*    
 
-On accede aux elements qu'elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].  
-On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l'indicateur "$", place entre le nom de la data frame et le nom de la colonne.
+**Un graphique:** un onglet dans la fenêtre plot permet de sauver sous différents formats.   
 
-```{r}
-D1[,1] #1ere colonne de D1
+**Un script:** file>save (ou ctrl+s).    
 
-D1$Colonne1 #idem
+**Son workspace:**   
+en entier, Session>Save workspace as    
+une sélection d'objet, save(objet1, objet2, file = "mon_nom_de_fichier.rda")  
+un seul, save.RDS(objet, file = "mon_nom_de_fichier.rds")   
 
-D1[D1$Colonne2>2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieure a 2, avec presentation de toutes les colonnes.
+On peut crée un nouveau projet (File > New Project...) pour spécifier à R un dossier dans lequel il centralisera tous les fichiers d'une même session. On peut ensuite femer/ré-ouvrir ce dossier pour revenir sur ces éléments.
 
-subset(D1, Colonne2>2) # une alternative en passant par la fonction subset
-```
+<h5>Fonctions sur cette page</h5>
 
-#Importer/Sauvegarder
-
-On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.    
-Le plus simple est d'utiliser l'onglet 'Import Dataset', dans le panel "Environment".
-
-Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.
-
-Les modifications effectuees sur la base de donnees ne sont presentees que dans la session active de R.     
-Pour enregistrer definitivement celles ci il faut sauvegarder la base de donnees.  
-
-Le format d'export le plus courant est le format texte (.csv).  Different packages permettent d'exporter sous d'autres formats.
-
-```{r, eval=F}
-write.csv(Nom_de_la_bdd_a_sauvegarder, "Nom_de_la_bdd_sauvee.csv", row.names=F)
-```
-
-
-*************************
-
-[Pour s'entrainer](entrainement_2.pdf)
-
-**Synthese des fonctions**
-
-| Fonction          | Description                              |
-|-------------------|------------------------------------------|
-| matrix( , ncol= ) | creer une matrice                        |
-| data.frame()      | creer une data frame                     |
-| write.csv()       | sauver au format csv une base de donnees |
+| Fonction             | Description     |
+|----------------------|---------------------------------------------------|
+| write.csv(le_fichier_dans_r, “le_nom_sur_mon_ordi.csv”, row.names = FALSE)             | sauve sur votre ordinateur, le_fichier_dans_r dans un fichier csv    |
+| save(objet1, objet2, file = “mon_nom_de_fichier.rda”) | sauve sur votre ordinateur, objet1 et objet2 dans un fichier rda |
+| save.RDS(objet1, file = “mon_nom_de_fichier.rds”) | sauve sur votre ordinateur, objet1 dans un fichier rds |

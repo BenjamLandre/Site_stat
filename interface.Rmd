@@ -4,75 +4,103 @@ output:
     toc: true
     toc_float: true
 ---
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-#Installation
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
 
-**1.  Installer R** (https://www.r-project.org/)
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
 
-R est le logiciel qui produit les calculs.   
-Vous pouvez le telecharger gratuitement directement depuis un des mirroirs France. (http://cran.irsn.fr/)  
+<h1>Installation</h1>
 
-**2.  Installer RStudio** (https://www.rstudio.com/)
+<h2>Installer R</h2>
 
-RStudio est une interface graphique qui permet de rendre R plus ergonomique et facile d'acces.    
-Il existe d'autres interfaces, souvent orientées vers une utilisation particuliere de R.       
-Vous pouvez telecharger gratuitement RStudio depuis le [site officiel.](https://www.rstudio.com/products/rstudio/download/#download)  
+R est le logiciel qui produit les calculs.(https://www.r-project.org/)   
+Vous pouvez le télécharger gratuitement directement depuis un des mirroirs France. (http://cran.irsn.fr/)  
+
+<h2>Installer RStudio</h2>
+
+RStudio est une interface graphique qui permet de rendre R plus ergonomique et facile d'accès.(https://www.rstudio.com/)    
+Il existe d'autre IDE disponible, souvent orientés vers une utilisation particulière de R.       
+Vous pouvez le télécharger gratuitement depuis le [site officiel.](https://www.rstudio.com/products/rstudio/download/#download)  
 
 Il faut choisir entre la version 32 ou 64 bits selon le processeur de votre ordinateur.    
 L'information est facilement disponible, sous [Windows](https://support.microsoft.com/fr-fr/help/15056/windows-7-32-64-bit-faq), sous [Mac](http://www.6ma.fr/astuce/mon+mac+osx+est+bits+bits-274) ou sous [Linux](http://www.comment-tech.com/comment-verifier-si-votre-systeme-linux-est-32-bits-ou-64-bits/).
 
-#Interface
-L'interface de RStudio comporte 4 fenêtres: le script, la console, l'environnement et la zone d'aide.   
+<h1>Interface</h1>
+L'interface de RStudio comporte 4 panels: le script, la console, l'environnement et la zone d'aide.   
 
 <center>
 ![](Presentation_RStudio.png){width=500px}
 </center>
 
-A la 1ere ouverture il est possible que la zone de script ne soit pas active.     
+A la 1ère ouverture il est possible que la zone de script ne soit pas active.     
 Pour l'ouvrir: File > New File > R Script (ou ctrl+shift+n).
 
-**1.  Zone de script**    
+<h2>Zone de script</h2>    
 
-La zone de script est celle ou ecrire le script, c’est a dire une ou plusieurs commandes que l’on souhaite executer et conserverpour pouvoir les reutiliser ultérieurement.
-Les commandes ecrites dans cette zone ne sont pas automatiquement executees, ce qui permet, entre autre, de preparer des sequences de commandes a executer en serie.
-Pour executer une ligne de commande on se place sur la ligne en question puis on clique sur Run (en haut a droite de la fenetre de script) (ou ctrl+enter).
+La zone de script est celle où écrire le script (...). C'est à dire une ou plusieurs commandes que l'on souhaite exécuter et conserver la trace pour pouvoir le ré-utiliser.
+Les commandes écrites dans cette zone ne sont pas automatiquement exécutées, ce qui permet, entre autre, de préparer des séquences de commandes à exécuter en série.
+Pour exécuter une ligne de commande on se place sur la ligne en question puis on clique sur Run (en haut a droite de la fenêtre de script) (ou ctrl+enter).
 
-**2.  La console**   
+<h2>La console</h2>  
 
-La console est la zone ou s'affiche la grande majorite des sorties R. Quand vous utilisez une commande du script, son resultat s'affiche dans cette fenêtre.
-On peut egalement entrer directement des commandes dans la console. Cependant, cela ne permet pas de conserver une trace du code ou des modifications eventuelles apportees aux objets.
+La console est la zone où s'affiche la grande majorite des sorties R. Quand vous utilisez une commande du script, son résultat s'affiche dans ce panel.
+On peut également entrer directement des commandes dans la console. Cependant, cela ne permet pas de conserver une trace du code ou des modifications éventuelles apportées aux objets.
 
-**3.  L'environnement**    
+<h2>L'environnement</h2>    
 
-L'environnement propose une liste des elements enregistres au cours de la session (base de donnees, vecteurs, resultats de calculs). Si on decide d'importer une base de donnees ou de creer un objet leurs noms apparaitront dans cette zone.
-On pourra egalement dans cette fenêtre importer une base de donnee, obtenir l'historique des commandes lancees et sauvegarder la session.
+L'environnement propose une liste des éléments enregistrés au cours de la session (base de données, vecteurs, résultats de calculs). Si on décide d'importer une base de données ou de créer un objet leurs noms apparaîtront dans cette zone.
+On pourra également dans ce panel importer une base de données, obtenir l'historique des commandes lancées et sauvegarder la session.
 
-**4.  La zone d'aide**   
+<h2>La zone d'aide</h2>   
 
-Cette fenêtre comporte plusieurs onglets utiles dont la zone d'aide.
-Vous pourrez trouver et chercher dans cette zone les details concernant le fonctionnement des differentes commandes R.
-C'est dans cette fenêtre egalement que seront affiches et geres les graphiques.
-
-
-# Gestion des donnees
-
-**1. Workspace et Working Directory**  
-
-Lorsque R est lance, un espace de travail (le workspace) est cree.  
-Il contiendra toutes les donnees (importees ou crees) utilisees lors de la session active.  
-Ces donnees ne sont presentes que dans la session R active.  
-
-*Les modifications effectuees ne modifient pas les fichiers initiaux presents sur l'ordinateur*
-
-On utilisera: ' Session > Load Workspace / Save Workspace As...' pour charger/enregistrer un workspace.  
-Par defaut ce fichier .RData sera place dans le repertoire de travail (le working directory).   
-Pour modifier le working directory on utilisera: 'Session > Set working Directory > Choose Directory...'
-
-**2. Project management**
-
-Pour gerer facilement un projet, qui comporte plusieurs bases de donnees, workspaces et script, il est interessant de les regrouper dans un meme repertoire de travail.  
-Le projet regroupe dans un meme repertoire de travail tous les elements utilises ou crees pour un meme projet.  
-  
-Pour le creer on selectionera en haut a droite 'Project: (None) > New Project'.   
-On pourra ouvrir et fermer un projet au besoin sur le meme onglet.
+Ce panel comporte plusieurs onglets utiles dont la zone d'aide.
+Vous pouvez trouver et chercher dans cette zone les détails concernant le fonctionnement des différentes commandes R.
+C'est dans ce panel également que seront affichés et gérés les graphiques.

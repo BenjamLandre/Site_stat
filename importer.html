@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +98,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +192,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +349,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +384,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +391,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +437,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,102 +451,106 @@ div.tocify {
 </div>
 
 
-<div id="matrices-et-data-frames" class="section level1">
-<h1>Matrices et data frames</h1>
-<p>Il existe plusieurs formats de bases de donnees dans R.<br />
-Les plus souvent rencontrees sont les matrices et les data frames.</p>
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h4>
+Synthèse
+</h4>
 <ul>
-<li><strong>Matrices</strong></li>
+<li>R crée systématiquement une copie des éléments importés, aucune modification n’est effectuée sur le fichier initial sauf si l’utilisateur exporte ses résultats.</li>
+<li>On peut charger des données sous différents formats directement depuis le panel ‘Environment’.<br />
+</li>
+<li>Différentes commandes pour sauver les différents éléments que l’on crée au cours d’une session R. On peut les regrouper automatiquement au sein d’un projet pour faciliter les futures recherches.</li>
 </ul>
-<p>Les matrices peuvent etre envisagees comme des tableaux qui regroupent des elements d’un seul type.<br />
-C’est a dire uniquement des chiffres, du texte ou des resultats logiques (= Vrai / Faux).</p>
-<p>Ce sont des objets qui regroupents des elements repartis en colonnes et lignes.<br />
-Ce sont donc des vecteurs a plusieurs dimensions.</p>
-<pre class="r"><code>a&lt;- c(2,4,6,8)
-b&lt;- c(10,12,14,16)
-
-M1&lt;- matrix(c(a,b), ncol=2)
-M1 #M1 est une matrice, elle contient les vecteurs a et b qui forment les deux colonnes.</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    2   10
-## [2,]    4   12
-## [3,]    6   14
-## [4,]    8   16</code></pre>
-<pre class="r"><code>M2&lt;- matrix(c(a,b), nrow=2, byrow=TRUE)
-M2 #M2 est une matrice construite a partir des memes vecteurs mais repartis en lignes.</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]    2    4    6    8
-## [2,]   10   12   14   16</code></pre>
-<pre class="r"><code>M3&lt;- matrix(c(2,4,6,8,10,12,14,16), ncol=2)
-M3 #M3 est une matrice construite a partir d&#39;un unique vecteur, qu&#39;on a repartis en deux dimensions.</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    2   10
-## [2,]    4   12
-## [3,]    6   14
-## [4,]    8   16</code></pre>
-<p>Les matrices sont des vecteurs a plusieurs dimensions.<br />
-On peut acceder aux valeurs comprises dans la matrice de la meme facon que l’on selectionne un sous-ensemble d’un vecteur.<br />
-On utilise l’indicateur “[]” juste apres le nom de la matrice, en precisant cette fois 2 parametres qui correspondent aux lignes et aux colonnes.</p>
-<pre class="r"><code>M1</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    2   10
-## [2,]    4   12
-## [3,]    6   14
-## [4,]    8   16</code></pre>
-<pre class="r"><code>M1[3,2] #on souhaite afficher l&#39;element a la 3eme ligne de la 2eme colonne.</code></pre>
-<pre><code>## [1] 14</code></pre>
-<pre class="r"><code>M1[3,] #tous les elements de la troisieme ligne</code></pre>
-<pre><code>## [1]  6 14</code></pre>
-<pre class="r"><code>M1[,2] #tous les elements de la seconde colonne</code></pre>
-<pre><code>## [1] 10 12 14 16</code></pre>
-<ul>
-<li><strong>Data frames</strong></li>
-</ul>
-<p>Les datas frames sont egalement des tableaux mais ils peuvent regrouper des elements de differents types.<br />
-C’est a dire que des colonnes peuvent presenter des chiffres alors que d’autres contiennent du texte.</p>
-<pre class="r"><code>a&lt;- c(&quot;Pierre&quot;, &quot;Paul&quot;, &quot;Jack&quot;, &quot;Bob&quot;) #vecteur de texte
-b&lt;- c(2,4,6,8) #vecteur numerique
-
-D1&lt;- data.frame(Colonne1= a, Colonne2= b)
-D1 #une data frame qui associe des vecteurs de differents types.</code></pre>
-<pre><code>##   Colonne1 Colonne2
-## 1   Pierre        2
-## 2     Paul        4
-## 3     Jack        6
-## 4      Bob        8</code></pre>
-<p>Un objet qui regroupe des vecteurs de differents types est appele une liste. Les data frames sont donc considerees par R comme des listes a 2 dimensions.</p>
-<p>On accede aux elements qu’elle contient comme precedemment, en indiquant la ligne et la colonne entre [,].<br />
-On peut egalement nommer ses colonnes et y acceder par ce biais. On utilisera l’indicateur “$”, place entre le nom de la data frame et le nom de la colonne.</p>
-<pre class="r"><code>D1[,1] #1ere colonne de D1</code></pre>
-<pre><code>## [1] Pierre Paul   Jack   Bob   
-## Levels: Bob Jack Paul Pierre</code></pre>
-<pre class="r"><code>D1$Colonne1 #idem</code></pre>
-<pre><code>## [1] Pierre Paul   Jack   Bob   
-## Levels: Bob Jack Paul Pierre</code></pre>
-<pre class="r"><code>D1[D1$Colonne2&gt;2,] # on souhaite dans D1, les lignes pour lesquelles la valeur de la deuxieme colonne de D1 est superieure a 2, avec presentation de toutes les colonnes.</code></pre>
-<pre><code>##   Colonne1 Colonne2
-## 2     Paul        4
-## 3     Jack        6
-## 4      Bob        8</code></pre>
-<pre class="r"><code>subset(D1, Colonne2&gt;2) # une alternative en passant par la fonction subset</code></pre>
-<pre><code>##   Colonne1 Colonne2
-## 2     Paul        4
-## 3     Jack        6
-## 4      Bob        8</code></pre>
-</div>
-<div id="importersauvegarder" class="section level1">
-<h1>Importer/Sauvegarder</h1>
-<p>On peut importer sous R des bases de donnees enregistrees sous plusieurs formats.<br />
-Le plus simple est d’utiliser l’onglet ‘Import Dataset’, dans le panel “Environment”.</p>
-<p>Des formats plus exotiques peuvent etre importes via des packages et fonctions dediees.</p>
-<p>Les modifications effectuees sur la base de donnees ne sont presentees que dans la session active de R.<br />
-Pour enregistrer definitivement celles ci il faut sauvegarder la base de donnees.</p>
-<p>Le format d’export le plus courant est le format texte (.csv). Different packages permettent d’exporter sous d’autres formats.</p>
-<pre class="r"><code>write.csv(Nom_de_la_bdd_a_sauvegarder, &quot;Nom_de_la_bdd_sauvee.csv&quot;, row.names=F)</code></pre>
 <hr />
-<p><a href="entrainement_2.pdf">Pour s’entrainer</a></p>
-<p><strong>Synthese des fonctions</strong></p>
-<table>
+<h1>
+Gestion des données dans R
+</h1>
+<p>Lorsque vous démarrer R, une session se crée. Elle est initialement vide et ne contient aucun élément en mémoire.<br />
+<br> Vous allez charger une base, située sur votre ordinateur, en important <strong>une copie</strong> dans la session R.<br />
+Toutes les modifications effectuées prennent effet sur cette <strong>copie</strong>.<br />
+Votre script est une zone de texte dans la session active. Si vous ne le sauvez pas (ctrl+s), il disparer lorsque la session est fermée.<br />
+Il en est de même pour les modifications effectuées sur la base importée ou les autres objets crées. Il vous faut sauver ces objets sous un autre format pour les exporter sur votre ordinateur. Une autre solution est de sauver une copie de la session active. En l’ouvrant dans R vous retrouvez tous les objets que contenait la session sauvée.</p>
+<p>La session R active peut contenir de nombreux objets et des copies de bases parfois volumineuses. On fera attention à ne pas surcharger inutilement la mémoire. Dans la fenêtre ‘Environment’ (en haut à droite), vous avez la liste des objets présent dans la session et leur taille. Vous pouvez directement supprimer les objets inutiles à partir de cette fenêtre. <img src="sauvegarde.png" /></p>
+<h1>
+Importer des données
+</h1>
+<p>Le plus simple est d’utiliser l’onglet ‘Import Dataset’ dans la fenêtre <em>Environment</em>.<br />
+Plusieurs formats d’imports sont proposés. Différents packages vous permettent d’étendre les possibilités, dans ce cas on utilisera une ligne de code pour charge les données.</p>
+<p><strong>Si on doit tapper le chemin d’un fichier, on retiendra que R utilise des “<code>\</code>” plutôt que des “/”. Pensez à les changer!</strong></p>
+<div class="figure">
+<img src="import.png" />
+
+</div>
+<p>Pour des objets R enregistrés sous un format rda, on utilisera la fonction load(file = “nom_du_fichier.rda”). Les objets chargés conserveront les noms que vous leur aviez donné en les sauvant.<br />
+Pour un objet R enregistré sous un format rds, on utilisera la fonction readRDS(file = “nom_du_fichier.rds”). Vous pouvez attribuer un nouveau nom à l’objet chargé.</p>
+<h1>
+Sauver des données
+</h1>
+<p><strong>Une dataframe:</strong> on peut utiliser le format .csv.<br />
+<em>write.csv(le_fichier_dans_r, “le_nom_sur_mon_ordi.csv”, row.names = FALSE)</em></p>
+<p><strong>Un graphique:</strong> un onglet dans la fenêtre plot permet de sauver sous différents formats.</p>
+<p><strong>Un script:</strong> file&gt;save (ou ctrl+s).</p>
+<p><strong>Son workspace:</strong><br />
+en entier, Session&gt;Save workspace as<br />
+une sélection d’objet, save(objet1, objet2, file = “mon_nom_de_fichier.rda”)<br />
+un seul, save.RDS(objet, file = “mon_nom_de_fichier.rds”)</p>
+<p>On peut crée un nouveau projet (File &gt; New Project…) pour spécifier à R un dossier dans lequel il centralisera tous les fichiers d’une même session. On peut ensuite femer/ré-ouvrir ce dossier pour revenir sur ces éléments.</p>
+<h5>
+Fonctions sur cette page
+</h5>
+<table style="width:100%;">
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Fonction</th>
@@ -466,21 +559,35 @@ Pour enregistrer definitivement celles ci il faut sauvegarder la base de donnees
 </thead>
 <tbody>
 <tr class="odd">
-<td>matrix( , ncol= )</td>
-<td>creer une matrice</td>
+<td>write.csv(le_fichier_dans_r, “le_nom_sur_mon_ordi.csv”, row.names = FALSE)</td>
+<td>sauve sur votre ordinateur, le_fichier_dans_r dans un fichier csv</td>
 </tr>
 <tr class="even">
-<td>data.frame()</td>
-<td>creer une data frame</td>
+<td>save(objet1, objet2, file = “mon_nom_de_fichier.rda”)</td>
+<td>sauve sur votre ordinateur, objet1 et objet2 dans un fichier rda</td>
 </tr>
 <tr class="odd">
-<td>write.csv()</td>
-<td>sauver au format csv une base de donnees</td>
+<td>save.RDS(objet1, file = “mon_nom_de_fichier.rds”)</td>
+<td>sauve sur votre ordinateur, objet1 dans un fichier rds</td>
 </tr>
 </tbody>
 </table>
-</div>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>

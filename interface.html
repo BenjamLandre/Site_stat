@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,9 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -76,9 +73,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,40 +98,79 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
-
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +192,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -258,6 +349,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -283,13 +384,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="map map-marker-alt"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="interface.html">
     <span class="ion ion-android-expand"></span>
      
@@ -297,38 +391,38 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="basicbuilding.html">0. Bases</a>
-</li>
-<li>
-  <a href="importer.html">1. Importer</a>
+  <a href="basicbuilding.html">0. Les bases</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    2. Modifier/Creer
+    1. Les données
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="g_variables.html">...des variables</a>
+      <a href="importer2.html">Formats</a>
     </li>
     <li>
-      <a href="g_bdd.html">...des bases de donnees</a>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="v_quanti.html">3. Decrire</a>
+  <a href="v_quanti.html">2. Decrire</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    4. Analyser
+    3. Analyser
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons bivariees</a>
+      <a href="compa_univ.html">Comparaisons univariees</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -343,12 +437,7 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="contact.html">
-    <span class="fa fa-envelope-square fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -362,52 +451,112 @@ div.tocify {
 </div>
 
 
-<div id="installation" class="section level1">
-<h1>Installation</h1>
-<p><strong>1. Installer R</strong> (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>)</p>
-<p>R est le logiciel qui produit les calculs.<br />
-Vous pouvez le telecharger gratuitement directement depuis un des mirroirs France. (<a href="http://cran.irsn.fr/" class="uri">http://cran.irsn.fr/</a>)</p>
-<p><strong>2. Installer RStudio</strong> (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>)</p>
-<p>RStudio est une interface graphique qui permet de rendre R plus ergonomique et facile d’acces.<br />
-Il existe d’autres interfaces, souvent orientées vers une utilisation particuliere de R.<br />
-Vous pouvez telecharger gratuitement RStudio depuis le <a href="https://www.rstudio.com/products/rstudio/download/#download">site officiel.</a></p>
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h1>
+Installation
+</h1>
+<h2>
+Installer R
+</h2>
+<p>R est le logiciel qui produit les calculs.(<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>)<br />
+Vous pouvez le télécharger gratuitement directement depuis un des mirroirs France. (<a href="http://cran.irsn.fr/" class="uri">http://cran.irsn.fr/</a>)</p>
+<h2>
+Installer RStudio
+</h2>
+<p>RStudio est une interface graphique qui permet de rendre R plus ergonomique et facile d’accès.(<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>)<br />
+Il existe d’autre IDE disponible, souvent orientés vers une utilisation particulière de R.<br />
+Vous pouvez le télécharger gratuitement depuis le <a href="https://www.rstudio.com/products/rstudio/download/#download">site officiel.</a></p>
 <p>Il faut choisir entre la version 32 ou 64 bits selon le processeur de votre ordinateur.<br />
 L’information est facilement disponible, sous <a href="https://support.microsoft.com/fr-fr/help/15056/windows-7-32-64-bit-faq">Windows</a>, sous <a href="http://www.6ma.fr/astuce/mon+mac+osx+est+bits+bits-274">Mac</a> ou sous <a href="http://www.comment-tech.com/comment-verifier-si-votre-systeme-linux-est-32-bits-ou-64-bits/">Linux</a>.</p>
-</div>
-<div id="interface" class="section level1">
-<h1>Interface</h1>
-<p>L’interface de RStudio comporte 4 fenêtres: le script, la console, l’environnement et la zone d’aide.</p>
+<h1>
+Interface
+</h1>
+<p>L’interface de RStudio comporte 4 panels: le script, la console, l’environnement et la zone d’aide.</p>
 <center>
 <img src="Presentation_RStudio.png" width="500" />
 </center>
-<p>A la 1ere ouverture il est possible que la zone de script ne soit pas active.<br />
+<p>A la 1ère ouverture il est possible que la zone de script ne soit pas active.<br />
 Pour l’ouvrir: File &gt; New File &gt; R Script (ou ctrl+shift+n).</p>
-<p><strong>1. Zone de script</strong></p>
-<p>La zone de script est celle ou ecrire le script, c’est a dire une ou plusieurs commandes que l’on souhaite executer et conserverpour pouvoir les reutiliser ultérieurement. Les commandes ecrites dans cette zone ne sont pas automatiquement executees, ce qui permet, entre autre, de preparer des sequences de commandes a executer en serie. Pour executer une ligne de commande on se place sur la ligne en question puis on clique sur Run (en haut a droite de la fenetre de script) (ou ctrl+enter).</p>
-<p><strong>2. La console</strong></p>
-<p>La console est la zone ou s’affiche la grande majorite des sorties R. Quand vous utilisez une commande du script, son resultat s’affiche dans cette fenêtre. On peut egalement entrer directement des commandes dans la console. Cependant, cela ne permet pas de conserver une trace du code ou des modifications eventuelles apportees aux objets.</p>
-<p><strong>3. L’environnement</strong></p>
-<p>L’environnement propose une liste des elements enregistres au cours de la session (base de donnees, vecteurs, resultats de calculs). Si on decide d’importer une base de donnees ou de creer un objet leurs noms apparaitront dans cette zone. On pourra egalement dans cette fenêtre importer une base de donnee, obtenir l’historique des commandes lancees et sauvegarder la session.</p>
-<p><strong>4. La zone d’aide</strong></p>
-<p>Cette fenêtre comporte plusieurs onglets utiles dont la zone d’aide. Vous pourrez trouver et chercher dans cette zone les details concernant le fonctionnement des differentes commandes R. C’est dans cette fenêtre egalement que seront affiches et geres les graphiques.</p>
-</div>
-<div id="gestion-des-donnees" class="section level1">
-<h1>Gestion des donnees</h1>
-<p><strong>1. Workspace et Working Directory</strong></p>
-<p>Lorsque R est lance, un espace de travail (le workspace) est cree.<br />
-Il contiendra toutes les donnees (importees ou crees) utilisees lors de la session active.<br />
-Ces donnees ne sont presentes que dans la session R active.</p>
-<p><em>Les modifications effectuees ne modifient pas les fichiers initiaux presents sur l’ordinateur</em></p>
-<p>On utilisera: ‘Session &gt; Load Workspace / Save Workspace As…’ pour charger/enregistrer un workspace.<br />
-Par defaut ce fichier .RData sera place dans le repertoire de travail (le working directory).<br />
-Pour modifier le working directory on utilisera: ‘Session &gt; Set working Directory &gt; Choose Directory…’</p>
-<p><strong>2. Project management</strong></p>
-<p>Pour gerer facilement un projet, qui comporte plusieurs bases de donnees, workspaces et script, il est interessant de les regrouper dans un meme repertoire de travail.<br />
-Le projet regroupe dans un meme repertoire de travail tous les elements utilises ou crees pour un meme projet.</p>
-<p>Pour le creer on selectionera en haut a droite ‘Project: (None) &gt; New Project’.<br />
-On pourra ouvrir et fermer un projet au besoin sur le meme onglet.</p>
-</div>
+<h2>
+Zone de script
+</h2>
+<p>La zone de script est celle où écrire le script (…). C’est à dire une ou plusieurs commandes que l’on souhaite exécuter et conserver la trace pour pouvoir le ré-utiliser. Les commandes écrites dans cette zone ne sont pas automatiquement exécutées, ce qui permet, entre autre, de préparer des séquences de commandes à exécuter en série. Pour exécuter une ligne de commande on se place sur la ligne en question puis on clique sur Run (en haut a droite de la fenêtre de script) (ou ctrl+enter).</p>
+<h2>
+La console
+</h2>
+<p>La console est la zone où s’affiche la grande majorite des sorties R. Quand vous utilisez une commande du script, son résultat s’affiche dans ce panel. On peut également entrer directement des commandes dans la console. Cependant, cela ne permet pas de conserver une trace du code ou des modifications éventuelles apportées aux objets.</p>
+<h2>
+L’environnement
+</h2>
+<p>L’environnement propose une liste des éléments enregistrés au cours de la session (base de données, vecteurs, résultats de calculs). Si on décide d’importer une base de données ou de créer un objet leurs noms apparaîtront dans cette zone. On pourra également dans ce panel importer une base de données, obtenir l’historique des commandes lancées et sauvegarder la session.</p>
+<h2>
+La zone d’aide
+</h2>
+<p>Ce panel comporte plusieurs onglets utiles dont la zone d’aide. Vous pouvez trouver et chercher dans cette zone les détails concernant le fonctionnement des différentes commandes R. C’est dans ce panel également que seront affichés et gérés les graphiques.</p>
 
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
 
 
 </div>

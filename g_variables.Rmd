@@ -4,154 +4,246 @@ output:
     toc: true
     toc_float: true
 ---
-##Modification de variables
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-Avant d'analyser ses donnees il est parfois necessaire de modifier, ou creer ses propres variables.   
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
 
-Nous utiliserons le jeu de donnees 'cats', inclus dans le package 'MASS'.    
-(Pensez a telecharger une 1ere fois le package: install.package("MASS")).   
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
 
-Ce jeu de donnees contient des informations sur une centaine de chats, cobayes pour une experimentation.   
-Plus de details [ICI](https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html).   
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
 
-```{r, message=F, warning=FALSE, results='hide', echo=FALSE}
-require(MASS)
+<h4>Synthèse</h4>
+
+- On peut modifier les éléments d'un vecteur en fonction de différentes conditions:
+    + selon les indices de leurs positions
+    + une condition sur leur valeur
+    + une condition sur les valeurs prisent par un autre vecteur   
+
+- On peut modifier une base en ajoutant/retirant des colonnes/lignes de manière direct ou en les reliants selon un indicateur commun.   
+- On peut également filter son contenu en ne conservant que les lignes pour lesquels une colonne remplit une condition particulière.   
+
+****
+<h1>Les variables</h1>
+<h2>Définir son type de données</h2>
+
+On a décrit comment définir le type des données [ICI](importer2.html)
+
+**Pour rappel, quelques fonctions utiles:**
+```{r, eval=FALSE}
+Base <- data.frame(Num = c(1.1, 2.2, 3.3), Char = c("lundi","mardi","mercredi"))
+Base
+
+Base$Num <- as.double(Base$Num)
+str(Base$Num)
+Base$Num <- as.integer(Base$Num)
+str(Base$Num)
+Base$Num <- factor(x = Base$Num, 
+                   levels = c(1, 2, 3), 
+                   labels = Base$Char)
+str(Base$Num)
+Base$Num <- as.character(Base$Num)
+str(Base$Num)
 ```
-```{r, eval=F}
-require(MASS)
-```
+
+**Et quelques autres bonnes à connaître:**
 
 ```{r}
-data(cats)
+Base <- data.frame(Num = c(0.8, 1.8, 2.8), 
+                   Char = c("un peu", "beaucoup", "pas du tout"))
+
+# convertir en integer (nombre entier) n'arrondis pas à la valeur proche
+as.integer(Base$Num)
+round(Base$Num)
+
+# passer de valeurs continues à des catégories
+cut(x = Base$Num,
+    breaks = c(0,2,5),
+    labels = c("En dessous de 2", "Au dessus de 2"),
+    include.lowest = TRUE,
+    right = FALSE)
+
+# ré-ordonner une variable catégorielle
+# pour modifier la catégorie de référence (le 1er level)
+Base$Char
+factor(Base$Char, 
+       levels = c("pas du tout", "un peu", "beaucoup"))
+
+# pour convertir de caractère à numérique il faut passer par une étape intermédiaire en facteur pour définir les niveaux
+as.numeric(as.factor(Base$Char))
 ```
 
-#1. Structure de la base de donnees
 
-Une premiere etape est de comprendre la structure et la composition de l'ensemble des donnees.    
-La fonction str() ('structure') permet une premiers description de la base de donnees (BDD).   
-La fonction View() permet d'observer directement le tableau.    
-Cependant, en cas de BDD massive, il est impossible d'afficher l'entierete de l'objet.        
+<h2>Modifications conditionnelles</h2>
+On a vu comment manipuler les vecteurs [ICI](basicbuilding.html).   
+
+On peut modifier les valeurs d'une variable en indiquant la position des éléments que l'on veut changer, ou en indiquant des conditions.
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+Base <- data.frame(Num = c(0.8, 1.8, 2.8, 9, 1, 12), 
+                   Char = c("un peu", "beaucoup", "pas du tout", "un peu", "beaucoup", "pas du tout"))
+
+# Modification par indice de position
+Base$Num[2] <- 999
+Base$Num
+
+# Modification par condition
+## Simple
+Base$Num[Base$Num < 2] <- 999
+Base$Num
+
+## Simple 
+Base$Num <- ifelse(test = Base$Num < 100 & Base$Char == "pas du tout", # ma condition
+                   yes = -1 , # si oui 
+                   no = 2) # si non
+Base$Num
+
+## Multiple : case_when() du package dplyr
+Base$Num <- case_when(Base$Char == "un peu" ~ 5, # condition 1 ~ valeur si oui
+                      Base$Char == "beaucoup" ~ 10, # si non, condition 2 ~ valeur si oui
+                      Base$Char == "pas du tout" ~ 15) # si non, condition 3 ~ valeur si oui -- valeur == NA si aucune condition remplie
+Base$Num
+```
+<br>
+<h1>La structure de la base</h1>
+<h2>Ajouter une variable</h2>
+On jettera un rapide coup d'oeil [ICI](importer2.html) pour se souvenir que l'on peut changer les noms des variables notre base.
+
+On a déjà vu comment créer un vecteur de données ([ICI](basicbuilding.html)).  
+Maintenant, on aimerait créer un vecteur et l'intégrer à notre base de données, en tant que nouvelle variable.    
+
+**Pour cela:**    
+- on assigne le vecteur à une nouvelle colonne, soit en définissant la nouvelle colonne par son indice de position, soit en lui définissant un nom.   
+- **la seule condition:** le vecteur doit avoir la même taille que les autres colonnes du tableau.    
+
+De façon similaire, pour intégrer une nouvelle ligne on utilisera son indice de position.   
+
+Pour supprimer une ligne/colonne, on indique la position ou le nom des vecteurs que l'on souhaite supprimer, en les faisant précéder du signe "-".
 
 ```{r}
-str(cats) # data frame de 144 observations (lignes), de 3 variables (colonnes)
-          # les 3 colonnes sont 'Sex', 'Bwt' et 'Hwt'
+Base <- data.frame(Num = c(0.8, 1.8, 2.8, 9, 1, 12), 
+                   Char = c("un peu", "beaucoup", "pas du tout", "un peu", "beaucoup", "pas du tout"))
+
+# Pour intégrer une nouvelle colonne
+Base$Nouvelle_variable <- c(1, 2, 3, 4, 5, 6)
+Base[,4] <- c("a","b","c","d","e","f")
+str(Base)
+
+# La ligne suivante renvoit un message d'erreur: le vecteur est plus petit que les autres colonnes du tableau, il ne peut être intégré
+# Base$Vecteur_trop_petit <- c(1, 2, 3, 4, 5)
+
+# Pour intégrer une nouvelle ligne
+Base[7, ] <- c(1, "un peu", 1, "a")
+str(Base)
+
+# Pour supprimer une colonne ou des lignes
+# On a assigné le résultat pour le conserver
+Base_modifie <- Base[-7, - c(3, 4)]
+Base_modifie
 ```
 
-#2. Types de vecteur
+<h2>Joindre des bases</h2>  
 
-Il existe plusieurs types de vecteur.    
-On peut utiliser la fonction str() directement sur une variable de la BDD pour comprendre de quel type de vecteur il s'agit.    
+Il y a plusieurs situations où l'on souhaite mettre en commun des bases.  
+
+**La situation la plus simple:**  on veut ajouter toutes les colonnes/lignes d'une base à une autre base.   
+Pour cela il faut que les tableaux aient au moins une dimension commune (si on ajoute des lignes = il faut le même nombre de colonnes / si on ajoute des colonnes = il faut le même nombre lignes). Dans cette situation l'ordre des différents éléments ne bouge pas, les bases sont jointes telles quelles.  
+On utilisera les fonctions rbind() pour joindre des bases par leurs lignes, et la fonction cbind() pour joindre des bases par leurs colonnes.
+
+**Une situation plus complexe:** on veut joindre deux bases selon une colonne qu'elles ont en commun.   
+Pour cela il faut que les tableaux aient une variable commune qui sert à identifiées les éléments que l'on doit joindre.  On fera attention à ce que le type de variable soit bien définis comme identique dans les deux tableaux.  Plusieurs jointures sont possibles dans cette situation. On présentera le cas le plus simple, en utilisant la fonction left_join() du package dplyr.
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+Base1 <- data.frame(ID = c("Bob", "Pierre", "Justine"), Poids = c(60, 61, 62))
+Base2 <- data.frame(Taille = c(170, 171, 172), Age = c(24, 25, 26))
+Base3 <- data.frame(ID = c("Eric", "Vanessa", "Monique"), Poids = c(63, 64, 65))
+
+# Situation simple
+# On ajoute des variables = même nombre de ligne, on va augmenter le nombre de colonne
+Base_12 <- cbind(Base1, Base2)
+str(Base_12)
+# On ajoute des lignes = même nombre de colonne, on va augmenter le nombre de lignes
+Base_13 <- rbind(Base1, Base3)
+str(Base_13)
+
+# Situation plus complexe
+# On veut récupérer dans la Base4, les informations concernant les personnes de la Base1
+Base4 <- data.frame(ID = c("Bob", "Valérie", "Raymond","Pierre", "Eric", "Justine", "Vanessa", "Marie"), Traitement = c(1, 0, 1, 0, 1, 0, 1, 0))
+Base_14 <- left_join(Base1, Base4)
+str(Base_14)
+```
+
+<h2>Filtrer une base</h2>
+
+On dispose d'une base de données, on souhaite retirer certaines observations pour conserver uniquement celles qui nous intéresse.  
+Il y a plusieurs façon d'y parvenir: à partir de la fonction subset() ou en manipulant la base à partir des "[ , ]".  
+Dans tous les cas le principe est de définir une condition de sélection.  
 
 ```{r}
-str(cats$Sex)
+Base <- data.frame(ID = c("Bob", "Pierre", "Justine"), Poids = c(60, 61, 62))
+
+subset(Base, Poids < 61.5)
+Base[Base$Poids < 61.5,]
 ```
 
-Cette variable est enregistree de facon interne comme un ensemble de chiffres (1 et 2).   
-Cependant R associe et affiche le caractere 'M' a tous les 2 et 'F' a tous les 1.   
-C'est une variable categorielle.    
+<h5>Les fonctions sur cette page</h5>
 
-On peut en changer le type si on le souhaite.   
+| Fonction             | Description     |
+|----------------------|---------------------------------------------------|
+| cut(x=,breaks=, labels=, include.lowest=T, right=F) | renvoi un vecteur factoriel à partir du vecteur numérique continue x, que l'on a coupé en catégories (labels), de valeurs seuils (breaks), borne inférieur (include.lowest) inclus et supérieur (right) exclus |
+|ifelse(test=, yes=, no=) |renvoit l'élément définis dans yes si le test est réussis, autrement renvoit l'élément définis dans no|
+|case_when(cond1 ~ v1, cond2 ~ v2, cond3 ~ v3, ...) |renvoit l'élément définis dans v1 si le test cond1 est réussis, autrement renvoit l'élément v2 si le test cond2 est réussis, autrement renvoit l'élément v3 si le test cond3 est réussis, ...|
+| cbind(x, y)             | renvoi la base obtenue en ajoutant les colonnes de la base x à celles de la base y     |
+| rbind(x, y)             | renvoi la base obtenue en ajoutant les lignes de la base x à celles de la base y     |
+| left_join(x, y)             | renvoi la base obtenue en ajoutant à x, les données contenus dans y,  pour les lignes que l'on retrouve à la fois dans x et dans y    |
+| subset(x, cond1)             | renvoi les éléments de la base x qui remplissent la condition cond1     |
 
-```{r}
-{
-cats$Sex <- as.numeric(cats$Sex)
-str(cats$Sex) #la variable Sex devient un vecteur numerique
-mean(cats$Sex)#on peut calculer la moyenne de cette variable numerique (meme si ca n'as pas de sens dans notre cas)
-}
-```
+<h3>Pour s'entraîner</h3>
 
-Pour retablir une variable categorielle, on doit definir les valeurs discretes possibles et les categories qu'elles representent.    
-
-```{r}
-{
-#Retablir la variable categorielle
-cats$Sex <- factor(cats$Sex, #la variable a transformer
-                   c(1,2), #les valeurs numeriques du vecteur initial
-                   c('F', 'M')) #les caracteres que l'on souhaite associer a chaques valeurs numeriqes
-                                # ici 1 = 'F' et 2 = 'M'
-}
-```
-
-#3. Creer une variable
-
-On peut creer des variables de differents types et de differentes facons.    
-
-Dans tous les cas, il faut commencer par indiquer le nom de la colonne que l’on souhaite ajouter, en commençant par le nom de la BDD, suivi du signe $ et du nom de variable.    
-
-Ensuite on precise les conditions pour determiner cette nouvelle variable.   
-Soit a partir de donnees deja existantes dans la BDD, soit a partir d'un vecteur independant de celle-ci.   
-Dans ce dernier cas, la seule condition est que la longueur du vecteur corresponde au nombre de lignes de la BDD.   
-
-```{r}
-#Variable numerique continue "rapport",
-#qui est le rapport entre les variables Hwt et Bwt de la BDD
-
-cats$rapport <- cats$Hwt / cats$Bwt
-str(cats$rapport)
-```
-
-```{r}
-#Variable categorielle "rapport_2C",
-#qui separe la variable continue "rapport",
-#entre valeurs basses (low): inferieure a la medianne (3.86)
-#et celles superieure (high) a celle ci
-
-cats$rapport_2C <- cut(cats$rapport, #le vecteur numerique a categoriser
-                       c(0,3.86,100), #les cut-offs qui definissent les categories
-                       c("Low", "High"), #les noms a attribuer aux categories
-                       include.lowest = TRUE, #la borne basse est elle incluse dans l'interval ?
-                       right = FALSE) #la borne haute est elle incluse dans l'interval ?
-```
-
-```{r}
-#Variable 'random',
-#chiffre aleatoire tire d'une distribution uniforme
-
-cats$random <- runif(144, #doit correspondre au nombre d'observation (de lignes) dans la BDD
-                     min = 0, max= 10) #parametres de la distribution
-str(cats$random)
-```
-
-#4. Modifier une variable
-
-On peut modifier une variable existante, de façon homogène pour l’ensemble des individus ou de façon conditionnelle a la valeur prise par une autre covariable.      
-Dans ce dernier cas nous utiliserons la fonction ifelse() qui précise la condition et les modifications à apporter selon que la condition est présente ou non.    
-
-    
-Attention, mieux vaut créer un duplicata de la variable avant de la modifier, au risque de perdre l’originale.    
-En cas d'erreur et que l'on souhaite recuperer l'ancienne variable, il faudra recharger la base de donnee.     
-Il est donc souvent plus prudent de cree une nouvelle variable plutot que d'ecraser une ancienne.
-
-```{r}
-summary(cats$Bwt)
-
-#modification simple
-
-cats$Bwt <- cats$Bwt * 1.3
-summary(cats$Bwt)
-
-#modification conditionnelle
-
-cats$Bwt <- ifelse(cats$Sex == "M", #condition logique: "Si la variable Sex prend la valeur "M""
-                   cats$Bwt * 1.5, #alors la valeur de la variable prend cette valeur
-                   cats$Bwt * 0.8) #sinon elle prend cette valeur
-summary(cats$Bwt)
-```
-
-**************
-
-Pour s'entrainer
-
-**Synthese des fonctions**
-
-| Fonction                            | Description                                               |
-|-------------------------------------|-----------------------------------------------------------|
-| data()                              | charge un jeu de donnees present dans une library         |
-| str()                               | description de la structure des donnees                   |
-| as.numeric()                        | convertit un element en element numerique (si possible)   |
-| as.character()                      | convertit une element en element de type character        |
-| as.factor()                         | convertit un element en element de type factor            |
-| factor( , , )                       | cree un vecteur de type factor                            |
-| cut( , , include.lowest= , right= ) | categorise un vecteur numerique                           |
-| summary()                           | produit des statistiques descriptive du vecteur renseigne |
-| ifelse(condition, v1, v2)           | attribue v1 si la condition est respectee sinon attribue v2 |
+A venir.

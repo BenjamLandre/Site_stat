@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tutoriel R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="interface.html">
+    <span class="ion ion-android-expand"></span>
+     
+    Demarrer
+  </a>
+</li>
+<li>
+  <a href="basicbuilding.html">0. Les bases</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    1. Les données
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="importer2.html">Formats</a>
+    </li>
+    <li>
+      <a href="importer.html">Importer/Sauvegarder</a>
+    </li>
+    <li>
+      <a href="g_variables.html">Modifier les données</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="v_quanti.html">2. Decrire</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    3. Analyser
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="compa_univ.html">Comparaisons univariees</a>
+    </li>
+    <li>
+      <a href="m_lineaire.html">Modele lineaire</a>
+    </li>
+    <li>
+      <a href="m_rlog.html">Regression logistique</a>
+    </li>
+    <li>
+      <a href="m_surv.html">Modele de survie</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<style>
+  h1{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #4582EC;
+    background-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h2{
+    font-size: 25px !important;
+    color: #4582EC !important;
+    border-style: solid;
+    border-color: #4582EC;
+    text-align: center;
+  }
+</style>
+<style>
+  h3{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #982727;
+    background-color: #982727;
+    text-align: center;
+  }
+</style>
+<style>
+  h4{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #0F9D58;
+    background-color: #0F9D58;
+    text-align: center;
+  }
+</style>
+<style>
+  h5{
+    font-size: 25px !important;
+    color: #FFFFFF !important;
+    border-style: solid;
+    border-color: #F4B400;
+    background-color: #F4B400;
+    text-align: center;
+  }
+</style>
+<h4>
+Synthèse
+</h4>
+<ul>
+<li><p>Il existe plusieurs type de vecteur qui précisent la nature des éléments qu’ils contiennent et les opérations qu’il est possible de réaliser à partir d’eux.</p></li>
+<li><p>Il y a plusieurs formats de bases de données, qui dépendent du type de vecteur qu’elles regroupent. Les plus fréquentes sont les dataframes et les matrices.</p></li>
+<li>La manipulation des bases est proche de celle des vecteurs:
+<ul>
+<li>On indique les indices des éléments que l’on veut sélectionner entre ‘[]’, en séparant l’indice des lignes et l’indice des colonnes par une ‘,’.</li>
+<li>Pour les dataframes, on peut également utiliser le nom de la variable. On indique le nom de celle-ci, précédée du nom de la base en les séparant par le symbole ‘$’.</li>
+</ul></li>
+</ul>
+<hr />
+<h1>
+Type de données
+</h1>
+<p>Les bases de données les plus courantes peuvent être vues comme des tableaux où chaque colonne est un vecteur.<br />
+Il existe plusieurs formats de bases de données, selon le type données que les vecteurs contiennent.</p>
+<p>Il existe plusieurs type de données. On parlera ici seulement des principaux: numérique, factoriel, caractères.</p>
+<img src="type.png" /> <br>
+<h2>
+Définir le type d’un vecteur
+</h2>
+<p>Un vecteur ne contient qu’un seul type de données.</p>
+<p>Si on définit un vecteur composé de chiffre, il sera considéré spontanément comme un vecteur numérique.<br />
+Si on définit un vecteur composé de caractères (n’importe quel élément encadré par des &quot; “), il sera considéré spontanément comme un vecteur caractères.</p>
+<p>Les vecteurs de facteurs ont une situation intermédiaire, ils associent des labels qualitatifs à des valeurs quantitatives.<br />
+<br> On peut:<br />
+- convertir un vecteur numérique en vecteur factoriel, c’est à dire attribuer des labels à des chiffres.<br />
+- convertir un vecteur de caractères en vecteur factoriel, attribuer des chiffres à des labels.</p>
+<p>On vérifie le type de donnée d’un vecteur en utilisant la fonction str() (structure).</p>
+<p>On remarque que la structure d’un facteur indique des levels (= les labels) et les chiffres qui leur sont attribués.<br />
+R utilise un vecteur de chiffre mais il affiche les labels que vous leurs avez associés.</p>
+<pre class="r"><code>Num &lt;- c(1,2,3)
+str(Num)</code></pre>
+<pre><code>##  num [1:3] 1 2 3</code></pre>
+<pre class="r"><code>Cara &lt;- c(&quot;a&quot;,&quot;b&quot;, &quot;c&quot;) 
+str(Cara)</code></pre>
+<pre><code>##  chr [1:3] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<pre class="r"><code>str(c(1,2, &quot;salut&quot;)) # on ne peut pas être numeric ET character</code></pre>
+<pre><code>##  chr [1:3] &quot;1&quot; &quot;2&quot; &quot;salut&quot;</code></pre>
+<pre class="r"><code># les facteurs
+
+Factor_Num &lt;- factor(x = Num, # le vecteur de données
+                     levels = c(1, 2, 3), # on identifie les niveaux du facteurs
+                     labels = c(&quot;Niveau_1&quot;, &quot;Niveau_2&quot;, &quot;Niveau_3&quot;)) # on leur attribue des valeurs
+str(Factor_Num)</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;Niveau_1&quot;,&quot;Niveau_2&quot;,..: 1 2 3</code></pre>
+<pre class="r"><code>Factor_Cara &lt;- factor(x = Cara, 
+                      levels = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;), 
+                      labels = c(&quot;Niveau_1&quot;, &quot;Niveau_2&quot;, &quot;Niveau_3&quot;))
+str(Factor_Cara)</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;Niveau_1&quot;,&quot;Niveau_2&quot;,..: 1 2 3</code></pre>
+<pre class="r"><code># Le résultat final est le même
+# Les éléments sont identiques
+
+Factor_Num == Factor_Cara</code></pre>
+<pre><code>## [1] TRUE TRUE TRUE</code></pre>
+<h2>
+Conversions
+</h2>
+<p>Il est utile de savoir passer d’un type de donnée à un autre. <br><br></p>
+<p><img src="type2.png" /> <br><br> On remarquera qu’il n’est pas possible de passer directement d’un vecteur de caractères à un vecteur numérique. On ne peut pas ordonner numériquement du texte sans apporter d’indications extérieures. On peut y parvenir en utilisant une étape intermédiaire où on définit, à partir des labels provenant des facteurs, quels sont les niveaux associés à chaque éléments caractères du vecteur.</p>
+<pre class="r"><code>Num &lt;- c(1,2,3)
+Cara &lt;- c(&quot;a&quot;,&quot;b&quot;, &quot;c&quot;)
+
+# de Num vers Fact
+Factor_Num &lt;- as.factor(Num) # attribution automatique des labels/niveaux
+str(Factor_Num)</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 2 3</code></pre>
+<pre class="r"><code># de Char vers Fact
+Factor_Cara &lt;- as.factor(Cara) # attribution automatique des labels/niveaux
+str(Factor_Cara)</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;: 1 2 3</code></pre>
+<pre class="r"><code># de Num vers Char
+Conversion_en_carac &lt;- as.character(Num)
+## ces chiffres sont considérés comme du texte, il ne peuvent plus être additionnés par ex.
+str(Conversion_en_carac) </code></pre>
+<pre><code>##  chr [1:3] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
+<pre class="r"><code># de Char vers Num
+Conversion_loupee_en_num &lt;- as.numeric(Cara)</code></pre>
+<pre><code>## Warning: NAs introduits lors de la conversion automatique</code></pre>
+<pre class="r"><code>str(Conversion_loupee_en_num)</code></pre>
+<pre><code>##  num [1:3] NA NA NA</code></pre>
+<pre class="r"><code>Conversion_reussie_en_num &lt;- as.numeric(as.factor(Cara))
+str(Conversion_reussie_en_num)</code></pre>
+<pre><code>##  num [1:3] 1 2 3</code></pre>
+<h1>
+Matrices / Dataframes / Listes
+</h1>
+<h2>
+Spécificités des formats
+</h2>
+<p>Il y a 3 formats de base de données usuels:<br />
+1. <strong>les matrices:</strong> un tableau qui contient des vecteurs de même taille et de même type de données<br />
+2. <strong>les dataframes:</strong> un tableau qui contient des vecteurs de même taille mais de type qui peuvent être différent<br />
+3. <strong>les listes:</strong> un tableau qui peut contenir des objets divers, de différentes tailles et de différents types</p>
+<p>En pratique, de manière générale, le format matrice est utilisé pour les calculs, les dataframes pour contenir les base de données et les listes pour contenir les résultats de calculs complexes de fonctions.</p>
+<p>On peut convertir une base d’un format à un autre. Si on passe d’une dataframe vers une matrice, il y aura une conversion automatique du type de données.</p>
+<pre class="r"><code>Ma_matrice &lt;- matrix(c(1,2,3, 1,2,3), ncol= 2)
+Ma_matrice # toutes les colonnes sont de même taille et de même type</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3</code></pre>
+<pre class="r"><code>Ma_data_frame1 &lt;- as.data.frame(Ma_matrice) # les matrices sont des dataframes particulières: elles n&#39;ont qu&#39;un type de données
+Ma_data_frame1</code></pre>
+<pre><code>##   V1 V2
+## 1  1  1
+## 2  2  2
+## 3  3  3</code></pre>
+<pre class="r"><code>Ma_data_frame2 &lt;- data.frame(V1 = c(1,2,3), V2 = c(1,2,3), V3 = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)) # mais elles peuvent avoir plusieurs type de données
+Ma_matrice2 &lt;- as.matrix(Ma_data_frame2)
+Ma_matrice2 # conversion en caractère de toutes les vecteurs</code></pre>
+<pre><code>##      V1  V2  V3 
+## [1,] &quot;1&quot; &quot;1&quot; &quot;a&quot;
+## [2,] &quot;2&quot; &quot;2&quot; &quot;b&quot;
+## [3,] &quot;3&quot; &quot;3&quot; &quot;c&quot;</code></pre>
+<pre class="r"><code>Ma_liste &lt;- list(Je_mets_une_matrice = Ma_matrice, Ou_des_dataframes = Ma_data_frame2, Ou_un_vecteur = c(1,2,3))
+Ma_liste # la liste contient n&#39;importe quel élément, de n&#39;importe quelle taille</code></pre>
+<pre><code>## $Je_mets_une_matrice
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3
+## 
+## $Ou_des_dataframes
+##   V1 V2 V3
+## 1  1  1  a
+## 2  2  2  b
+## 3  3  3  c
+## 
+## $Ou_un_vecteur
+## [1] 1 2 3</code></pre>
+<h2>
+Manipuler les bases
+</h2>
+<p>Une base est un ensemble de vecteurs arrangés en colonne. Sa manipulation est proche de celle des vecteurs.</p>
+<p>On utilise les [], juste après le nom de la base pour accéder à ses éléments.</p>
+<p><strong>On peut:</strong><br />
+- <strong>utiliser les indices:</strong> on indique en 1er l’indice de la ligne, en 2nd l’indice de la colonne.<br />
+- <strong>utiliser les noms:</strong> si les colonnes ont des noms on peut le tapper dans la zone correspondant aux colonnes (à droite de la virgule)</p>
+<p>Seul la manipulation pour indice est disponible pour les matrices. Pour les dataframes on peut également accéder à une colonne en utilisant “$”, entre le nom de la base et le nom de la colonne.</p>
+<div class="figure">
+<img src="datafraa.png" />
+
+</div>
+<pre class="r"><code>Ma_data_frame &lt;- data.frame(V1 = c(1,2,3), V2 = c(4,5,6), V3 = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))
+
+Ma_data_frame[3,3]</code></pre>
+<pre><code>## [1] c
+## Levels: a b c</code></pre>
+<pre class="r"><code>Ma_data_frame$V2</code></pre>
+<pre><code>## [1] 4 5 6</code></pre>
+<pre class="r"><code>Ma_data_frame[1,]</code></pre>
+<pre><code>##   V1 V2 V3
+## 1  1  4  a</code></pre>
+<p>Pour manipuler une liste on utilise principalement les [].<br />
+On indique l’indice de l’élément que l’on souhaite sélectionner dans la liste, entre double [[]]. Puis, les indices de cet élément.</p>
+<div class="figure">
+<img src="listo.png" />
+
+</div>
+<pre class="r"><code>Ma_liste &lt;- list(Je_mets_une_matrice = Ma_matrice, 
+                 Ou_des_dataframes = Ma_data_frame2, 
+                 Ou_un_vecteur = c(1,2,3))
+
+Ma_liste[1] # on manipule la 1ère case de la liste</code></pre>
+<pre><code>## $Je_mets_une_matrice
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3</code></pre>
+<pre class="r"><code>Ma_liste[[1]] # on descend d&#39;un niveau, on manipule l&#39;élément directement</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3</code></pre>
+<pre class="r"><code># Ma_liste[1][2,1] # ne fonctionne pas, on est toujours au niveau de la liste
+
+Ma_liste[[1]][2,1] # on est au niveau de l&#39;élément, on peut accéder à ses indices </code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>Ma_liste$Je_mets_une_matrice[2,1] # équivalent à la ligne précédente</code></pre>
+<pre><code>## [1] 2</code></pre>
+<h2>
+Fonctions utiles
+</h2>
+<p><strong>Quelques fonctions:</strong></p>
+<pre class="r"><code>Ma_data_frame &lt;- data.frame(V1 = c(1,2,3,4,1), 
+                            V2 = c(1,2,3,4,1), 
+                            V3 = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, NA,&quot;a&quot;))
+
+names(Ma_data_frame) # j&#39;affiche les noms de variables</code></pre>
+<pre><code>## [1] &quot;V1&quot; &quot;V2&quot; &quot;V3&quot;</code></pre>
+<pre class="r"><code>names(Ma_data_frame) &lt;- c(&quot;Je&quot;, &quot;change_les_noms&quot;, &quot;de_colonnes&quot;)
+names(Ma_data_frame)</code></pre>
+<pre><code>## [1] &quot;Je&quot;              &quot;change_les_noms&quot; &quot;de_colonnes&quot;</code></pre>
+<pre class="r"><code>row.names(Ma_data_frame)</code></pre>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot;</code></pre>
+<pre class="r"><code>row.names(Ma_data_frame) &lt;- c(&quot;Je&quot;, &quot;change&quot;, &quot;les_noms&quot;, &quot;de_lignes&quot;, &quot;comme_ca&quot;)
+row.names(Ma_data_frame)</code></pre>
+<pre><code>## [1] &quot;Je&quot;        &quot;change&quot;    &quot;les_noms&quot;  &quot;de_lignes&quot; &quot;comme_ca&quot;</code></pre>
+<pre class="r"><code>nrow(Ma_data_frame)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>ncol(Ma_data_frame)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>Ma_data_frame2 &lt;- na.omit(Ma_data_frame) # je retire les lignes contenant des NA
+Ma_data_frame3 &lt;- unique(Ma_data_frame) # je retire les lignes apparaissant en double</code></pre>
+<h5>
+Fonctions sur cette page
+</h5>
+<table style="width:100%;">
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>str(x)</td>
+<td>renvoi différent éléments de la structure du vecteur x, dont le type de vecteur</td>
+</tr>
+<tr class="even">
+<td>numeric(x) ou as.numeric(x)</td>
+<td>renvoi le vecteur x converti en vecteur de type numérique</td>
+</tr>
+<tr class="odd">
+<td>character(x) ou as.character(x)</td>
+<td>renvoi le vecteur x converti en vecteur de type caractères</td>
+</tr>
+<tr class="even">
+<td>factor(x= , levels=, labels=)</td>
+<td>renvoi le vecteur x converti en vecteur de type factor, en attribuant des labels aux différent levels spécifiés</td>
+</tr>
+<tr class="odd">
+<td>matrix(data=, ncol=)</td>
+<td>renvoi une matrice à partir du vecteur data en les répartissant en ncol colonnes</td>
+</tr>
+<tr class="even">
+<td>data.frame(V1 =, V2, V3=)</td>
+<td>renvoi une dataframe à partir des vecteurs V1, V2, V3, etc.. de tailles égales</td>
+</tr>
+<tr class="odd">
+<td>as.matrix(x)</td>
+<td>renvoi la base x converti au format matrice</td>
+</tr>
+<tr class="even">
+<td>as.data.frame(x)</td>
+<td>renvoi la base x converti au format dataframe</td>
+</tr>
+<tr class="odd">
+<td>list(elt1=, elt2=, elt3=)</td>
+<td>renvoi une liste à partir des éléments elt1, elt2, elt3, etc…</td>
+</tr>
+<tr class="even">
+<td>names(x)</td>
+<td>permet d’observer/modifier les noms de variables de la base x</td>
+</tr>
+<tr class="odd">
+<td>row.names(x)</td>
+<td>permet d’observer/modifier les noms des lignes de la base x</td>
+</tr>
+<tr class="even">
+<td>ncol(x)</td>
+<td>renvoi le nombre de colonnes de la base x</td>
+</tr>
+<tr class="odd">
+<td>nrow(x)</td>
+<td>renvoi le nombre de lignes de la base x</td>
+</tr>
+<tr class="even">
+<td>na.omit(x)</td>
+<td>renvoi la base x en ayant retiré toutes les lignes qui contenaient des NA</td>
+</tr>
+<tr class="odd">
+<td>unique(x)</td>
+<td>renvoi la base x en ayant retiré tous les lignes identiques</td>
+</tr>
+</tbody>
+</table>
+<h3>
+Pour s’entraîner
+</h3>
+<p>Blabla</p>
+
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>benjamin.landre@inserm.fr</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/benjamin_landre" class="fa fa-twitter"></a>
+    <a href="https://fr.linkedin.com/in/benjamin-landr%C3%A9-922b1b153" class="fa fa-linkedin"></a>
+    <a href="https://github.com/benjamlandre" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
