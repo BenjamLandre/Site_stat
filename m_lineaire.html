@@ -531,7 +531,13 @@ Principe du test
 <p><img src="Gif_ml.gif" /> <br><br></p>
 <p>Parmi toutes les combinaisons possibles de <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span>, une seule permet d’obtenir la valeur la plus basse des moindres carrés, à partir de notre jeu de données.<br />
 Sur la figure suivante, si on repère la valeur la plus basse de moindre carrés, on identifie le couple <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> qui permettent de déteminer la droite optimale<a name="abcde"> </a>.</p>
-<iframe src="https://plot.ly/~Benjamin_Landre/1/#/" scrolling="no" height="400" width="500" frameBorder="0">
+<!-- <iframe src="https://plot.ly/~Benjamin_Landre/1/#/" -->
+<!-- scrolling="no" -->
+<!-- height=400 -->
+<!-- width=500 -->
+<!-- frameBorder="0"> -->
+<!-- </iframe> -->
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~Benjamin_Landre/1.embed">
 </iframe>
 <h1>
 Utilisation dans R
@@ -600,13 +606,13 @@ Mes_x_et_intercept = cbind(Mes_x,1)
 # On calcul les coefficients
 Mes_coefficients &lt;- solve(t(Mes_x_et_intercept) %*% Mes_x_et_intercept) %*% t(Mes_x_et_intercept) %*% Mon_Y
 Mes_coefficients</code></pre>
-<pre><code>##              [,1]
-## var.2  2.92047250
-## var.3  0.99876733
-## var.4  0.48504724
-## var.5  0.23960214
-## var.6  0.02291681
-##       45.25958641</code></pre>
+<pre><code>##               [,1]
+## var.2  3.052336151
+## var.3  0.964330634
+## var.4  0.473821495
+## var.5  0.203645768
+## var.6 -0.006999738
+##       49.826106958</code></pre>
 <p><details> <summary>Clique ICI pour le détail du calcul</summary></p>
 <p>On détail le cacul à partir d’un jeu de données plus petit pour simplifier le calcul numérique.</p>
 <p>Ce calcul comporte plusieurs étapes qui font intervenir des calculs entre matrices.<br />
@@ -714,7 +720,7 @@ var.1 &lt;- ifelse(var.3 == &quot;A&quot;, Inter1 + Coef1*var.2 + rnorm(450/2, 0
 Resu &lt;- lm(var.1 ~ var.2)
 Resu$coefficients</code></pre>
 <pre><code>## (Intercept)       var.2 
-##  53.3474220   0.9445326</code></pre>
+##   53.873310    1.026841</code></pre>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code># Si on ajuste
 # on définit une seule pente &#39;var.2&#39; mais 2 intercepts
@@ -725,7 +731,7 @@ Resu$coefficients</code></pre>
 Resu &lt;- lm(var.1 ~ var.2+var.3)
 Resu$coefficients</code></pre>
 <pre><code>## (Intercept)       var.2      var.3B 
-##   46.861963    0.898875   12.969203</code></pre>
+##   49.260266    1.033523    9.220345</code></pre>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <h2>
 L’intéraction
@@ -745,7 +751,7 @@ var.1 &lt;- ifelse(var.3 == &quot;A&quot;, Inter1 + Coef1*var.2 + rnorm(450/2, 0
 Resu &lt;- lm(var.1 ~ var.2)
 Resu$coefficients</code></pre>
 <pre><code>## (Intercept)       var.2 
-## 46.19501570 -0.08687211</code></pre>
+## 47.38207057 -0.06918415</code></pre>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code># Si on prend en compte l&#39;intéraction
 # on définit un coefficient pour le groupe A &#39;var.2&#39;
@@ -754,7 +760,7 @@ Resu$coefficients</code></pre>
 Resu &lt;- lm(var.1 ~ var.2*var.3)
 Resu$coefficients</code></pre>
 <pre><code>##  (Intercept)        var.2       var.3B var.2:var.3B 
-##   48.6459780    0.9481749   -2.7237598   -2.0345132</code></pre>
+##   47.5465783    1.1478589   -0.9443647   -2.1374951</code></pre>
 <p><img src="m_lineaire_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <h2>
 La stratification
@@ -785,8 +791,8 @@ anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
 ## Model 1: var.1 ~ var.2 + var.3 + var.4 + var.5 + var.6
 ## Model 2: var.1 ~ var.2 + var.3 + var.4
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    444 132667                                  
-## 2    446 195597 -2    -62931 105.31 &lt; 2.2e-16 ***
+## 1    444 122519                                  
+## 2    446 166998 -2    -44479 80.594 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <h5>
