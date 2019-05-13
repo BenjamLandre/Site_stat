@@ -607,12 +607,12 @@ Mes_x_et_intercept = cbind(Mes_x,1)
 Mes_coefficients &lt;- solve(t(Mes_x_et_intercept) %*% Mes_x_et_intercept) %*% t(Mes_x_et_intercept) %*% Mon_Y
 Mes_coefficients</code></pre>
 <pre><code>##              [,1]
-## var.2  2.97285156
-## var.3  0.99104761
-## var.4  0.48911658
-## var.5  0.20095501
-## var.6  0.01156442
-##       46.67225626</code></pre>
+## var.2  2.97468960
+## var.3  1.00132180
+## var.4  0.49037601
+## var.5  0.19883979
+## var.6  0.02235341
+##       46.13449110</code></pre>
 <p><details> <summary>Clique ICI pour le détail du calcul</summary></p>
 <p>On détail le cacul à partir d’un jeu de données plus petit pour simplifier le calcul numérique.</p>
 <p>Ce calcul comporte plusieurs étapes qui font intervenir des calculs entre matrices.<br />
@@ -720,11 +720,14 @@ Y &lt;- ifelse(var.3 == &quot;A&quot;, Inter1 + Coef1*var.2 + rnorm(450/2, 0, 18
 Resu &lt;- lm(Y ~ var.2)
 Resu$coefficients</code></pre>
 <pre><code>## (Intercept)       var.2 
-##   54.484888    1.007034</code></pre>
+##  52.1186728   0.8833089</code></pre>
 <pre class="r"><code># Représentation graphique
 plot(var.2, Y)
 abline(Resu$coefficients[[1]], Resu$coefficients[[2]], lwd= 5, lty = &quot;dotted&quot;)</code></pre>
-<p><img src="m_lineaire_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="figure">
+<img src="Rplot09.png" />
+
+</div>
 <pre class="r"><code># Si on ajuste
 # on définit une seule pente &#39;var.2&#39; mais 2 intercepts
 # 1 = l&#39;intercept pour le groupe A de reference &#39;(Intercept)&#39;
@@ -734,12 +737,15 @@ abline(Resu$coefficients[[1]], Resu$coefficients[[2]], lwd= 5, lty = &quot;dotte
 Resu &lt;- lm(Y ~ var.2+var.3)
 Resu$coefficients</code></pre>
 <pre><code>## (Intercept)       var.2      var.3B 
-##   49.729215    1.005899    9.510351</code></pre>
+##  47.2091108   0.9002261   9.8033773</code></pre>
 <pre class="r"><code># Représentation graphique
 plot(var.2, Y, col=c(&quot;blue&quot;, &quot;tomato&quot;)[as.numeric(as.factor(var.3))], pch = 16)
 abline(Resu$coefficients[[1]], Resu$coefficients[[2]], lwd= 5, lty = &quot;dotted&quot;)
 abline(Resu$coefficients[[1]]+Resu$coefficients[[3]], Resu$coefficients[[2]], lwd= 5, lty = &quot;dotted&quot;)</code></pre>
-<p><img src="m_lineaire_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="figure">
+<img src="Rplot10.png" />
+
+</div>
 <h2>
 L’intéraction
 </h2>
@@ -758,8 +764,14 @@ Y &lt;- ifelse(var.3 == &quot;A&quot;, Inter1 + Coef1*var.2 + rnorm(450/2, 0, 18
 Resu &lt;- lm(Y ~ var.2)
 Resu$coefficients</code></pre>
 <pre><code>## (Intercept)       var.2 
-## 48.49779045 -0.01545164</code></pre>
-<p><img src="m_lineaire_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+##  48.7549324   0.1758185</code></pre>
+<pre class="r"><code># Représentation graphique
+plot(var.2, Y)
+abline(Resu$coefficients[[1]], Resu$coefficients[[2]], lwd= 5, lty = &quot;dotted&quot;)</code></pre>
+<div class="figure">
+<img src="Rplot09.png" />
+
+</div>
 <pre class="r"><code># Si on prend en compte l&#39;intéraction
 # on définit un coefficient pour le groupe A &#39;var.2&#39;
 # on définit une valeur pour le groupe B &#39;var.2:var.3B&#39;, que l&#39;on ajoute au coefficient du groupe A:
@@ -767,8 +779,15 @@ Resu$coefficients</code></pre>
 Resu &lt;- lm(Y ~ var.2*var.3)
 Resu$coefficients</code></pre>
 <pre><code>##  (Intercept)        var.2       var.3B var.2:var.3B 
-##    49.223303     1.088169    -1.364812    -2.194332</code></pre>
-<p><img src="m_lineaire_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+##   48.7012083    1.2574785   -0.9621127   -2.0892918</code></pre>
+<pre class="r"><code># Représentation graphique
+plot(var.2, Y, col=c(&quot;blue&quot;, &quot;tomato&quot;)[as.numeric(as.factor(var.3))], pch = 16)
+abline(Resu$coefficients[[1]], Resu$coefficients[[2]], lwd= 5, lty = &quot;dotted&quot;)
+abline(Resu$coefficients[[1]]+Resu$coefficients[[3]], Resu$coefficients[[2]]+Resu$coefficients[[4]], lwd= 5, lty = &quot;dotted&quot;)</code></pre>
+<div class="figure">
+<img src="Rplot08.png" />
+
+</div>
 <h2>
 La stratification
 </h2>
@@ -798,8 +817,8 @@ anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
 ## Model 1: Y ~ var.2 + var.3 + var.4 + var.5 + var.6
 ## Model 2: Y ~ var.2 + var.3 + var.4
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    444 121930                                  
-## 2    446 165322 -2    -43392 79.005 &lt; 2.2e-16 ***
+## 1    444 113015                                  
+## 2    446 151064 -2    -38050 74.743 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <h5>
