@@ -640,7 +640,7 @@ glm(Y ~ X[,-1], family = &#39;binomial&#39;)</code></pre>
 Comparaison de modèles
 </h1>
 <p>On compare les modèle en comparant leur vraisemblance, en tenant compte du nombre de paramètres estimés.<br />
-Des modèles qui ont des vraisemblances identiques sont considérés similaires. Lorsque les vraisemblances différent on conserve celui qui présente le plus d’information, le modèle le plus complet.</p>
+Des modèles qui ont des vraisemblances équivalentes sont considérés proches. Lorsque les vraisemblances différent on conserve celui qui présente le plus d’information, le modèle le plus complet.</p>
 <p>On peut utiliser la fonction anova() qui compare la déviance (-2 log vraisemblance) ou le rapport de vraisemblance lrtest() du package “lmtest”. Les résultats sont identiques.</p>
 <p><strong>Pour être valide cette comparaison doit avoir lieu sur des échantillons identiques et dans des modèles emboîtés.</strong></p>
 <pre class="r"><code>RL.2&lt;- glm( high.risk ~ vomiting + age.65, family = &quot;binomial&quot;, data=headInjury)
