@@ -29,6 +29,8 @@ navbar:
           href: m_lineaire.html
         - text: "Regression logistique"
           href: m_rlog.html
+        - text: "Modele de survie"
+          href: m_surv.html
   right:
     - icon: fa-envelope-square fa-lg
       href: contact.html
