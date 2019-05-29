@@ -602,9 +602,9 @@ La structure de la base
 <h2>
 Ajouter une variable
 </h2>
-<p>On jettera un rapide coup d’oeil <a href="importer2.html">ICI</a> pour se souvenir que l’on peut changer les noms des variables notre base.</p>
+<p>On jettera un rapide coup d’oeil <a href="importer2.html">ICI</a> pour se souvenir que l’on peut changer les noms des variables de notre base.</p>
 <p>On a déjà vu comment créer un vecteur de données (<a href="basicbuilding.html">ICI</a>).<br />
-Maintenant, on aimerait créer un vecteur et l’intégrer à notre base de données, en tant que nouvelle variable.</p>
+Maintenant, on veut créer un vecteur et l’intégrer à notre base de données, en tant que nouvelle variable.</p>
 <p><strong>Pour cela:</strong><br />
 - on assigne le vecteur à une nouvelle colonne, soit en définissant la nouvelle colonne par son indice de position, soit en lui définissant un nom.<br />
 - <strong>la seule condition:</strong> le vecteur doit avoir la même taille que les autres colonnes du tableau.</p>
@@ -649,11 +649,11 @@ Joindre des bases
 </h2>
 <p>Il y a plusieurs situations où l’on souhaite mettre en commun des bases.</p>
 <p><strong>La situation la plus simple:</strong> on veut ajouter toutes les colonnes/lignes d’une base à une autre base.<br />
-Pour cela il faut que les tableaux aient au moins une dimension commune (si on ajoute des lignes = il faut le même nombre de colonnes / si on ajoute des colonnes = il faut le même nombre lignes). Dans cette situation l’ordre des différents éléments ne bouge pas, les bases sont jointes telles quelles.<br />
+Pour cela il faut que les tableaux aient au moins une dimension commune (si on ajoute des lignes = il faut le même nombre de colonnes / si on ajoute des colonnes = il faut le même nombre de lignes). Dans cette situation l’ordre des différents éléments ne bouge pas, les bases sont jointes telles quelles.<br />
 On utilisera les fonctions rbind() pour joindre des bases par leurs lignes, et la fonction cbind() pour joindre des bases par leurs colonnes.</p>
 <p><strong>Une situation plus complexe:</strong> on veut joindre deux bases selon une colonne qu’elles ont en commun.<br />
 Pour cela il faut que les tableaux aient une variable commune qui sert à identifiées les éléments que l’on doit joindre. On fera attention à ce que le type de variable soit bien définis comme identique dans les deux tableaux. Plusieurs jointures sont possibles dans cette situation. On présentera le cas le plus simple, en utilisant la fonction left_join() du package dplyr.</p>
-<pre class="r"><code>library(dplyr)
+<pre class="r"><code>library(dplyr) # on oublie pas d&#39;installer le package au moins une fois au préalable
 Base1 &lt;- data.frame(ID = c(&quot;Bob&quot;, &quot;Pierre&quot;, &quot;Justine&quot;), Poids = c(60, 61, 62))
 Base2 &lt;- data.frame(Taille = c(170, 171, 172), Age = c(24, 25, 26))
 Base3 &lt;- data.frame(ID = c(&quot;Eric&quot;, &quot;Vanessa&quot;, &quot;Monique&quot;), Poids = c(63, 64, 65))
@@ -685,8 +685,8 @@ str(Base_14)</code></pre>
 <h2>
 Filtrer une base
 </h2>
-<p>On dispose d’une base de données, on souhaite retirer certaines observations pour conserver uniquement celles qui nous intéresse.<br />
-Il y a plusieurs façon d’y parvenir: à partir de la fonction subset() ou en manipulant la base à partir des “[ , ]”.<br />
+<p>On dispose d’une base de données, on veut retirer certaines observations pour conserver uniquement celles qui nous intéresse.<br />
+Il y a plusieurs façon d’y parvenir: à partir de la fonction <strong>subset()</strong> ou en manipulant la base à partir des <strong>“[ , ]”</strong>.<br />
 Dans tous les cas le principe est de définir une condition de sélection.</p>
 <pre class="r"><code>Base &lt;- data.frame(ID = c(&quot;Bob&quot;, &quot;Pierre&quot;, &quot;Justine&quot;), Poids = c(60, 61, 62))
 

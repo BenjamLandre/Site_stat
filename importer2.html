@@ -508,8 +508,8 @@ Synthèse
 <li><p>Il y a plusieurs formats de bases de données, qui dépendent du type de vecteur qu’elles regroupent. Les plus fréquentes sont les dataframes et les matrices.</p></li>
 <li>La manipulation des bases est proche de celle des vecteurs:
 <ul>
-<li>On indique les indices des éléments que l’on veut sélectionner entre ‘[]’, en séparant l’indice des lignes et l’indice des colonnes par une ‘,’.</li>
-<li>Pour les dataframes, on peut également utiliser le nom de la variable. On indique le nom de celle-ci, précédée du nom de la base en les séparant par le symbole ‘$’.</li>
+<li>On indique les indices des éléments que l’on veut sélectionner entre <strong>‘[]’</strong>, en séparant l’indice des lignes et l’indice des colonnes par une <strong>‘,’</strong> (ex Base[1, 2]).</li>
+<li>Pour les dataframes, on peut également utiliser le nom de la variable. On indique le nom de celle-ci, précédée du nom de la base en les séparant par le symbole **’<span class="math inline">\(&#39;** (ex Base\)</span>Variable).</li>
 </ul></li>
 </ul>
 <hr />
@@ -525,14 +525,14 @@ Définir le type d’un vecteur
 </h2>
 <p>Un vecteur ne contient qu’un seul type de données.</p>
 <p>Si on définit un vecteur composé de chiffre, il sera considéré spontanément comme un vecteur numérique.<br />
-Si on définit un vecteur composé de caractères (n’importe quel élément encadré par des &quot; “), il sera considéré spontanément comme un vecteur caractères.</p>
+Si on définit un vecteur composé de caractères (n’importe quel élément encadré par des **&quot; “**), il sera considéré spontanément comme un vecteur caractères.</p>
 <p>Les vecteurs de facteurs ont une situation intermédiaire, ils associent des labels qualitatifs à des valeurs quantitatives.<br />
-<br> On peut:<br />
+<br> <strong>On peut:</strong><br />
 - convertir un vecteur numérique en vecteur factoriel, c’est à dire attribuer des labels à des chiffres.<br />
 - convertir un vecteur de caractères en vecteur factoriel, attribuer des chiffres à des labels.</p>
-<p>On vérifie le type de donnée d’un vecteur en utilisant la fonction str() (structure).</p>
+<p>On vérifie le type de donnée d’un vecteur en utilisant la fonction <strong>str()</strong> (structure).</p>
 <p>On remarque que la structure d’un facteur indique des levels (= les labels) et les chiffres qui leur sont attribués.<br />
-R utilise un vecteur de chiffre mais il affiche les labels que vous leurs avez associés.</p>
+R utilise un vecteur de chiffre mais il affiche les labels que vous avez associés.</p>
 <pre class="r"><code>Num &lt;- c(1,2,3)
 str(Num)</code></pre>
 <pre><code>##  num [1:3] 1 2 3</code></pre>
@@ -597,7 +597,7 @@ Spécificités des formats
 1. <strong>les matrices:</strong> un tableau qui contient des vecteurs de même taille et de même type de données<br />
 2. <strong>les dataframes:</strong> un tableau qui contient des vecteurs de même taille mais de type qui peuvent être différent<br />
 3. <strong>les listes:</strong> un tableau qui peut contenir des objets divers, de différentes tailles et de différents types</p>
-<p>En pratique, de manière générale, le format matrice est utilisé pour les calculs, les dataframes pour contenir les base de données et les listes pour contenir les résultats de calculs complexes de fonctions.</p>
+<p>En pratique, de manière générale, le format matrice est utilisé pour renseigner un calcul, les dataframes pour contenir les base de données et les listes pour contenir les résultats de calculs complexes de fonctions.</p>
 <p>On peut convertir une base d’un format à un autre. Si on passe d’une dataframe vers une matrice, il y aura une conversion automatique du type de données.</p>
 <pre class="r"><code>Ma_matrice &lt;- matrix(c(1,2,3, 1,2,3), ncol= 2)
 Ma_matrice # toutes les colonnes sont de même taille et de même type</code></pre>
@@ -638,7 +638,7 @@ Ma_liste # la liste contient n&#39;importe quel élément, de n&#39;importe quel
 Manipuler les bases
 </h2>
 <p>Une base est un ensemble de vecteurs arrangés en colonne. Sa manipulation est proche de celle des vecteurs.</p>
-<p>On utilise les [], juste après le nom de la base pour accéder à ses éléments.</p>
+<p>On utilise les <strong>[]</strong>, juste après le nom de la base pour accéder à ses éléments.</p>
 <p><strong>On peut:</strong><br />
 - <strong>utiliser les indices:</strong> on indique en 1er l’indice de la ligne, en 2nd l’indice de la colonne.<br />
 - <strong>utiliser les noms:</strong> si les colonnes ont des noms on peut le tapper dans la zone correspondant aux colonnes (à droite de la virgule)</p>

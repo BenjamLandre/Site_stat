@@ -506,7 +506,7 @@ Synthèse
 <ul>
 <li>Plusieurs fonctions permettent de décrire les statistiques des vecteurs (en uni ou bivarié).<br />
 </li>
-<li>Tous les indicateurs statistiques ne sont pas adapté à tous les types de données.<br />
+<li>Tous les indicateurs statistiques ne sont pas adaptés à tous les types de données.<br />
 </li>
 <li>Les différentes fonctions ne gérent pas les données manquantes de la même façon. Il est souvent plus prudent d’aller vérifer ce point dans l’aide.<br />
 </li>
@@ -527,7 +527,7 @@ Données quantitatives
 - <em>la dispersion des données:</em> variance, écart-type, minimale, maximale, quantiles<br />
 - <em>le lien entre variables continues:</em> corrélation, covariance<br />
 - <em>les effectifs</em></p>
-<p>On sera prudent sur la présence possible de <strong>DONNEES MANQUANTES</strong> dans le vecteur. <br><br> Par défaut, en présence de données manquantes, le calcul renvoit une valeur manquante. Il faut renseigner l’argument na.rm (abbréviation de na remove) pour exclure ces données du calcul. <br><br> Cet argument n’est pas disponible dans la fonction length(). On pourra utiliser la fonction na.omit(), vu précédemment pour calculer la taille du vecteur en excluant els données manquantes.</p>
+<p>On sera prudent sur la présence possible de <strong>DONNEES MANQUANTES</strong> dans le vecteur. <br><br> Par défaut, en présence de données manquantes, le calcul renvoit une valeur manquante. Il faut renseigner l’argument na.rm (abbréviation de NA remove) pour exclure ces données du calcul. <br><br> Cet argument n’est pas disponible dans la fonction length(). On pourra utiliser la fonction na.omit(), vu précédemment pour calculer la taille du vecteur en excluant els données manquantes.</p>
 <div class="figure">
 <img src="descri_quanti.png" />
 
@@ -549,9 +549,9 @@ mean(a)</code></pre>
 <pre><code>## [1] 15</code></pre>
 <pre class="r"><code># bivarié
 cor(a, b, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.9839219</code></pre>
+<pre><code>## [1] 0.9831243</code></pre>
 <pre class="r"><code>cov(a, b, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 20.60538</code></pre>
+<pre><code>## [1] 20.65073</code></pre>
 <pre class="r"><code>tapply(X= a, INDEX= categories, mean, na.rm=TRUE)</code></pre>
 <pre><code>## Cat.A Cat.B 
 ##   4.5  12.0</code></pre>
@@ -613,7 +613,7 @@ table(a, b)</code></pre>
 Graphiques
 </h1>
 <p>Les graphiques sont de puissants outils, ils permettent d’explorer les données, transmettre un message ou mettre en évidence un résultat.<br />
-Il existe un grand nombre de graphique, seul les principaux seront abordés. Il existe également beaucoup d’arguments paramétrables, nous verrons seulement les essentiels ainsi que ceux qui omniprésents.</p>
+Il existe un grand nombre de graphique, seul les principaux seront abordés. Il existe également beaucoup d’arguments paramétrables, nous verrons seulement les essentiels ainsi que ceux qui récurrents.</p>
 <p>On peut consulter <a href="https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html">cette page pour plus d’exemples</a>.</p>
 <p><strong>Dans R on peut distinguer deux type de fonctions graphique:</strong><br />
 - celles de <em>haut niveau</em>, qui permettent de réaliser l’essentiel du graphique.<br />
@@ -622,12 +622,12 @@ Il existe un grand nombre de graphique, seul les principaux seront abordés. Il 
 Fonctions de haut niveau
 </h2>
 <p><strong>Les graphiques dépendent bien entendu du type de données:</strong><br />
-- Pour <em>données quantitatives</em>: stripchart (traduction?), boîtes à moustahces, histogrammes, nuage de points.<br />
+- Pour <em>données quantitatives</em>: stripchart (traduction?), boîtes à moustaches, histogrammes, nuage de points.<br />
 - Pour <em>données qualitatives</em>: diagramme en batons, mosaicplot (traduction?).<br />
 <br><br> <img src="graph.png" /> <br><br> <strong>Les arguments utiles, communs, pour contrôler:</strong><br />
 - les points: cex = taille des points, <a href="http://www.statisticstoproveanything.com/2010/09/charts-of-different-pch-values-in-r.html">pch = motif des points</a>.<br />
 - les traits: lwd= largeur du trait, <a href="http://www.statisticstoproveanything.com/2010/10/chart-of-different-lty-values-in-r.html">lty = motif du trait</a>.<br />
-- les limites: ylim / xlim= c(valeur_basse, valeur_haute), xlim= idem.<br />
+- les limites: ylim = c(valeur_basse, valeur_haute), xlim= idem.<br />
 - les légendes: ylab / xlab = texte des axes, main = titre principale.<br />
 - les couleurs: col = voir plus bas.</p>
 <p><strong>Les arguments utiles, spécifiques à un graphique:</strong><br />
@@ -644,14 +644,13 @@ plot(x = b, y = a,
      lwd= 2, lty = &quot;dotted&quot;, 
      pch = 3, 
      xlab= &quot;mes valeurs de x&quot;, ylab= &quot;mes valeurs de y&quot;, 
-     main = &quot;Un graphique de base&quot;)</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>par(mfrow = c(1,2)) # affiche 1 ligne 2 colonnes de graphiques, 
+     main = &quot;Un graphique de base&quot;)
+
+par(mfrow = c(1,2)) # affiche 1 ligne 2 colonnes de graphiques, 
 #par(mfrow = c(1,1)) pour rétablir 1,1
 hist(a, main = &quot;%&quot;, freq= FALSE, col = &quot;red&quot;)
 hist(a, main = &quot;n&quot;, freq= TRUE, col = &quot;blue&quot;)</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
-<p><br></p>
+<p><img src="Rplot12.png" /> <img src="Rplot13.png" /> <br></p>
 <h2>
 Fonctions de bas niveau
 </h2>
@@ -682,7 +681,7 @@ text(&quot;Je peux rajouter des lignes \n des points \n du texte&quot;, x = 8, y
 # droite et point
 abline(2, 1, lty = &quot;dotted&quot;)
 points(x = 3, y = 3, pch = 3, lwd= 3)</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<img src="Rplot14.png" />
 <h2>
 Gestion des couleurs
 </h2>
@@ -697,16 +696,15 @@ Ce sont ces caractères qu’il faut écrire dans l’argument ‘col’ des dif
 b &lt;- 1:15
 a1 &lt;- factor(x = round(runif(15,1,3)), c(1, 2, 3), c(&quot;petit&quot;, &quot;moyen&quot;, &quot;grand&quot;))
 str(a1)</code></pre>
-<pre><code>##  Factor w/ 3 levels &quot;petit&quot;,&quot;moyen&quot;,..: 1 2 2 1 1 2 1 3 1 3 ...</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;petit&quot;,&quot;moyen&quot;,..: 3 2 2 2 3 2 2 2 2 2 ...</code></pre>
 <pre class="r"><code>liste_couleur &lt;- c(&quot;tomato&quot;, # couleur de base R
                    rgb(0.5, 0.5, 0.4), # code rgb
-                   &quot;#1d69d2&quot;) # code hexadecimal
-
-plot(x = b, y = a, 
+                   &quot;#1d69d2&quot;) # code hexadecimal</code></pre>
+<pre class="r"><code>plot(x = b, y = a, 
      pch = 16, 
      main = &quot;Les couleurs en fonction \n d&#39;une variable&quot;,
      col = liste_couleur[a1]) # selection de la couleur, selon la catégorie</code></pre>
-<p><img src="v_quanti_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<img src="Rplot15.png" />
 <h5>
 Les fonctions sur cette page
 </h5>

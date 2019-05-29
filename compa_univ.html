@@ -505,8 +505,8 @@ Synthèse
 </h4>
 <ul>
 <li><p>Il faut ~ 1 ligne de code pour lancer un test, ~ 3 lignes dans la console pour en comprendre les résultats et ~50 lignes de texte pour expliquer vaguement leur fonctionnement.</p></li>
-<li>On peut comparer les moyennes entre deux groupes, sous certaines conditions, à partir d’un test de student: t.test(). (Pour la comparaison de plus de 2 groupes on utilisera un modèle linéaire.)</li>
-<li><p>On peut comparer les pourcentages entre deux groupes ou plus, sous certaines conditions, à partir d’un test du chi²: chisq.test().</p></li>
+<li>On peut comparer les moyennes entre deux groupes, sous certaines conditions, à partir d’un test de student: <strong>t.test()</strong>. (Pour la comparaison de plus de 2 groupes on utilisera un modèle linéaire.)</li>
+<li><p>On peut comparer les pourcentages entre deux groupes ou plus, sous certaines conditions, à partir d’un test du chi²: <strong>chisq.test()</strong>.</p></li>
 </ul>
 <h1>
 Comparaison de moyennes
@@ -528,7 +528,7 @@ Ces 2 groupes sont des échantillons d’une population plus vaste que l’on ai
 <p><em>C’est ce que l’on observe sur la figure suivante. Si on crée 2 groupes en tirant au sort des individus issus d’une même population, on observe des différences de moyenne entre les deux groupes. Ces différences de moyennes changent à chaque fois que l’on crée de nouveaux échantillons, pourtant les caractéristisques de la population source n’ont pas changées.</em> <img src="Rplot01.png" /></p>
 <p><strong>(3)</strong> Au final, en répétant l’opération, on n’aurait pas observé une différence en faveur d’un groupe plutôt qu’un autre. <strong>La moyenne des différences aurait été très proche de 0</strong>.</p>
 <p><em>C’est ce que l’on observe sur l’histogramme suivant. On a constitué 2 groupes en tirant au sort des individus issus d’une même population source. On a comparé les moyennes dans ces deux groupes. On a répété ce processus 3000 fois, en conservant à chaque fois les différences entre moyenne que l’on observe. Si on regarde ces différences de moyenne, on constate qu’elles sont le plus souvent proche de 0.</em> <img src="Rplot05.png" /></p>
-<p>Le problème c’est que, souvent, on ne peut pas facilement répéter l’expérimentation un très grand nombre de fois pour voir si la différence de moyenne fait bien en moyenne 0 (ou non) entre nos deux groupes.</p>
+<p>Le problème c’est que, souvent, on ne peut pas facilement/éthiquement répéter l’expérimentation un très grand nombre de fois pour voir si la différence de moyenne fait bien en moyenne 0 (ou non) entre nos deux groupes.</p>
 <p>Cependant, sous certaines conditions, on a une idée de la distribution que suit la différence des moyennes <strong>si l’hypothèse nulle était la bonne</strong>.</p>
 <p>Dis autrement, dans certaines conditions, j’arrive à quantifier le fait que: “<em>si on avait répété l’expérimentation et que l’hypothèse nulle était la bonne,</em> on aurait très souvent observé une différence quasi nulle entre les moyennes des échantillons, souvent des différences faibles, très rarement des différences importantes et pratiquement jamais de très grosses différences”.</p>
 <p>En utilisant cette distribution théorique, on peut évaluer numériquement la probabilité d’observer une différence aussi grande que celle que l’on a mesuré dans nos échantillons, <strong>si l’hypothèse nulle était la bonne</strong>: c’est la p-value.</p>
@@ -558,6 +558,7 @@ Resu &lt;- t.test(Base$Var_Continu ~ Base$Groupe,
 
 </div>
 <p><strong>Step by step</strong></p>
+<p>Le calcul effectué séquentiellement pour les curieux. <details> <summary>Clique ICI pour le détail du calcul</summary></p>
 <pre class="r"><code># Les données
 a &lt;- rnorm(50,2,2)
 b &lt;- rnorm(50,0,2)
@@ -571,13 +572,13 @@ var.test(a,b)</code></pre>
 ##  F test to compare two variances
 ## 
 ## data:  a and b
-## F = 1.2682, num df = 49, denom df = 49, p-value = 0.4086
+## F = 1.2031, num df = 49, denom df = 49, p-value = 0.5199
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
-##  0.7196536 2.2347465
+##  0.6827344 2.1201009
 ## sample estimates:
 ## ratio of variances 
-##           1.268165</code></pre>
+##           1.203107</code></pre>
 <pre class="r"><code># On calcule la statistique du test: la distance standardisée entre la différenc entre moyenne et 0
 numerateur &lt;- m_diff
 denominateur &lt;- sqrt(var(a)/length(a)+var(b)/length(b))
@@ -585,21 +586,22 @@ denominateur &lt;- sqrt(var(a)/length(a)+var(b)/length(b))
 Statistique_distance &lt;- numerateur / denominateur
 
 Statistique_distance # statistique distance</code></pre>
-<pre><code>## [1] 4.206911</code></pre>
+<pre><code>## [1] 6.881203</code></pre>
 <pre class="r"><code>(1-pt(Statistique_distance, df = length(a)+length(b)-2))*2 # p-value</code></pre>
-<pre><code>## [1] 5.735643e-05</code></pre>
+<pre><code>## [1] 5.646665e-10</code></pre>
 <pre class="r"><code>t.test(a,b, var.equal = T, paired = F)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
 ## data:  a and b
-## t = 4.2069, df = 98, p-value = 5.736e-05
+## t = 6.8812, df = 98, p-value = 5.647e-10
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.9743209 2.7143045
+##  1.753338 3.174466
 ## sample estimates:
 ##  mean of x  mean of y 
-##  1.7825884 -0.0617243</code></pre>
+##  2.1069426 -0.3569592</code></pre>
+<p></details></p>
 <h1>
 Comparaison de proportions
 </h1>
@@ -630,6 +632,8 @@ Resu$expected # tableau des effectifs théoriques</code></pre>
 
 </div>
 <p><strong>Step by step</strong></p>
+<p>Le calcul effectué séquentiellement pour les curieux.</p>
+<p><details> <summary>Clique ICI pour le détail du calcul</summary></p>
 <pre class="r"><code>Base &lt;- data.frame(Expo = c(rep(&quot;Exp1&quot;, 300), rep(&quot;Exp2&quot;, 200), rep(&quot;Exp1&quot;, 250), rep(&quot;Exp2&quot;, 250)), 
                    Groupe = c(rep(&quot;A&quot;, 500), rep(&quot;B&quot;, 500)))
 
@@ -663,6 +667,7 @@ pchisq(Distance_chi2,
        df = (nrow(Effectifs_observes)-1)*(ncol(Effectifs_observes)-1),
        lower.tail = F)</code></pre>
 <pre><code>## [1] 0.001481881</code></pre>
+<p></details></p>
 <h5>
 Les fonctions sur cette page
 </h5>

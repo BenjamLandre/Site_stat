@@ -510,7 +510,7 @@ Synthèse
 </li>
 <li>On peut sélectioner les éléments d’un vecteur en indiquant leur position entre crochets, après le nom du vecteur.<br />
 </li>
-<li>Une opération entre vecteur s’effectue entre chaques éléments du vecteur, un à un, si les vecteurs sont de même taille, si non le plus petit des vecteurs est recyclé: on ré-utilise ses valeurs à partir du 1er élément.<br />
+<li>Une opération entre plusieurs vecteurs s’effectue entre chaques éléments des vecteur, un à un, si les vecteurs sont de même taille. S’ils sont de tailles différentes, le plus petit des vecteurs est recyclé: on ré-utilise ses valeurs à partir du 1er élément.<br />
 </li>
 <li>Les fonctions permettent de réaliser des actions pré-définies. Pour cela il faut remplir les paramètres obligatoires, et ne pas oublier que d’autres paramètres utilisent des valeurs par défaut non affichées.<br />
 </li>
@@ -547,7 +547,7 @@ Y
 
 Y + 15</code></pre>
 <p>Plusieurs éléments à remarquer:</p>
-<pre class="r"><code>Z &lt;- 118 #  un objet assigné n&#39;est pas directement exprime dans la console
+<pre class="r"><code>Z &lt;- 118 #  un objet assigné n&#39;est pas directement exprimé dans la console
 Z        #  pour l&#39;exprimer il faut l&#39;appeler, c-a-d tapper le nom de l&#39;objet (dans la console ou le script).
 
 Z &lt;- 22   #  si on assigne un nouvel élément à un objet déjà utilisé, on écrase la valeur precedente
@@ -558,17 +558,17 @@ Vecteurs de données
 <h2>
 Créer un vecteur
 </h2>
-<p>Un des interet de R est de pouvoir réaliser des calculs sur de grand ensembles de données.<br />
+<p>Un des intérêts de R est de pouvoir réaliser des calculs sur de grand ensembles de données.<br />
 Une façon de le faire est de les regrouper à l’interieur d’un objet.</p>
-<p>Pour cela:<br />
+<p><strong>Pour cela:</strong><br />
 - on utilise la fonction ‘concatenate’ c()<br />
 - on tappe les données que l’on souhaite regrouper, en les séparant par des virgules</p>
 <pre class="r"><code>c(4,8)  #directement
 
 X &lt;- c(4, 8)  #par assignement
 X</code></pre>
-<p>Ces objets sont appelés des vecteurs. Les vecteurs constituent un element important dans la logique de calcul de R. Il existe plusieurs type de vecteur selon la nature des données qu’il contient. Un vecteur ne contient toujours qu’un seul type de données.</p>
-<p>Ils peuvent, par exemple, être numerique et ne contenir que des chiffres.<br />
+<p>Ces objets sont appelés des vecteurs. Les vecteurs constituent un élément important dans la logique de calcul de R. Il existe plusieurs type de vecteur selon la nature des données qu’il contient. Un vecteur ne contient toujours qu’un seul type de données.</p>
+<p>Ils peuvent, par exemple, être numérique et ne contenir que des chiffres.<br />
 Ils peuvent également contenir du texte ou des résultats d’opérateur logiques (TRUE / FALSE).</p>
 <pre class="r"><code>X &lt;- c(&quot;IMC normal&quot;, &quot;IMC surpoids&quot;, &quot;IMC surpoids&quot;) 
 X
@@ -577,21 +577,21 @@ Y &lt;- c(TRUE, FALSE, FALSE)
 Y</code></pre>
 <p>Les premiers pourront être utilisés, par exemple, pour créer des variables catégorielles.<br />
 Les seconds sont des résultats d’opérations logiques.<br />
-Ils pourront être utilisés pour définir si une condition est remplie pour l’execution calcul.</p>
+Ils pourront être utilisés pour définir si une condition est remplie pour l’exécution calcul.</p>
 <h2>
 Manipuler un vecteur
 </h2>
 <p>Les vecteurs contiennent un ensemble de données. On peut sélectionner à l’intérieur de ce vecteur une ou plusieurs données particulières en indiquant la position de l’élément.</p>
-<p><strong>Pour cela:</strong> - on utilisera “[]” juste apres le nom de notre vecteur - on indique l’emplacement de l’élément inclus dans le vecteur</p>
+<p><strong>Pour cela:</strong> - on utilisera “[]” juste après le nom de notre vecteur - on indique l’emplacement de l’élément inclus dans le vecteur</p>
 <pre class="r"><code>a &lt;- c(12,45,18,16,13,18,46)
 
-a[5] # sélectione le 5eme élément du vecteur a</code></pre>
+a[5] # sélectione le 5ème élément du vecteur a</code></pre>
 <pre><code>## [1] 13</code></pre>
 <pre class="r"><code>a[-5] # sélectionne tous les éléments SAUF le 5ème</code></pre>
 <pre><code>## [1] 12 45 18 16 18 46</code></pre>
 <pre class="r"><code>a[c(1,4)] # sélectionne les éléments 1 et 4 du vecteur a</code></pre>
 <pre><code>## [1] 12 16</code></pre>
-<p>On peut également sélectionner des éléments du vecteur qui répondent à une condition logique.</p>
+<p>On peut également sélectionner des éléments du vecteur qui répondent à <em>une condition logique</em>.</p>
 <p><strong>Pour cela:</strong><br />
 - on utilisera “[]” juste apres le nom de notre vecteur<br />
 - on indique la condition que l’on veut remplir</p>
@@ -608,21 +608,21 @@ b # b est le sous-ensemble de a comprenant les éléments de a supérieurs à 20
 Calculer à partir d’un vecteur
 </h2>
 <p>Rapidement on effectue donc des calculs sur un vecteur ou entre vecteur de données.</p>
-<p>Pour comprendre les opérations à partir des vecteurs il faut comprendre la répartition des calculs. De manière générale, R recherche à ajouter les éléments en fonction de leur position.</p>
-<p>L’addition est utilisée dans les exemple ci-après, les autres opérations fonctionnes également sur les mêmes régles.</p>
+<p>Pour comprendre les opérations à partir des vecteurs il faut comprendre la répartition du calcul sur le vecteur. De manière générale, R ajoute les éléments en fonction de leur position.</p>
+<p>L’addition est utilisée dans les exemple ci-après, les autres opérations fonctionnent également sur les mêmes régles.</p>
 <p>Si on fait une addition entre un chiffre unique et un vecteur, ce chiffre s’ajoute à chaque élément sur chaque position du vecteur. On obtient donc un vecteur de la même taille que le vecteur initial, mais dont les valeurs ont été modifiées.</p>
 <pre class="r"><code>a &lt;- c(12, 45, 18, 1)
 a + 10</code></pre>
 <pre><code>## [1] 22 55 28 11</code></pre>
 <p><img src="recy1.png" width="250" /> <br></p>
-<p>On peut ajouter deux vecteurs de taille égale. On obtient un vecteur de la même taille que le vecteur initiale. Les éléments de même position dans les vecteurs se sont ajoutés. (La case 1 du vecteur 1 c’est ajoutée à la case 1 du vecteur 2, la case 2 … à la case 2, etc…)</p>
+<p>On peut ajouter deux vecteurs de tailles égales. On obtient un vecteur de la même taille que le vecteur initial. Les éléments de même position dans les vecteurs ont été ajouté. (La case 1 du vecteur 1 est ajoutée à la case 1 du vecteur 2, la case 2 … à la case 2, etc…)</p>
 <pre class="r"><code>a &lt;- c(12, 45, 18, 1)
 a + a</code></pre>
 <pre><code>## [1] 24 90 36  2</code></pre>
 <p><img src="recy2.png" width="250" /> <br></p>
 <p>On peut également ajouter deux vecteurs de tailles inégales. On obtient un vecteur de même taille que le vecteur initiale <em>le plus grand</em>.<br />
-Les éléments s’ajoute un à un, selon leur position, jusqu’au moment où un des deux vecteurs n’a plus d’élément à proposer pour le calcul.<br />
-Le vecteur le plus petit est alors <em>recyclé</em>, R réutilise les premières valeurs pour continuer l’opération, jusqu’à ce que le plus grand vecteur ait réalisé l’addition sur chacun de ses éléments.</p>
+Les éléments sont ajoutés un à un, selon leur position, jusqu’au moment où un des deux vecteurs n’a plus d’élément à proposer pour le calcul.<br />
+Le vecteur le plus petit est alors <em>recyclé</em>: R reprend les premières valeurs du vecteur le plus petit pour continuer l’opération, jusqu’à ce que le plus grand vecteur ait réalisé l’addition sur chacun de ses éléments.</p>
 <pre class="r"><code>a &lt;- c(12, 45, 18, 1)
 b &lt;- c(1, 2, 3)
 a + b</code></pre>
@@ -633,7 +633,7 @@ a + b</code></pre>
 <img src="recy3.png" width="320" />
 
 </div>
-<p>On notera que R affiche un message d’alerte si les vecteurs sont de tailles inégales <strong>et</strong> que leur taille ne sont pas des multiples.</p>
+<p>On notera que R affiche un message d’alerte si les vecteurs sont de tailles inégales <strong>et</strong> que leur tailles ne sont pas des multiples.</p>
 <pre class="r"><code>v1 &lt;- c(12, 45, 18, 1)
 v2 &lt;- c(1, 2, 3)
 v3 &lt;- c(1, 2)
@@ -649,7 +649,7 @@ v1 + v2</code></pre>
 <h2>
 Valeurs manquantes
 </h2>
-<p>On peut représenter une valeur manquante dans un vecteur. On utilisera alors l’indicateur “NA”. Une valeur manquante n’est pas considéré comme un 0, c’est une valeur non connue (Not Available), ce qu’il faut prendre en compte lors de la réalisation de calculs.</p>
+<p>On peut représenter une valeur manquante dans un vecteur. On utilisera alors l’indicateur “NA”. Une valeur manquante n’est pas considérée comme un 0, c’est une valeur non connue <em>(Not Available)</em>, ce qu’il faut prendre en compte lors de la réalisation de calculs.</p>
 <pre class="r"><code>a &lt;- c(1,2,3, NA, 4)
 a</code></pre>
 <pre><code>## [1]  1  2  3 NA  4</code></pre>
@@ -664,14 +664,14 @@ Les fonctions
 Utilisation générale
 </h2>
 <p>R inclue des fonctions dites de base.<br />
-Elles permettent d’effectuer rapidement des ensembles de calculs ou d’actions pré-définis, en en contrôlant les paramètres</p>
+Elles permettent d’effectuer rapidement des ensembles de calculs ou d’actions pré-définies, en en contrôlant les paramètres</p>
 <div class="figure">
 <img src="function.png" />
 
 </div>
 <p><br> Chaque fonction comprend un ou plusieurs arguments, séparés par des virgules. Ce sont eux qui définissent les paramètres utilisés.<br />
 <br> Certains arguments sont a renseigner obligatoirement pour utiliser la fonction.<br />
-D’autres ont une valeur par defaut, c’est celle qui sera utilisée si l’utilisateur ne la modifie pas. Attention ces dernières ne s’affichent pas! Consultez la page d’aide concernant la fonction pour voir l’ensemble de ses arguments.<br />
+D’autres ont une valeur par défaut, c’est celle qui sera utilisée si l’utilisateur ne la modifie pas. <strong>Attention ces dernières ne s’affichent pas!</strong> Consultez la page d’aide concernant la fonction pour voir l’ensemble de ses arguments.<br />
 <br></p>
 <h2>
 Syntaxe et lecture du code
@@ -693,8 +693,8 @@ round(1, 15.23) # arguments non nommés, R considère qu&#39;ils sont renseigné
 <p>On devinera que rapidement il est facile de se perdre dans la syntaxe. C’est également le cas lorsque les fonctions présentent de nombreux arguments.</p>
 <p><strong>Pour s’aider:</strong><br />
 - Retour à la ligne pour mettre en évidence la structure du code et aérer le code. (Reformat Code:‘ctrl+shift+A’ ou Reindent Lines:‘ctrl+i’ sont vos amis).<br />
-- Il y doit avoir autant de ‘(’ ouvrantes que de ‘)’ fermantes.<br />
-- Les virgules sont généralement encadrées par des éléments ou sépare des arguments, sinon c’est probablement une faute de frappe.</p>
+- Il y a autant de <strong>‘(’</strong> ouvrantes que de <strong>‘)’</strong> fermantes.<br />
+- Les virgules sont généralement encadrées par des éléments ou séparent des arguments, sinon c’est probablement une faute de frappe.</p>
 <pre class="r"><code># codes identiques
 # le premier isole les arguments
 Model_lineaire &lt;- lm( formula = ma_formule,
@@ -707,7 +707,7 @@ Model_lineaire &lt;- lm( formula = ma_formule,
 Model_lineaire &lt;- lm( formula = ma_formule, data = ma_base, subset = condition_de_selection, method = &quot;qr&quot;, singular.ok = TRUE, contrasts = NULL )</code></pre>
 <p><strong>Concernant l’enfer des parenthèses:</strong><br />
 - Sur RStudio, quand on clique devant une parenthèse, la seconde parenthèse qui lui est associée est mise en surbrillance.<br />
-- S’il manque une parenthèse dans un code lancé, un indicateur ‘+’ apparait dans la console pour signaler qu’une action supplémentaire est requise. On peut utiliser la touche ‘Echap’ pour stopper le code et le corriger.</p>
+- S’il manque une parenthèse dans un code qui a été lancé, un indicateur <strong>‘+’</strong> apparaît dans la console pour signaler qu’une action supplémentaire est requise. On peut utiliser la touche <strong>‘Echap’</strong> pour stopper le code et le corriger.</p>
 <img src="function3.png" />
 <h2>
 Consulter la page d’aide
@@ -727,14 +727,14 @@ Importer des fonctions
 <p>Les packages sont disponibles sur le site <a href="https://cran.r-project.org/">The Comprehensive R Archive Network - The CRAN</a>. Pour chaques package vous disposez du manuel d’utilisation qui recense l’ensemble des fonctions disponibles dans le package et parfois d’un tutoriel.</p>
 <p><strong>Pour instaler directement un package depuis RStudio, il faut:</strong><br />
 1. Télécharger le package (- une seule fois)<br />
-2. Charger les fonctions du package (- a renouveller a chaque session).</p>
+2. Charger les fonctions du package (- à renouveller à chaque session).</p>
 <pre class="r"><code>Surv() #la fonction n&#39;est pas disponible de base sur R
 
-install.packages(&quot;survival&quot;) #telecharge et installe le package
+install.packages(&quot;survival&quot;) #télécharge et installe le package
 
 library(survival) #active les fonctions pour la session en cours
 
-Surv() #la fonction est disponible, mais les arguments ne sont pas renseignes</code></pre>
+Surv() #la fonction est disponible, mais les arguments ne sont pas renseignés</code></pre>
 <h1>
 A l’aide!
 </h1>
@@ -743,14 +743,14 @@ A l’aide!
 <ol style="list-style-type: decimal">
 <li><p><strong>Erreur de syntaxe</strong><br />
 Vous avez fait une faute de frappe (~90% de vos futures erreurs).<br />
-Vérifiez: le nom des vecteurs/fonctions, oublis majuscule/minuscule, oublis/rajouts de virgules, oublis/rajouts de parenthèses.<br />
+Vérifiez: le nom des vecteurs/fonctions, majuscule/minuscule, oublis/rajouts de virgules, oublis/rajouts de parenthèses.<br />
 Simplifiez votre code, particulièrement s’il est long: on écrit des phrases courtes et simples, on passe par des étapes intermédiaires.<br />
 Allez prendre l’air 5 minutes / demandez à un collègue de relire rapidement votre code. Il est particulièrement difficile de repérer ce type d’erreur quand on est fatigué. Inversement, il est relativement simple de voir les fautes de frappes que font les autres.</p></li>
 <li><p><strong>Mauvaise utilisation des fonctions</strong><br />
 <em>La fonction fait elle vraiment ce que vous voulez?</em><br />
 Regardez sa description dans l’aide.<br />
 <br> <em>Vous avez bien renseigné ses paramètres?</em><br />
-Regardez dans l’aide les arguments que vous devez <strong>obligatoirement</strong> renseigner, regardez le format que doivent avoir ces paramètres (texte, nombre unique, vecteur, matrice?) que vous entrez en tant qu’arguments, vérifiez que le(s) résultat(s) des fonctions ont le format que vous pensez si vous les utilisez comme arguments dans d’autres fonctions. Regarder l’exemple disponible dans l’aide, dans des tutoriels, sur les <a href="https://stats.stackexchange.com/">forums</a> permet de voir l’utilisation de la fonction et souvent de la transposer dans son propre code avec un peu d’adaptation.<br />
+Regardez dans l’aide les arguments que vous devez <strong>obligatoirement</strong> renseigner, regardez le format que doivent avoir les paramètres (texte, nombre unique, vecteur, matrice?) que vous entrez en tant qu’arguments, vérifiez que le(s) résultat(s) des fonctions ont le format que vous pensez si vous les utilisez comme arguments dans d’autres fonctions. Regarder l’exemple disponible dans l’aide, dans des tutoriels, sur les <a href="https://stats.stackexchange.com/">forums</a> permet de voir l’utilisation de la fonction et souvent de la transposer dans son propre code avec un peu d’adaptation.<br />
 <br> <em>Que vous dis le message d’erreur dans la console?</em><br />
 Il désigne souvent l’élément fautif. Copier/coller ce message d’erreur sur google vous permet souvent de tomber sur le message desespéré de quelqu’un qui a également rencontré ce problème. Généralement, quelqu’un y a apporté une réponse.<br />
 <br> <em>Comment la fonction gère t’elle les données manquantes?</em><br />
