@@ -422,7 +422,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -606,13 +606,13 @@ Mes_x_et_intercept = cbind(Mes_x,1)
 # On calcul les coefficients
 Mes_coefficients &lt;- solve(t(Mes_x_et_intercept) %*% Mes_x_et_intercept) %*% t(Mes_x_et_intercept) %*% Mon_Y
 Mes_coefficients</code></pre>
-<pre><code>##               [,1]
-## var.2  3.015072195
-## var.3  1.077250474
-## var.4  0.473605540
-## var.5  0.167852229
-## var.6 -0.006491427
-##       49.863751474</code></pre>
+<pre><code>##             [,1]
+## var.2  2.8925142
+## var.3  1.0199047
+## var.4  0.5550589
+## var.5  0.1876996
+## var.6 -0.0147617
+##       47.9133136</code></pre>
 <p><details> <summary>Clique ICI pour le détail du calcul</summary></p>
 <p>On détail le cacul à partir d’un jeu de données plus petit pour simplifier le calcul numérique.</p>
 <p>Ce calcul comporte plusieurs étapes qui font intervenir des calculs entre matrices.<br />
@@ -817,8 +817,8 @@ anova(M.Lineaire.1, M.Lineaire.2)</code></pre>
 ## Model 1: Y ~ var.2 + var.3 + var.4 + var.5 + var.6
 ## Model 2: Y ~ var.2 + var.3 + var.4
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    444 134792                                  
-## 2    446 162527 -2    -27735 45.679 &lt; 2.2e-16 ***
+## 1    444 116901                                  
+## 2    446 155072 -2    -38171 72.487 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <h5>

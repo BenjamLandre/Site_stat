@@ -3,27 +3,24 @@ navbar:
   title: "Tutoriel R"
   type: inverse
   left:
-    - text: "Home"
-      icon: map-marker-alt
-      href: index.html
     - text: "Demarrer"
       icon: ion-android-expand
       href: interface.html
-    - text: "0. Bases"
+    - text: "0. Les bases"
       href: basicbuilding.html
-    - text: "1. Importer"
-      href: importer.html
-    - text: "2. Modifier/Creer"
+    - text: "1. Les données"
       menu:
-        - text: "...des variables"
+        - text: "Formats"
+          href: importer2.html
+        - text: "Importer/Sauvegarder"
+          href: importer.html
+        - text: "Modifier les données"
           href: g_variables.html
-        - text: "...des bases de donnees"
-          href: g_bdd.html
-    - text: "3. Decrire"
+    - text: "2. Decrire"
       href: v_quanti.html
-    - text: "4. Analyser"
+    - text: "3. Analyser"
       menu:
-        - text: "Comparaisons bivariees"
+        - text: "Comparaisons"
           href: compa_univ.html
         - text: "Modele lineaire"
           href: m_lineaire.html
@@ -31,10 +28,9 @@ navbar:
           href: m_rlog.html
         - text: "Modele de survie"
           href: m_surv.html
-  right:
-    - icon: fa-envelope-square fa-lg
-      href: contact.html
 output_dir: "."
 output:
   html_document:
-    theme: lumen
+    theme: readable
+    includes:
+      after_body: footer.html

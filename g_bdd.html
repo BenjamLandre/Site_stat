@@ -323,7 +323,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -369,14 +369,14 @@ str(D1)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  3 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27.9 23.8 27.6 23.8 22.4 ...</code></pre>
+##  $ VAL1: num  32.8 25.3 28 21.8 26.1 ...</code></pre>
 <pre class="r"><code>id.3&lt;- 35:80
 val4&lt;- rnorm(46,25,3)
 D2&lt;- data.frame(ID= id.3, VAL3= val4) #46 observations de 2 variables: ID, VAL3
 str(D2)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    46 obs. of  2 variables:
 ##  $ ID  : int  35 36 37 38 39 40 41 42 43 44 ...
-##  $ VAL3: num  20.8 31.8 23 23.2 27.9 ...</code></pre>
+##  $ VAL3: num  17 24.3 28.3 25.1 21.9 ...</code></pre>
 <p><strong>1. Rajout simple (fonctions de base)</strong></p>
 <p>On a une base de donnees a laquelle on souhaite rajouter une ou des colonnes/lignes issue d’une autre base de donnee.<br />
 La seule condition a respecter est que les tailles des deux elements soient compatibles.</p>
@@ -393,9 +393,9 @@ str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  5 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27.9 23.8 27.6 23.8 22.4 ...
-##  $ 1   : num  48.9 53.3 46.9 51.2 48.3 ...
-##  $ 2   : num  49.7 53.9 50.7 50.9 48.5 ...</code></pre>
+##  $ VAL1: num  32.8 25.3 28 21.8 26.1 ...
+##  $ 1   : num  51.8 48 47.7 50.8 44.2 ...
+##  $ 2   : num  52.5 48.3 50.4 53.2 52.7 ...</code></pre>
 <pre class="r"><code>#rajout d&#39;une ligne a la bdd pre-existante.
 
 New_bdd&lt;- rbind(D1, c(42, &quot;A&quot;, 100)) #rbind = row bind ~ lier lignes
@@ -403,7 +403,7 @@ str(New_bdd)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    41 obs. of  3 variables:
 ##  $ ID  : chr  &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: chr  &quot;27.8660647527096&quot; &quot;23.7589412517985&quot; &quot;27.6138218546468&quot; &quot;23.7827756452529&quot; ...</code></pre>
+##  $ VAL1: chr  &quot;32.7916791802084&quot; &quot;25.2534867464048&quot; &quot;27.9896309027474&quot; &quot;21.8257626659666&quot; ...</code></pre>
 <pre class="r"><code>#
 
 New_bdd&lt;- cbind(D2, add_table) #impossible car objets de tailles differentes</code></pre>
@@ -428,7 +428,7 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    40 obs. of  4 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27.9 23.8 27.6 23.8 22.4 ...
+##  $ VAL1: num  32.8 25.3 28 21.8 26.1 ...
 ##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <pre class="r"><code>New_bdd&lt;- dplyr::full_join(D1,D2) #on conserve l&#39;ensemble de l&#39;information des deux tableaux</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
@@ -436,7 +436,7 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    80 obs. of  4 variables:
 ##  $ ID  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2 1 2 1 2 ...
-##  $ VAL1: num  27.9 23.8 27.6 23.8 22.4 ...
+##  $ VAL1: num  32.8 25.3 28 21.8 26.1 ...
 ##  $ VAL3: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <pre class="r"><code>New_bdd&lt;- dplyr::inner_join(D1,D2) #on conserve l&#39;information des individus present a la fois dans D1 et D2</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
@@ -444,8 +444,8 @@ New_bdd&lt;- dplyr::left_join(D1,D2) #on ajoute a D1 les variables de D2, pour l
 <pre><code>## &#39;data.frame&#39;:    6 obs. of  4 variables:
 ##  $ ID  : int  35 36 37 38 39 40
 ##  $ TTT : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 2 1 2 1 2
-##  $ VAL1: num  27.9 24.8 26.5 24.4 23.5 ...
-##  $ VAL3: num  20.8 31.8 23 23.2 27.9 ...</code></pre>
+##  $ VAL1: num  27.4 25.9 26.3 27 26.2 ...
+##  $ VAL3: num  17 24.3 28.3 25.1 21.9 ...</code></pre>
 </div>
 
 &nbsp;

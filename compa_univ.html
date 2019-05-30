@@ -422,7 +422,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -572,13 +572,13 @@ var.test(a,b)</code></pre>
 ##  F test to compare two variances
 ## 
 ## data:  a and b
-## F = 1.2031, num df = 49, denom df = 49, p-value = 0.5199
+## F = 0.99521, num df = 49, denom df = 49, p-value = 0.9866
 ## alternative hypothesis: true ratio of variances is not equal to 1
 ## 95 percent confidence interval:
-##  0.6827344 2.1201009
+##  0.5647557 1.7537406
 ## sample estimates:
 ## ratio of variances 
-##           1.203107</code></pre>
+##           0.995206</code></pre>
 <pre class="r"><code># On calcule la statistique du test: la distance standardisée entre la différenc entre moyenne et 0
 numerateur &lt;- m_diff
 denominateur &lt;- sqrt(var(a)/length(a)+var(b)/length(b))
@@ -586,21 +586,21 @@ denominateur &lt;- sqrt(var(a)/length(a)+var(b)/length(b))
 Statistique_distance &lt;- numerateur / denominateur
 
 Statistique_distance # statistique distance</code></pre>
-<pre><code>## [1] 6.881203</code></pre>
+<pre><code>## [1] 5.382213</code></pre>
 <pre class="r"><code>(1-pt(Statistique_distance, df = length(a)+length(b)-2))*2 # p-value</code></pre>
-<pre><code>## [1] 5.646665e-10</code></pre>
+<pre><code>## [1] 5.029082e-07</code></pre>
 <pre class="r"><code>t.test(a,b, var.equal = T, paired = F)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
 ## data:  a and b
-## t = 6.8812, df = 98, p-value = 5.647e-10
+## t = 5.3822, df = 98, p-value = 5.029e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  1.753338 3.174466
+##  1.472675 3.192918
 ## sample estimates:
-##  mean of x  mean of y 
-##  2.1069426 -0.3569592</code></pre>
+##   mean of x   mean of y 
+##  2.24331216 -0.08948421</code></pre>
 <p></details></p>
 <h1>
 Comparaison de proportions

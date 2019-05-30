@@ -422,7 +422,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="compa_univ.html">Comparaisons univariees</a>
+      <a href="compa_univ.html">Comparaisons</a>
     </li>
     <li>
       <a href="m_lineaire.html">Modele lineaire</a>
@@ -549,9 +549,9 @@ mean(a)</code></pre>
 <pre><code>## [1] 15</code></pre>
 <pre class="r"><code># bivarié
 cor(a, b, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 0.9831243</code></pre>
+<pre><code>## [1] 0.9839219</code></pre>
 <pre class="r"><code>cov(a, b, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>## [1] 20.65073</code></pre>
+<pre><code>## [1] 20.60538</code></pre>
 <pre class="r"><code>tapply(X= a, INDEX= categories, mean, na.rm=TRUE)</code></pre>
 <pre><code>## Cat.A Cat.B 
 ##   4.5  12.0</code></pre>
@@ -696,7 +696,7 @@ Ce sont ces caractères qu’il faut écrire dans l’argument ‘col’ des dif
 b &lt;- 1:15
 a1 &lt;- factor(x = round(runif(15,1,3)), c(1, 2, 3), c(&quot;petit&quot;, &quot;moyen&quot;, &quot;grand&quot;))
 str(a1)</code></pre>
-<pre><code>##  Factor w/ 3 levels &quot;petit&quot;,&quot;moyen&quot;,..: 3 2 2 2 3 2 2 2 2 2 ...</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;petit&quot;,&quot;moyen&quot;,..: 3 1 2 2 2 2 3 2 1 3 ...</code></pre>
 <pre class="r"><code>liste_couleur &lt;- c(&quot;tomato&quot;, # couleur de base R
                    rgb(0.5, 0.5, 0.4), # code rgb
                    &quot;#1d69d2&quot;) # code hexadecimal</code></pre>
